@@ -65,9 +65,10 @@ function nextMission(){
  return missionPool.splice(i,1)[0];
 }
 
+/* ✅ FIXED FUNCTION (SAFE) */
 function startGame(){
- intro.style.display="none";
- lap.style.display="block";
+ document.getElementById("intro").style.display="none";
+ document.getElementById("lap").style.display="block";
 }
 
 function checkPin(id,pin,fn){
@@ -81,7 +82,7 @@ function checkPin(id,pin,fn){
 }
 
 function unlockMission1(){
- lap.style.display="none";
+ document.getElementById("lap").style.display="none";
  showMission();
 }
 
@@ -113,8 +114,7 @@ Record 5–10 second video of the FULL TEAM performing the exercise at the locat
 Upload the video to the group chat with your Team number clearly labelled.<br><br>
 All team members must be visible and participating.</p>
 
-<img src="mapA.jpg"imageA
-if(m==="B"){
+<img src="map src="imageA.jpgm==="B"){
  container.innerHTML=`
 <h2>${title} — STEALTH ROUTE</h2>
 <p>STEALTH DIRECTIVE:<br><br>
@@ -133,7 +133,12 @@ Record a 5–10 second video of the FULL TEAM performing the exercise at the loc
 Upload the video to the group chat with your Team number clearly labelled.<br><br>
 All team members must be visible and participating.</p>
 
-<img src="mapB.jpg"imageB.jpgm==="C"){
+<img src
+<img srcpg
+`;
+}
+
+if(m==="C"){
  container.innerHTML=`
 <h2>${title} — CAPTURE THE PROFESSOR</h2>
 <p>UPDATE:<br><br>
@@ -154,7 +159,9 @@ The rest of the team must simulate capturing the target.<br><br>
 Take a photo at the location showing THE PROFESSOR being captured.<br><br>
 Upload the photo to the group chat with your Team number clearly labelled.</p>
 
-<img src="mapC.jpg"imageC.jpgument.body.appendChild(container);
+<img src
+<img src="imageC
+document.body.appendChild(container);
 
 if(missionCount===1) pin2Panel.style.display="block";
 if(missionCount===2) pin3Panel.style.display="block";
@@ -209,7 +216,7 @@ INITIAL DIRECTIVE:<br><br>
 Complete one full lap around the park.<br><br>
 Return to HQ for mission authorisation.<br><br>
 
-<button onclick="startGame()">BEGIN</button>
+<button onclick="startGame()">BEGIN MISSION</button>
 </div>
 
 <div id="lap" class="panel hidden">
@@ -266,8 +273,8 @@ The Professor.<br><br>
 All part of the same deception.<br><br>
 You were being led.<br><br>
 But now…<br><br>
-The device is active.
-<br><br>
+The device is active.<br><br>
+
 <button onclick="startDefuse()">START</button>
 </div>
 
