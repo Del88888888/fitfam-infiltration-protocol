@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FitFam Infiltration Protocol</title>
+
+<style>
+body {
+  background:#0b0b0b;
+  color:white;
+  font-family:Arial;
+  text-align:center;
+  padding:30px;
+}
+
+h1 { color:#FFD200; font-size:70px; }
+h2 { font-size:50px; }
+
+.panel {
+  border:3px solid #FFD200;
+  padding:25px;
+  margin:25px auto;
+  width:90%;
+  border-radius:15px;
+}
+
+button {
+  font-size:30px;
+  padding:15px 30px;
+  margin-top:20px;
+  background:#FFD200;
+  border:none;
+  border-radius:10px;
+}
+
+input {
+  font-size:28px;
+  padding:10px;
+  width:200px;
+  text-align:center;
+}
+
+.hidden { display:none; }
+
+img {
+  width:260px;
+  margin-top:15px;
+  border-radius:10px;
+}
+</style>
+
+<script>
+
+let missions = ["A","B","C"];
+let stage = 0;
+let wrongAttempts = 0;
+
+/* RANDOM MISSION */
+function nextMission(){
+ let index = Math.floor(Math.random()*missions.length);
+ return missions.splice(index,1)[0];
+}
+
+/* START */
+function startGame(){
+ document.getElementById("intro").style.display="none";
+ document.getElementById("lap").style.display="block";
+}
+
+/* PIN CHECK (IMPORTANT FIX) */
+function checkPin(inputId, correctPin, successFunction){
+ let val = document.getElementById(inputId).value;
+
+ if(val === correctPin){
+   successFunction();
+ } else {
+   alert("INCORRECT PIN");
+ }
+}
+
+/* AFTER LAP */
+function unlockMission1(){
+ showMission();
+}
+
+/* SHOW RANDOM MISSION */
+function showMission(){
+ document.getElementById("lap").style.display="none";
+
+ let m = nextMission();
+
+ document.getElementById("missionA").style.display="none";
+ document.getElementById("missionB").style.display="none";
+ document.getElementById("missionC").style.display="none";
+
+ if(m==="A") document.getElementById("missionA").style.display="block";
+ if(m==="B") document.getElementById("missionB").style.display="block";
+ if(m==="C") document.getElementById("missionC").style.display="block";
+
+ document.getElementById("missionPin").style.display="block";
+}
+
+/* NEXT STAGE */
+function nextStage(){
+ stage++;
+
+ if(stage < 3){
+   showMission();
+ } else {
+   document.getElementById("missionPin").style.display="none";
+   document.getElementById("interception").style.display="block";
+ }
+}
+
+/* AFTER INTERCEPTION */
+function afterInterception(){
+ document.getElementById("interception").style.display="none";
+ document.getElementById("finalReveal").style.display="block";
+}
+
+/* START DEFUSE */
+function startDefuse(){
+ document.getElementById("finalReveal").style.display="none";
+ document.getElementById("defuse").style.display="block";
+
+ let time = 120;
+ let timer = setInterval(function(){
+   time--;
+
+   let m=Math.floor(time/60);
+   let s=time%60;
+
+   countdown.innerText =
+   (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+
+   if(time<=0){
+    clearInterval(timer);
+    alert("MISSION FAILED");
+   }
+ },1000);
+}
+
+/* CHECK FINAL ANSWER */
+function checkAnswer(){
+ let ans = document.getElementById("finalAnswer").value.toLowerCase();
+
+ if(ans==="fitfam"){
+   document.getElementById("defuse").style.display="none";
+   document.getElementById("success").style.display="block";
+ } else {
+   wrongAttempts++;
+
+   if(wrongAttempts>=3){
+     alert("Hint: starts with F. Trust your team.");
+   } else {
+     alert("ACCESS DENIED");
+   }
+ }
+}
+
+</script>
+</head>
+
+<body>
+
+<h1>INFILTRATION PROTOCOL</h1>
+
+<!-- INTRO -->
+<div id="intro" class="panel">
+<p>
+ATTENTION.<br><br>
+You are a Special Forces unit deployed into an active threat zone.<br><br>
+A terrorist organisation has planted a nuclear device somewhere within this area.<br><br>
+The exact location is unknown.<br><br>
+Your mission:<br><br>
+Infiltrate the zone.<br>
+Recover intel.<br>
+Locate the device.<br>
+And prevent detonation.<br><br>
+Trust nothing.<br><br>
+Move.
+</p>
+
+<button onclick="startGame()">BEGIN MISSION</button>
+</div>
+
+<!-- LAP -->
+<div id="lap" class="panel hidden">
+<p>Complete one full lap around the park.</p>
+
+<input id="pin1" placeholder="PIN">
+<br>
+<button onclick="checkPin('pin1','1986',unlockMission1)">AUTHORISE</button>
+</div>
+
+<!-- MISSION A -->
+<div id="missionA" class="panel hidden">
+<h2>MISSION — INTEL</h2>
+
+mapA.jpg
+imageA.jpg
+
+<p>Partner Push-Up High Five × 30 each</p>
+<p>Record 5–10 sec video of FULL TEAM<br>Upload with Team Number</p>
+</div>
+
+<!-- MISSION B -->
+<div id="missionB" class="panel hidden">
+<h2>MISSION — STEALTH ROUTE</h2>
+
+mapB.jpg
+imageB.jpg
+
+<p>Bear Crawl + 60 Superman Pulses</p>
+<p>Record 5–10 sec video of FULL TEAM<br>Upload with Team Number</p>
+</div>
+
+<!-- MISSION C -->
+<div id="missionC" class="panel hidden">
+<h2>MISSION — CAPTURE THE PROFESSOR</h2>
+
+mapC.jpg
+imageC.jpg
+
+<p>Partner Burpee High Five × 20 each</p>
+
+<p>
+One member = THE PROFESSOR<br>
+Take photo of capture<br>
+Upload with Team Number
+</p>
+</div>
+
+<!-- PIN -->
+<div id="missionPin" class="panel hidden">
+<input id="pin2" placeholder="PIN">
+<br>
+<button onclick="checkPin('pin2','2388',nextStage)">AUTHORISE NEXT</button>
+</div>
+
+<!-- INTERCEPTION -->
+<div id="interception" class="panel hidden">
+<h2>INTERCEPTION ALERT</h2>
+
+<p>
+You have been double crossed.<br>
+Enemy units are closing in.<br><br>
+
+DEFEND. DISENGAGE. MOVE.
+</p>
+
+<p>Run 1 lap FAST → return</p>
+
+<input id="pin3" placeholder="PIN">
+<br>
+<button onclick="checkPin('pin3','4832',afterInterception)">AUTHORISE</button>
+</div>
+
+<!-- FINAL -->
+<div id="finalReveal" class="panel hidden">
+<p>
+Everything you received… was compromised.<br><br>
+You were being led.<br><br>
+The device is active.
+</p>
+
+<button onclick="startDefuse()">START DEFUSAL</button>
+</div>
+
+<!-- DEFUSE -->
+<div id="defuse" class="panel hidden">
+<h1 id="countdown">02:00</h1>
+
+<p>
+FINAL AUTHENTICATION<br><br>
+Who brought you here?<br>
+Who do you trust?
+</p>
+
+<input id="finalAnswer">
+<br>
+<button onclick="checkAnswer()">SUBMIT</button>
+</div>
+
+<!-- SUCCESS -->
+<div id="success" class="panel hidden">
+<h2>DEVICE DISARMED</h2>
+
+<p>Mission Complete.</p>
+</div>
+
+</body>
+</html>
