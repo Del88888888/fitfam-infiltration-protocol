@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-><html>
+<html>
+<head>
 <title>FitFam Infiltration Protocol</title>
 
 <style>
@@ -20,6 +21,29 @@ h1 { color:#FFD200; }
   margin:25px auto;
   width:90%;
   border-radius:15px;
+}
+
+/* ✅ BUTTON FIX */
+button {
+  font-size:100%;
+  padding:20px 40px;
+  margin-top:25px;
+  background:#FFD200;
+  color:black;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+/* ✅ INPUT FIX */
+input {
+  font-size:100%;
+  padding:15px;
+  width:300px;
+  text-align:center;
+  margin-top:15px;
+  border-radius:10px;
+  border:none;
 }
 
 .hidden { display:none; }
@@ -89,7 +113,8 @@ Record 5–10 second video of the FULL TEAM performing the exercise at the locat
 Upload the video to the group chat with your Team number clearly labelled.<br><br>
 All team members must be visible and participating.</p>
 
-<img src="mapA.jpg"imageA.jpgm==="B"){
+<img src="mapA.jpg"imageA
+if(m==="B"){
  container.innerHTML=`
 <h2>${title} — STEALTH ROUTE</h2>
 <p>STEALTH DIRECTIVE:<br><br>
@@ -108,12 +133,7 @@ Record a 5–10 second video of the FULL TEAM performing the exercise at the loc
 Upload the video to the group chat with your Team number clearly labelled.<br><br>
 All team members must be visible and participating.</p>
 
-<img.jpg
-<img src="
-`;
-}
-
-if(m==="C"){
+<img src="mapB.jpg"imageB.jpgm==="C"){
  container.innerHTML=`
 <h2>${title} — CAPTURE THE PROFESSOR</h2>
 <p>UPDATE:<br><br>
@@ -134,13 +154,8 @@ The rest of the team must simulate capturing the target.<br><br>
 Take a photo at the location showing THE PROFESSOR being captured.<br><br>
 Upload the photo to the group chat with your Team number clearly labelled.</p>
 
-<img src="mapC.jpgg
-`;
-}
+<img src="mapC.jpg"imageC.jpgument.body.appendChild(container);
 
-document.body.appendChild(container);
-
-/* PIN FLOW */
 if(missionCount===1) pin2Panel.style.display="block";
 if(missionCount===2) pin3Panel.style.display="block";
 if(missionCount===3) pin4Panel.style.display="block";
@@ -170,7 +185,6 @@ function startDefuse(){
  finalReveal.style.display="none";
  defuse.style.display="block";
 }
-
 </script>
 </head>
 
@@ -205,7 +219,6 @@ Return to HQ for mission authorisation.<br><br>
 <button onclick="checkPin('pin1','1986',unlockMission1)">AUTHORISE</button>
 </div>
 
-<!-- PIN PANELS -->
 <div id="pin2Panel" class="panel hidden">
 <h2>MISSION 2 AUTHORISATION</h2>
 <input id="pin2">
@@ -224,57 +237,3 @@ Return to HQ for mission authorisation.<br><br>
 <h2>MISSION 4 AUTHORISATION</h2>
 <input id="pin4">
 <br>
-<button onclick="checkPin('pin4','4832',next4)">NEXT</button>
-</div>
-
-<div id="interception" class="panel hidden">
-<p>
-⚠️ INTERCEPTION ALERT ⚠️<br><br>
-
-All units — listen carefully.<br><br>
-
-You have been double crossed.<br><br>
-
-The intel you received was false.<br><br>
-
-You have been led directly into enemy tracking.<br><br>
-
-Your position is compromised.<br><br>
-
-Enemy units are closing in.<br><br>
-
-DEFEND.<br><br>
-
-DISENGAGE.<br><br>
-
-MOVE.
-</p>
-<button onclick="afterInterception()">CONTINUE</button>
-</div>
-
-<div id="finalReveal" class="panel hidden">
-<h2><b>FINAL INTEL</b></h2>
-
-Everything you received…<br><br>
-was compromised.<br><br>
-The agent.<br>
-The intel.<br>
-The Professor.<br><br>
-All part of the same deception.<br><br>
-You were being led.<br><br>
-But now…<br><br>
-The device is active.<br><br>
-
-<button onclick="startDefuse()">START</button>
-</div>
-
-<div id="success" class="panel hidden">
-<h2><b>MISSION COMPLETE</b></h2>
-
-CODE ACCEPTED.<br><br>
-DEVICE DISARMED.<br><br>
-DETONATION ABORTED.
-</div>
-
-</body>
-</html>
