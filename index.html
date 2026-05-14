@@ -108,11 +108,7 @@ Record 5–10 second video of the FULL TEAM performing the exercise at the locat
 Upload the video to the group chat with your Team number clearly labelled.<br><br>
 All team members must be visible and participating.</p>
 
-<img src="map src="
-`;
-}
-
-if(m==="B"){
+<img src="mapA.jpg"imageA.jpgm==="B"){
  container.innerHTML=`
 <h2>${title} — STEALTH ROUTE</h2>
 <p>STEALTH DIRECTIVE:<br><br>
@@ -131,7 +127,11 @@ Record a 5–10 second video of the FULL TEAM performing the exercise at the loc
 Upload the video to the group chat with your Team number clearly labelled.<br><br>
 All team members must be visible and participating.</p>
 
-<img src="mapBsrc="imageB
+mapB.jpg
+<imgeB.jpg
+`;
+}
+
 if(m==="C"){
  container.innerHTML=`
 <h2>${title} — CAPTURE THE PROFESSOR</h2>
@@ -153,36 +153,16 @@ The rest of the team must simulate capturing the target.<br><br>
 Take a photo at the location showing THE PROFESSOR being captured.<br><br>
 Upload the photo to the group chat with your Team number clearly labelled.</p>
 
-<img src="mapCsrc="imageC.jpgument.body.appendChild(container);
-
-if(missionCount===1) pin2Panel.style.display="block";
-if(missionCount===2) pin3Panel.style.display="block";
-if(missionCount===3) pin4Panel.style.display="block";
+<img src="img srcpg
+`;
 }
 
-function next2(){
- pin2Panel.style.display="none";
- showMission();
-}
+document.body.appendChild(container);
 
-function next3(){
- pin3Panel.style.display="none";
- showMission();
-}
-
-function next4(){
- pin4Panel.style.display="none";
- interception.style.display="block";
-}
-
-function afterInterception(){
- interception.style.display="none";
- finalReveal.style.display="block";
-}
-
-function startDefuse(){
- finalReveal.style.display="none";
- defuse.style.display="block";
+/* ✅ FIXED HERE */
+if(missionCount===1) document.getElementById("pin2Panel").style.display="block";
+if(missionCount===2) document.getElementById("pin3Panel").style.display="block";
+if(missionCount===3) document.getElementById("pin4Panel").style.display="block";
 }
 </script>
 </head>
@@ -211,29 +191,24 @@ Return to HQ for mission authorisation.<br><br>
 <button onclick="document.getElementById('intro').style.display='none'; document.getElementById('lap').style.display='block';">
 BEGIN MISSION
 </button>
-
 </div>
 
 <div id="lap" class="panel hidden">
 <h2>MISSION 1 AUTHORISATION</h2>
 <input id="pin1">
 <br>
-
-<!-- ✅ FIXED BUTTON -->
 <button onclick="
 if(document.getElementById('pin1').value==='1986'){
   document.getElementById('pin1').value='';
   document.getElementById('lap').style.display='none';
   showMission();
-} else {
+}else{
   alert('INCORRECT PIN');
 }">
 AUTHORISE
 </button>
-
 </div>
 
-<!-- REST UNCHANGED -->
 <div id="pin2Panel" class="panel hidden">
 <h2>MISSION 2 AUTHORISATION</h2>
 <input id="pin2">
@@ -253,22 +228,6 @@ AUTHORISE
 <input id="pin4">
 <br>
 <button onclick="checkPin('pin4','4832',next4)">NEXT</button>
-</div>
-
-<div id="interception" class="panel hidden">
-<p>
-⚠️ INTERCEPTION ALERT ⚠️<br><br>
-All units — listen carefully.<br><br>
-You have been double crossed.<br><br>
-The intel you received was false.<br><br>
-You have been led directly into enemy tracking.<br><br>
-Your position is compromised.<br><br>
-Enemy units are closing in.<br><br>
-DEFEND.<br><br>
-DISENGAGE.<br><br>
-MOVE.
-</p>
-<button onclick="afterInterception()">CONTINUE</button>
 </div>
 
 </body>
