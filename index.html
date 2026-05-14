@@ -10,11 +10,10 @@ body {
   font-family:Arial;
   text-align:center;
   padding:30px;
-  font-size:375%; /* ✅ increased another 50% */
+  font-size:280%; /* ✅ reduced by 25% */
 }
 
 h1 { color:#FFD200; }
-h2 { font-size:120%; }
 
 .panel {
   border:3px solid #FFD200;
@@ -45,7 +44,7 @@ input {
 img {
   width:80%;
   max-width:500px;
-  margin-top:15px;
+  margin-top:20px;
   border-radius:10px;
 }
 </style>
@@ -66,8 +65,10 @@ function startGame(){
 }
 
 function checkPin(inputId, correctPin, nextFunc){
- let val = document.getElementById(inputId).value;
- if(val === correctPin){
+ let input = document.getElementById(inputId);
+
+ if(input.value === correctPin){
+   input.value = ""; /* ✅ CLEAR INPUT */
    nextFunc();
  } else {
    alert("INCORRECT PIN");
@@ -91,6 +92,7 @@ function showMission(){
 
 function nextStage(){
  stage++;
+
  if(stage < 3){
    showMission();
  } else {
@@ -112,6 +114,7 @@ function startDefuse(){
 
  setInterval(function(){
    time--;
+
    let m = Math.floor(time/60);
    let s = time%60;
 
@@ -138,7 +141,6 @@ function checkAnswer(){
  }
 }
 </script>
-
 </head>
 
 <body>
@@ -177,110 +179,76 @@ Move.
 <div id="lap" class="panel hidden">
 <h2>MISSION 1 AUTHORISATION</h2>
 
-<input id="pin1" placeholder="ENTER PIN">
+<input id="pin1">
 <br>
 <button onclick="checkPin('pin1','1986',unlockMission1)">AUTHORISE</button>
 </div>
 
 <!-- MISSION A -->
 <div id="missionA" class="panel hidden">
-
 <h2>MISSION 1 — INTEL</h2>
 
-<p>
-INTEL:<br><br>
-
-One of our embedded agents reports that the terrorist leader has evacuated the area.<br><br>
-
-Before extraction, the agent left behind intel.<br><br>
-
-This intel contains an entry point into their network.<br><br>
-
-Recover the intel.
-</p>
+<p>Recover intel left by agent.</p>
 
 <p><b>EXERCISE:</b><br>
+Run to location (map + photo)<br>
 Partner Push-Up High Five × 30 each
 </p>
 
 <p><b>RECORDING:</b><br>
-Record 5–10 sec video of FULL TEAM<br>
-Upload with Team Number
+Record 5–10 sec video of FULL TEAM at location<br>
+Upload to chat with Team number
 </p>
 
 <img src="mapA.jpg">
 <img src="imageA.jpg">
-
 </div>
 
 <!-- MISSION B -->
 <div id="missionB" class="panel hidden">
-
 <h2>MISSION 2 — STEALTH ROUTE</h2>
 
-<p>
-STEALTH DIRECTIVE:<br><br>
-
-Intel indicates a low-visibility access route nearby.<br><br>
-
-You are entering enemy-controlled territory.<br><br>
-
-Movement must remain undetected.<br><br>
-
-Proceed with stealth.<br><br>
-
-Noise will compromise your position.
-</p>
+<p>Move undetected through enemy territory.</p>
 
 <p><b>EXERCISE:</b><br>
-Bear Crawl + 60 Superman Pulses
+Bear crawl to location (map + photo)<br>
+Perform 60 Superman pulses at the location<br>
+Return to HQ
 </p>
 
 <p><b>RECORDING:</b><br>
-Record 5–10 sec video of FULL TEAM<br>
-Upload with Team Number
+Record 5–10 sec video of FULL TEAM at location<br>
+Upload to chat with Team number
 </p>
 
 <img src="mapB.jpg">
 <img src="imageB.jpg">
-
 </div>
 
 <!-- MISSION C -->
 <div id="missionC" class="panel hidden">
+<h2>MISSION 3 — CAPTURE PROFESSOR</h2>
 
-<h2>MISSION 3 — CAPTURE THE PROFESSOR</h2>
-
-<p>
-UPDATE:<br><br>
-
-We have located a high-value target.<br><br>
-
-Codename: THE PROFESSOR.<br><br>
-
-Move immediately.<br><br>
-
-Apprehend the target and secure the area.<br><br>
-
-Neutralise resistance.
-</p>
+<p>High-value target located. Capture immediately.</p>
 
 <p><b>EXERCISE:</b><br>
-Partner Burpee High Five × 20 each
+Run to location (map + photo)<br>
+Partner Burpee High Five × 20 each<br>
+Run back after completion
 </p>
 
-<p><b>CAPTURE:</b><br>
-One member = Professor<br>
-Take photo of capture<br>
-Upload with Team Number
+<p><b>PHOTO:</b><br>
+One team member will act as the Professor.<br><br>
+The rest of the team must capture the Professor.<br><br>
+Take a photo showing the Professor being captured.<br><br>
+Upload to the chatgroup with your Team number.
 </p>
 
 <img src="mapC.jpg">
 <img src="imageC.jpg">
-
 </div>
 
-<!-- PIN NEXT -->
+<!-- PIN -->
 <div id="missionPin" class="panel hidden">
 <input id="pin2">
 <br>
@@ -299,11 +267,11 @@ Enemy units are closing in.<br><br>
 DEFEND. DISENGAGE. MOVE.
 </p>
 
-<p><b>RUN:</b> Full lap FAST</p>
+<p><b>RUN:</b> Full lap FAST and return</p>
 
 <input id="pin3">
 <br>
-<button onclick="checkPin('pin3','4832',afterInterception)">AUTHORISE</button>
+<button onclick="checkPin('pin3','3896',afterInterception)">AUTHORISE</button>
 </div>
 
 <!-- FINAL -->
