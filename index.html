@@ -25,23 +25,18 @@ h1 { color:#FFD200; }
 
 button {
   font-size:100%;
-  padding:20px 40px;
-  margin-top:25px;
+  padding:15px 30px;
+  margin-top:20px;
   background:#FFD200;
-  color:black;
   border:none;
   border-radius:10px;
-  cursor:pointer;
 }
 
 input {
   font-size:100%;
-  padding:15px;
-  width:300px;
+  padding:10px;
+  width:250px;
   text-align:center;
-  margin-top:15px;
-  border-radius:10px;
-  border:none;
 }
 
 .hidden { display:none; }
@@ -55,71 +50,115 @@ img {
 </style>
 
 <script>
-let missionPool=["A","B","C"];
-let missionCount=0;
+let missionPool = ["A","B","C"];
+let missionCount = 0;
+let wrongAttempts = 0;
 
+/* RANDOM (NO REPEAT) */
 function nextMission(){
- let i=Math.floor(Math.random()*missionPool.length);
- return missionPool.splice(i,1)[0];
+ let index = Math.floor(Math.random()*missionPool.length);
+ return missionPool.splice(index,1)[0];
 }
 
+function startGame(){
+ intro.style.display="none";
+ lap.style.display="block";
+}
+
+/* PIN SYSTEM (FIXED) */
+function checkPin(inputId, correctPin, nextFunc){
+ let input = document.getElementById(inputId);
+
+ if(input.value === correctPin){
+   input.value="";
+   nextFunc();
+ } else {
+   alert("INCORRECT PIN");
+ }
+}
+
+/* AFTER LAP → MISSION 1 */
 function unlockMission1(){
- document.getElementById("lap").style.display="none";
+ lap.style.display="none";
  showMission();
 }
 
+/* SHOW RANDOM + LABEL CORRECTLY */
 function showMission(){
+ let m = nextMission();
  missionCount++;
 
- let m=nextMission();
- let container=document.createElement("div");
- container.className="panel";
-
- let title="MISSION "+missionCount;
+ let title = "MISSION " + missionCount;
 
  if(m==="A"){
- container.innerHTML=`<h2>${title} — INTEL</h2>
-<p>INTEL:<br><br>
-One of our embedded agents reports that the terrorist leader has evacuated the area.<br><br>
-Before extraction, the agent left behind intel.<br><br>
-This intel contains an entry point into their network.<br><br>
-Recover the intel.</p>
-
-<p><b>EXERCISE:</b><br>
-Run to the location (map + photo)<br>
-Partner Push-Up High Five × 30 each</p>
-
-<img src="mapA.jpgg`;
+  missionA.querySelector("h2").innerText = title + " — INTEL";
+  missionA.classList.remove("hidden");
+}
+ if(m==="B"){
+  missionB.querySelector("h2").innerText = title + " — STEALTH ROUTE";
+  missionB.classList.remove("hidden");
+}
+ if(m==="C"){
+  missionC.querySelector("h2").innerText = title + " — CAPTURE THE PROFESSOR";
+  missionC.classList.remove("hidden");
 }
 
-if(m==="B"){
- container.innerHTML=`<h2>${title} — STEALTH ROUTE</h2>
-<p>STEALTH DIRECTIVE:<br><br>
-Intel indicates a low-visibility access route nearby.</p>
-
-<p><b>EXERCISE:</b><br>
-Bear crawl<br>60 Superman pulses</p>
-
-<img src="map src="`;
+/* SHOW CORRECT PIN PANEL */
+ if(missionCount === 1) pin2Panel.style.display="block";
+ if(missionCount === 2) pin3Panel.style.display="block";
+ if(missionCount === 3) pin4Panel.style.display="block";
 }
 
-if(m==="C"){
- container.innerHTML=`<h2>${title} — CAPTURE THE PROFESSOR</h2>
-<p>UPDATE:<br><br>
-We have located a high-value target.</p>
-
-<p><b>EXERCISE:</b><br>
-Run<br>Burpees</p>
-
-<img src
-<imgeC.jpg`;
+function nextAfterPin2(){
+ pin2Panel.style.display="none";
+ showMission();
 }
 
-/* ✅ FIXED LINE */
-document.getElementById("missionContainer").appendChild(container);
+function nextAfterPin3(){
+ pin3Panel.style.display="none";
+ showMission();
+}
 
-if(missionCount===1)
- document.getElementById("pin2Panel").style.display="block";
+function nextAfterPin4(){
+ pin4Panel.style.display="none";
+ interception.style.display="block";
+}
+
+function afterInterception(){
+ interception.style.display="none";
+ finalReveal.style.display="block";
+}
+
+/* DEFUSE */
+function startDefuse(){
+ finalReveal.style.display="none";
+ defuse.style.display="block";
+
+ let time=120;
+
+ setInterval(function(){
+  time--;
+  let m=Math.floor(time/60);
+  let s=time%60;
+  countdown.innerText=
+  (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+ },1000);
+}
+
+function checkAnswer(){
+ let ans=finalAnswer.value.toLowerCase();
+
+ if(ans==="fitfam"){
+  defuse.style.display="none";
+  success.style.display="block";
+ } else {
+  wrongAttempts++;
+  if(wrongAttempts>=3){
+   alert("The answer begins with F.");
+  } else {
+   alert("ACCESS DENIED");
+  }
+ }
 }
 </script>
 </head>
@@ -128,35 +167,166 @@ if(missionCount===1)
 
 <h1>INFILTRATION PROTOCOL</h1>
 
+<!-- INTRO -->
 <div id="intro" class="panel">
-ATTENTION.<br><br>
+<p>ATTENTION.<br><br>
+You are a Special Forces unit deployed into an active threat zone.<br><br>
+A terrorist organisation has planted a nuclear device somewhere within this area.<br><br>
+The exact location is unknown.<br><br>
+Your mission:<br><br>
+Infiltrate the zone.<br>
+Recover intel.<br>
+Locate the device.<br>
+And prevent detonation.<br><br>
 Trust nothing.<br><br>
+Move.</p>
 
-<button onclick="document.getElementById('intro').style.display='none'; document.getElementById('lap').style.display='block';">
-BEGIN MISSION
-</button>
+<p>
+INITIAL DIRECTIVE:<br><br>
+Complete one full lap around the park.<br><br>
+Return to HQ for mission authorisation.
+</p>
+
+<button onclick="startGame()">BEGIN</button>
 </div>
 
+<!-- LAP -->
 <div id="lap" class="panel hidden">
 <h2>MISSION 1 AUTHORISATION</h2>
 <input id="pin1">
 <br>
-<button onclick="
-if(document.getElementById('pin1').value==='1986'){
- document.getElementById('pin1').value='';
- document.getElementById('lap').style.display='none';
- showMission();
-}else{ alert('INCORRECT PIN'); }">
-AUTHORISE
-</button>
+<button onclick="checkPin('pin1','1986',unlockMission1)">AUTHORISE</button>
 </div>
 
-<!-- ✅ ADD THIS -->
-<div id="missionContainer"></div>
+<!-- MISSION A -->
+<div id="missionA" class="panel hidden">
+<h2></h2>
+<p>INTEL:<br><br>
+One of our embedded agents reports that the terrorist leader has evacuated the area.<br><br>
+Before extraction, the agent left behind intel.<br><br>
+This intel contains an entry point into their network.<br><br>
+Recover the intel.</p>
 
+<p><b>EXERCISE:</b><br>
+Run to location<br>
+Partner Push-Up High Five × 30 each</p>
+
+mapA.jpg
+imageA.jpg
+</div>
+
+<!-- MISSION B -->
+<div id="missionB" class="panel hidden">
+<h2></h2>
+<p>STEALTH DIRECTIVE:<br><br>
+Intel indicates a low-visibility access route nearby.<br><br>
+You are entering enemy-controlled territory.<br><br>
+Movement must remain undetected.<br><br>
+Proceed with stealth.<br><br>
+Noise will compromise your position.</p>
+
+<p><b>EXERCISE:</b><br>
+Bear crawl to location<br>
+60 Superman pulses</p>
+
+mapB.jpg
+imageB.jpg
+</div>
+
+<!-- MISSION C -->
+<div id="missionC" class="panel hidden">
+<h2></h2>
+<p>UPDATE:<br><br>
+We have located a high-value target.<br><br>
+Codename: THE PROFESSOR.<br><br>
+This individual is directly linked to the nuclear device.<br><br>
+Move immediately.<br><br>
+Apprehend the target and secure the area.<br><br>
+Neutralise resistance.</p>
+
+<p><b>EXERCISE:</b><br>
+Run to location<br>
+Partner Burpee High Five × 20 each</p>
+
+mapC.jpg
+imageC.jpg
+</div>
+
+<!-- PIN 2 -->
 <div id="pin2Panel" class="panel hidden">
-<h2>MISSION 2 AUTHORISATION</h2>
 <input id="pin2">
+<br>
+<button onclick="checkPin('pin2','2388',nextAfterPin2)">NEXT</button>
+</div>
+
+<!-- PIN 3 -->
+<div id="pin3Panel" class="panel hidden">
+<input id="pin3">
+<br>
+<button onclick="checkPin('pin3','3896',nextAfterPin3)">NEXT</button>
+</div>
+
+<!-- PIN 4 -->
+<div id="pin4Panel" class="panel hidden">
+<input id="pin4">
+<br>
+<button onclick="checkPin('pin4','4832',nextAfterPin4)">NEXT</button>
+</div>
+
+<!-- INTERCEPTION -->
+<div id="interception" class="panel hidden">
+<p>
+⚠️ INTERCEPTION ALERT ⚠️<br><br>
+You have been double crossed.<br><br>
+Enemy units are closing in.<br><br>
+DEFEND. DISENGAGE. MOVE.
+</p>
+
+<button onclick="afterInterception()">CONTINUE</button>
+</div>
+
+<!-- FINAL -->
+<div id="finalReveal" class="panel hidden">
+<p>FINAL INTEL:<br><br>
+Everything you received…<br><br>
+was compromised.<br><br>
+The agent.<br>
+The intel.<br>
+The Professor.<br><br>
+All part of the same deception.<br><br>
+You were being led.<br><br>
+But now…<br><br>
+The device is active.</p>
+
+<button onclick="startDefuse()">START</button>
+</div>
+
+<!-- DEFUSE -->
+<div id="defuse" class="panel hidden">
+<h1 id="countdown">02:00</h1>
+
+<p>
+FINAL AUTHENTICATION REQUIRED.<br><br>
+Think carefully.<br><br>
+What brought you here today?<br><br>
+Who brought this unit together?<br><br>
+…<br><br>
+Who do you trust?
+</p>
+
+<input id="finalAnswer">
+<br>
+<button onclick="checkAnswer()">SUBMIT</button>
+</div>
+
+<!-- SUCCESS -->
+<div id="success" class="panel hidden">
+<p>
+CODE ACCEPTED.<br><br>
+DEVICE DISARMED.<br><br>
+DETONATION ABORTED.<br><br><br>
+Mission complete.
+</p>
 </div>
 
 </body>
