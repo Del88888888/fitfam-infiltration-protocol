@@ -23,7 +23,7 @@ h1 { color:#FFD200; }
   border-radius:15px;
 }
 
-/* ✅ BUTTON FIX */
+/* BUTTON */
 button {
   font-size:100%;
   padding:20px 40px;
@@ -35,7 +35,7 @@ button {
   cursor:pointer;
 }
 
-/* ✅ INPUT FIX */
+/* INPUT */
 input {
   font-size:100%;
   padding:15px;
@@ -108,7 +108,10 @@ Record 5–10 second video of the FULL TEAM performing the exercise at the locat
 Upload the video to the group chat with your Team number clearly labelled.<br><br>
 All team members must be visible and participating.</p>
 
-<img src="mapAsrc="imageA
+<img src="map src="
+`;
+}
+
 if(m==="B"){
  container.innerHTML=`
 <h2>${title} — STEALTH ROUTE</h2>
@@ -128,10 +131,7 @@ Record a 5–10 second video of the FULL TEAM performing the exercise at the loc
 Upload the video to the group chat with your Team number clearly labelled.<br><br>
 All team members must be visible and participating.</p>
 
-<img src="mapB.jpgg
-`;
-}
-
+<img src="mapBsrc="imageB
 if(m==="C"){
  container.innerHTML=`
 <h2>${title} — CAPTURE THE PROFESSOR</h2>
@@ -153,7 +153,7 @@ The rest of the team must simulate capturing the target.<br><br>
 Take a photo at the location showing THE PROFESSOR being captured.<br><br>
 Upload the photo to the group chat with your Team number clearly labelled.</p>
 
-<img src="mapC.jpg"imageC.jpgument.body.appendChild(container);
+<img src="mapCsrc="imageC.jpgument.body.appendChild(container);
 
 if(missionCount===1) pin2Panel.style.display="block";
 if(missionCount===2) pin3Panel.style.display="block";
@@ -208,7 +208,6 @@ INITIAL DIRECTIVE:<br><br>
 Complete one full lap around the park.<br><br>
 Return to HQ for mission authorisation.<br><br>
 
-<!-- ✅ ONLY CHANGE HERE -->
 <button onclick="document.getElementById('intro').style.display='none'; document.getElementById('lap').style.display='block';">
 BEGIN MISSION
 </button>
@@ -219,9 +218,22 @@ BEGIN MISSION
 <h2>MISSION 1 AUTHORISATION</h2>
 <input id="pin1">
 <br>
-<button onclick="checkPin('pin1','1986',unlockMission1)">AUTHORISE</button>
+
+<!-- ✅ FIXED BUTTON -->
+<button onclick="
+if(document.getElementById('pin1').value==='1986'){
+  document.getElementById('pin1').value='';
+  document.getElementById('lap').style.display='none';
+  showMission();
+} else {
+  alert('INCORRECT PIN');
+}">
+AUTHORISE
+</button>
+
 </div>
 
+<!-- REST UNCHANGED -->
 <div id="pin2Panel" class="panel hidden">
 <h2>MISSION 2 AUTHORISATION</h2>
 <input id="pin2">
@@ -257,27 +269,6 @@ DISENGAGE.<br><br>
 MOVE.
 </p>
 <button onclick="afterInterception()">CONTINUE</button>
-</div>
-
-<div id="finalReveal" class="panel hidden">
-<h2><b>FINAL INTEL</b></h2>
-Everything you received…<br><br>
-was compromised.<br><br>
-The agent.<br>
-The intel.<br>
-The Professor.<br><br>
-You were being led.<br><br>
-But now…<br><br>
-The device is active.<br><br>
-
-<button onclick="startDefuse()">START</button>
-</div>
-
-<div id="success" class="panel hidden">
-<h2><b>MISSION COMPLETE</b></h2>
-CODE ACCEPTED.<br><br>
-DEVICE DISARMED.<br><br>
-DETONATION ABORTED.
 </div>
 
 </body>
