@@ -10,7 +10,7 @@ body {
   font-family:Arial;
   text-align:center;
   padding:30px;
-  font-size:250%; /* ✅ 2.5x bigger */
+  font-size:375%; /* ✅ increased another 50% */
 }
 
 h1 { color:#FFD200; }
@@ -45,33 +45,28 @@ input {
 img {
   width:80%;
   max-width:500px;
-  margin-top:20px;
+  margin-top:15px;
   border-radius:10px;
 }
 </style>
 
 <script>
-
 let missions = ["A","B","C"];
 let stage = 0;
 let wrongAttempts = 0;
 
-/* RANDOM MISSION */
 function nextMission(){
  let index = Math.floor(Math.random()*missions.length);
  return missions.splice(index,1)[0];
 }
 
-/* START */
 function startGame(){
- document.getElementById("intro").style.display="none";
- document.getElementById("lap").style.display="block";
+ intro.style.display="none";
+ lap.style.display="block";
 }
 
-/* PIN CHECK */
 function checkPin(inputId, correctPin, nextFunc){
  let val = document.getElementById(inputId).value;
-
  if(val === correctPin){
    nextFunc();
  } else {
@@ -79,20 +74,13 @@ function checkPin(inputId, correctPin, nextFunc){
  }
 }
 
-/* AFTER LAP */
 function unlockMission1(){
+ lap.style.display="none";
  showMission();
 }
 
-/* SHOW RANDOM MISSION */
 function showMission(){
- document.getElementById("lap").style.display="none";
-
  let m = nextMission();
-
- missionA.classList.add("hidden");
- missionB.classList.add("hidden");
- missionC.classList.add("hidden");
 
  if(m==="A") missionA.classList.remove("hidden");
  if(m==="B") missionB.classList.remove("hidden");
@@ -101,10 +89,8 @@ function showMission(){
  missionPin.classList.remove("hidden");
 }
 
-/* NEXT STAGE */
 function nextStage(){
  stage++;
-
  if(stage < 3){
    showMission();
  } else {
@@ -113,36 +99,28 @@ function nextStage(){
  }
 }
 
-/* AFTER INTERCEPTION */
 function afterInterception(){
  interception.style.display="none";
  finalReveal.style.display="block";
 }
 
-/* DEFUSE */
 function startDefuse(){
  finalReveal.style.display="none";
  defuse.style.display="block";
 
  let time = 120;
 
- let timer = setInterval(function(){
+ setInterval(function(){
    time--;
-
    let m = Math.floor(time/60);
    let s = time%60;
 
    countdown.innerText =
    (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
 
-   if(time<=0){
-     clearInterval(timer);
-     alert("MISSION FAILED");
-   }
  },1000);
 }
 
-/* ANSWER */
 function checkAnswer(){
  let ans = finalAnswer.value.toLowerCase();
 
@@ -159,7 +137,6 @@ function checkAnswer(){
    }
  }
 }
-
 </script>
 
 </head>
@@ -198,14 +175,16 @@ Move.
 
 <!-- LAP -->
 <div id="lap" class="panel hidden">
-<p>Enter PIN after lap</p>
-<input id="pin1">
+<h2>MISSION 1 AUTHORISATION</h2>
+
+<input id="pin1" placeholder="ENTER PIN">
 <br>
 <button onclick="checkPin('pin1','1986',unlockMission1)">AUTHORISE</button>
 </div>
 
 <!-- MISSION A -->
 <div id="missionA" class="panel hidden">
+
 <h2>MISSION 1 — INTEL</h2>
 
 <p>
@@ -231,10 +210,12 @@ Upload with Team Number
 
 <img src="mapA.jpg">
 <img src="imageA.jpg">
+
 </div>
 
 <!-- MISSION B -->
 <div id="missionB" class="panel hidden">
+
 <h2>MISSION 2 — STEALTH ROUTE</h2>
 
 <p>
@@ -262,10 +243,12 @@ Upload with Team Number
 
 <img src="mapB.jpg">
 <img src="imageB.jpg">
+
 </div>
 
 <!-- MISSION C -->
 <div id="missionC" class="panel hidden">
+
 <h2>MISSION 3 — CAPTURE THE PROFESSOR</h2>
 
 <p>
@@ -294,6 +277,7 @@ Upload with Team Number
 
 <img src="mapC.jpg">
 <img src="imageC.jpg">
+
 </div>
 
 <!-- PIN NEXT -->
@@ -305,11 +289,13 @@ Upload with Team Number
 
 <!-- INTERCEPTION -->
 <div id="interception" class="panel hidden">
-<h2>⚠️ INTERCEPTION ALERT ⚠️</h2>
+<h2>INTERCEPTION ALERT</h2>
 
 <p>
 You have been double crossed.<br><br>
+
 Enemy units are closing in.<br><br>
+
 DEFEND. DISENGAGE. MOVE.
 </p>
 
