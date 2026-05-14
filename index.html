@@ -10,10 +10,11 @@ body {
   font-family:Arial;
   text-align:center;
   padding:30px;
+  font-size:250%; /* ✅ 2.5x bigger */
 }
 
-h1 { color:#FFD200; font-size:70px; }
-h2 { font-size:50px; }
+h1 { color:#FFD200; }
+h2 { font-size:120%; }
 
 .panel {
   border:3px solid #FFD200;
@@ -24,7 +25,7 @@ h2 { font-size:50px; }
 }
 
 button {
-  font-size:30px;
+  font-size:100%;
   padding:15px 30px;
   margin-top:20px;
   background:#FFD200;
@@ -33,17 +34,18 @@ button {
 }
 
 input {
-  font-size:28px;
+  font-size:100%;
   padding:10px;
-  width:200px;
+  width:250px;
   text-align:center;
 }
 
 .hidden { display:none; }
 
 img {
-  width:260px;
-  margin-top:15px;
+  width:80%;
+  max-width:500px;
+  margin-top:20px;
   border-radius:10px;
 }
 </style>
@@ -66,12 +68,12 @@ function startGame(){
  document.getElementById("lap").style.display="block";
 }
 
-/* PIN CHECK (IMPORTANT FIX) */
-function checkPin(inputId, correctPin, successFunction){
+/* PIN CHECK */
+function checkPin(inputId, correctPin, nextFunc){
  let val = document.getElementById(inputId).value;
 
  if(val === correctPin){
-   successFunction();
+   nextFunc();
  } else {
    alert("INCORRECT PIN");
  }
@@ -88,15 +90,15 @@ function showMission(){
 
  let m = nextMission();
 
- document.getElementById("missionA").style.display="none";
- document.getElementById("missionB").style.display="none";
- document.getElementById("missionC").style.display="none";
+ missionA.classList.add("hidden");
+ missionB.classList.add("hidden");
+ missionC.classList.add("hidden");
 
- if(m==="A") document.getElementById("missionA").style.display="block";
- if(m==="B") document.getElementById("missionB").style.display="block";
- if(m==="C") document.getElementById("missionC").style.display="block";
+ if(m==="A") missionA.classList.remove("hidden");
+ if(m==="B") missionB.classList.remove("hidden");
+ if(m==="C") missionC.classList.remove("hidden");
 
- document.getElementById("missionPin").style.display="block";
+ missionPin.classList.remove("hidden");
 }
 
 /* NEXT STAGE */
@@ -106,51 +108,52 @@ function nextStage(){
  if(stage < 3){
    showMission();
  } else {
-   document.getElementById("missionPin").style.display="none";
-   document.getElementById("interception").style.display="block";
+   missionPin.style.display="none";
+   interception.style.display="block";
  }
 }
 
 /* AFTER INTERCEPTION */
 function afterInterception(){
- document.getElementById("interception").style.display="none";
- document.getElementById("finalReveal").style.display="block";
+ interception.style.display="none";
+ finalReveal.style.display="block";
 }
 
-/* START DEFUSE */
+/* DEFUSE */
 function startDefuse(){
- document.getElementById("finalReveal").style.display="none";
- document.getElementById("defuse").style.display="block";
+ finalReveal.style.display="none";
+ defuse.style.display="block";
 
  let time = 120;
+
  let timer = setInterval(function(){
    time--;
 
-   let m=Math.floor(time/60);
-   let s=time%60;
+   let m = Math.floor(time/60);
+   let s = time%60;
 
    countdown.innerText =
    (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
 
    if(time<=0){
-    clearInterval(timer);
-    alert("MISSION FAILED");
+     clearInterval(timer);
+     alert("MISSION FAILED");
    }
  },1000);
 }
 
-/* CHECK FINAL ANSWER */
+/* ANSWER */
 function checkAnswer(){
- let ans = document.getElementById("finalAnswer").value.toLowerCase();
+ let ans = finalAnswer.value.toLowerCase();
 
  if(ans==="fitfam"){
-   document.getElementById("defuse").style.display="none";
-   document.getElementById("success").style.display="block";
+   defuse.style.display="none";
+   success.style.display="block";
  } else {
    wrongAttempts++;
 
    if(wrongAttempts>=3){
-     alert("Hint: starts with F. Trust your team.");
+     alert("Hint: begins with F. Trust your unit.");
    } else {
      alert("ACCESS DENIED");
    }
@@ -158,6 +161,7 @@ function checkAnswer(){
 }
 
 </script>
+
 </head>
 
 <body>
@@ -168,89 +172,150 @@ function checkAnswer(){
 <div id="intro" class="panel">
 <p>
 ATTENTION.<br><br>
+
 You are a Special Forces unit deployed into an active threat zone.<br><br>
+
 A terrorist organisation has planted a nuclear device somewhere within this area.<br><br>
+
 The exact location is unknown.<br><br>
+
 Your mission:<br><br>
+
 Infiltrate the zone.<br>
 Recover intel.<br>
 Locate the device.<br>
 And prevent detonation.<br><br>
+
 Trust nothing.<br><br>
+
 Move.
 </p>
+
+<p><b>RUN:</b> Complete 1 full lap and return</p>
 
 <button onclick="startGame()">BEGIN MISSION</button>
 </div>
 
 <!-- LAP -->
 <div id="lap" class="panel hidden">
-<p>Complete one full lap around the park.</p>
-
-<input id="pin1" placeholder="PIN">
+<p>Enter PIN after lap</p>
+<input id="pin1">
 <br>
 <button onclick="checkPin('pin1','1986',unlockMission1)">AUTHORISE</button>
 </div>
 
 <!-- MISSION A -->
 <div id="missionA" class="panel hidden">
-<h2>MISSION — INTEL</h2>
+<h2>MISSION 1 — INTEL</h2>
 
-mapA.jpg
-imageA.jpg
+<p>
+INTEL:<br><br>
 
-<p>Partner Push-Up High Five × 30 each</p>
-<p>Record 5–10 sec video of FULL TEAM<br>Upload with Team Number</p>
+One of our embedded agents reports that the terrorist leader has evacuated the area.<br><br>
+
+Before extraction, the agent left behind intel.<br><br>
+
+This intel contains an entry point into their network.<br><br>
+
+Recover the intel.
+</p>
+
+<p><b>EXERCISE:</b><br>
+Partner Push-Up High Five × 30 each
+</p>
+
+<p><b>RECORDING:</b><br>
+Record 5–10 sec video of FULL TEAM<br>
+Upload with Team Number
+</p>
+
+<img src="mapA.jpg">
+<img src="imageA.jpg">
 </div>
 
 <!-- MISSION B -->
 <div id="missionB" class="panel hidden">
-<h2>MISSION — STEALTH ROUTE</h2>
+<h2>MISSION 2 — STEALTH ROUTE</h2>
 
-mapB.jpg
-imageB.jpg
+<p>
+STEALTH DIRECTIVE:<br><br>
 
-<p>Bear Crawl + 60 Superman Pulses</p>
-<p>Record 5–10 sec video of FULL TEAM<br>Upload with Team Number</p>
+Intel indicates a low-visibility access route nearby.<br><br>
+
+You are entering enemy-controlled territory.<br><br>
+
+Movement must remain undetected.<br><br>
+
+Proceed with stealth.<br><br>
+
+Noise will compromise your position.
+</p>
+
+<p><b>EXERCISE:</b><br>
+Bear Crawl + 60 Superman Pulses
+</p>
+
+<p><b>RECORDING:</b><br>
+Record 5–10 sec video of FULL TEAM<br>
+Upload with Team Number
+</p>
+
+<img src="mapB.jpg">
+<img src="imageB.jpg">
 </div>
 
 <!-- MISSION C -->
 <div id="missionC" class="panel hidden">
-<h2>MISSION — CAPTURE THE PROFESSOR</h2>
-
-mapC.jpg
-imageC.jpg
-
-<p>Partner Burpee High Five × 20 each</p>
+<h2>MISSION 3 — CAPTURE THE PROFESSOR</h2>
 
 <p>
-One member = THE PROFESSOR<br>
+UPDATE:<br><br>
+
+We have located a high-value target.<br><br>
+
+Codename: THE PROFESSOR.<br><br>
+
+Move immediately.<br><br>
+
+Apprehend the target and secure the area.<br><br>
+
+Neutralise resistance.
+</p>
+
+<p><b>EXERCISE:</b><br>
+Partner Burpee High Five × 20 each
+</p>
+
+<p><b>CAPTURE:</b><br>
+One member = Professor<br>
 Take photo of capture<br>
 Upload with Team Number
 </p>
+
+<img src="mapC.jpg">
+<img src="imageC.jpg">
 </div>
 
-<!-- PIN -->
+<!-- PIN NEXT -->
 <div id="missionPin" class="panel hidden">
-<input id="pin2" placeholder="PIN">
+<input id="pin2">
 <br>
-<button onclick="checkPin('pin2','2388',nextStage)">AUTHORISE NEXT</button>
+<button onclick="checkPin('pin2','2388',nextStage)">NEXT</button>
 </div>
 
 <!-- INTERCEPTION -->
 <div id="interception" class="panel hidden">
-<h2>INTERCEPTION ALERT</h2>
+<h2>⚠️ INTERCEPTION ALERT ⚠️</h2>
 
 <p>
-You have been double crossed.<br>
+You have been double crossed.<br><br>
 Enemy units are closing in.<br><br>
-
 DEFEND. DISENGAGE. MOVE.
 </p>
 
-<p>Run 1 lap FAST → return</p>
+<p><b>RUN:</b> Full lap FAST</p>
 
-<input id="pin3" placeholder="PIN">
+<input id="pin3">
 <br>
 <button onclick="checkPin('pin3','4832',afterInterception)">AUTHORISE</button>
 </div>
@@ -259,11 +324,13 @@ DEFEND. DISENGAGE. MOVE.
 <div id="finalReveal" class="panel hidden">
 <p>
 Everything you received… was compromised.<br><br>
+
 You were being led.<br><br>
+
 The device is active.
 </p>
 
-<button onclick="startDefuse()">START DEFUSAL</button>
+<button onclick="startDefuse()">START DEFUSE</button>
 </div>
 
 <!-- DEFUSE -->
@@ -272,7 +339,9 @@ The device is active.
 
 <p>
 FINAL AUTHENTICATION<br><br>
-Who brought you here?<br>
+
+Who brought you here?<br><br>
+
 Who do you trust?
 </p>
 
@@ -284,8 +353,7 @@ Who do you trust?
 <!-- SUCCESS -->
 <div id="success" class="panel hidden">
 <h2>DEVICE DISARMED</h2>
-
-<p>Mission Complete.</p>
+<p>MISSION COMPLETE</p>
 </div>
 
 </body>
