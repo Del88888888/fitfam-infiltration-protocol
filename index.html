@@ -237,3 +237,46 @@ Return to HQ for mission authorisation.<br><br>
 <h2>MISSION 4 AUTHORISATION</h2>
 <input id="pin4">
 <br>
+<button onclick="checkPin('pin4','4832',next4)">NEXT</button>
+</div>
+
+<div id="interception" class="panel hidden">
+<p>
+⚠️ INTERCEPTION ALERT ⚠️<br><br>
+All units — listen carefully.<br><br>
+You have been double crossed.<br><br>
+The intel you received was false.<br><br>
+You have been led directly into enemy tracking.<br><br>
+Your position is compromised.<br><br>
+Enemy units are closing in.<br><br>
+DEFEND.<br><br>
+DISENGAGE.<br><br>
+MOVE.
+</p>
+<button onclick="afterInterception()">CONTINUE</button>
+</div>
+
+<div id="finalReveal" class="panel hidden">
+<h2><b>FINAL INTEL</b></h2>
+Everything you received…<br><br>
+was compromised.<br><br>
+The agent.<br>
+The intel.<br>
+The Professor.<br><br>
+All part of the same deception.<br><br>
+You were being led.<br><br>
+But now…<br><br>
+The device is active.
+<br><br>
+<button onclick="startDefuse()">START</button>
+</div>
+
+<div id="success" class="panel hidden">
+<h2><b>MISSION COMPLETE</b></h2>
+CODE ACCEPTED.<br><br>
+DEVICE DISARMED.<br><br>
+DETONATION ABORTED.
+</div>
+
+</body>
+</html>
