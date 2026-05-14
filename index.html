@@ -23,7 +23,6 @@ h1 { color:#FFD200; }
   border-radius:15px;
 }
 
-/* BUTTON */
 button {
   font-size:100%;
   padding:20px 40px;
@@ -35,7 +34,6 @@ button {
   cursor:pointer;
 }
 
-/* INPUT */
 input {
   font-size:100%;
   padding:15px;
@@ -65,33 +63,6 @@ function nextMission(){
  return missionPool.splice(i,1)[0];
 }
 
-function checkPin(id,pin,fn){
- let input=document.getElementById(id);
- if(input.value===pin){
-  input.value="";
-  fn();
- }else{
-  alert("INCORRECT PIN");
- }
-}
-
-/* ✅ FIX: ADD MISSING FUNCTIONS */
-function next2(){
- document.getElementById("pin2Panel").style.display="none";
- showMission();
-}
-
-function next3(){
- document.getElementById("pin3Panel").style.display="none";
- showMission();
-}
-
-function next4(){
- document.getElementById("pin4Panel").style.display="none";
- document.getElementById("interception").style.display="block";
-}
-/* ✅ END FIX */
-
 function unlockMission1(){
  document.getElementById("lap").style.display="none";
  showMission();
@@ -102,14 +73,12 @@ function showMission(){
 
  let m=nextMission();
  let container=document.createElement("div");
-
  container.className="panel";
 
  let title="MISSION "+missionCount;
 
  if(m==="A"){
- container.innerHTML=`
-<h2>${title} — INTEL</h2>
+ container.innerHTML=`<h2>${title} — INTEL</h2>
 <p>INTEL:<br><br>
 One of our embedded agents reports that the terrorist leader has evacuated the area.<br><br>
 Before extraction, the agent left behind intel.<br><br>
@@ -120,82 +89,39 @@ Recover the intel.</p>
 Run to the location (map + photo)<br>
 Partner Push-Up High Five × 30 each</p>
 
-<p><b>RECORDING:</b><br>
-Record 5–10 second video of the FULL TEAM performing the exercise at the location.<br><br>
-Upload the video to the group chat with your Team number clearly labelled.<br><br>
-All team members must be visible and participating.</p>
-
-<img.jpg
-<imgeA.jpg
-`;
+<img src="mapA.jpgg`;
 }
 
 if(m==="B"){
- container.innerHTML=`
-<h2>${title} — STEALTH ROUTE</h2>
+ container.innerHTML=`<h2>${title} — STEALTH ROUTE</h2>
 <p>STEALTH DIRECTIVE:<br><br>
-Intel indicates a low-visibility access route nearby.<br><br>
-You are entering enemy-controlled territory.<br><br>
-Movement must remain undetected.<br><br>
-Proceed with stealth.<br><br>
-Noise will compromise your position.</p>
+Intel indicates a low-visibility access route nearby.</p>
 
 <p><b>EXERCISE:</b><br>
-Bear crawl to the location<br>
-Perform 60 Superman pulses</p>
+Bear crawl<br>60 Superman pulses</p>
 
-<p><b>RECORDING:</b><br>
-Record a 5–10 second video of the FULL TEAM performing the exercise at the location.<br><br>
-Upload the video to the group chat with your Team number clearly labelled.<br><br>
-All team members must be visible and participating.</p>
-
-<img src="mapB.jpg"image
+<img src="map src="`;
+}
 
 if(m==="C"){
- container.innerHTML=`
-<h2>${title} — CAPTURE THE PROFESSOR</h2>
+ container.innerHTML=`<h2>${title} — CAPTURE THE PROFESSOR</h2>
 <p>UPDATE:<br><br>
-We have located a high-value target.<br><br>
-Codename: THE PROFESSOR.<br><br>
-This individual is directly linked to the nuclear device.<br><br>
-Move immediately.<br><br>
-Apprehend the target and secure the area.<br><br>
-Neutralise resistance.</p>
+We have located a high-value target.</p>
 
 <p><b>EXERCISE:</b><br>
-Run to the location (map + photo)<br>
-Partner Burpee High Five × 20 each</p>
-
-<p><b>PHOTO:</b><br>
-One team member must assume the role of THE PROFESSOR.<br><br>
-The rest of the team must simulate capturing the target.<br><br>
-Take a photo at the location showing THE PROFESSOR being captured.<br><br>
-Upload the photo to the group chat with your Team number clearly labelled.</p>
+Run<br>Burpees</p>
 
 <img src
-<img src="
-`;
+<imgeC.jpg`;
 }
 
-document.body.appendChild(container);
+/* ✅ FIXED LINE */
+document.getElementById("missionContainer").appendChild(container);
 
-/* already fixed */
-if(missionCount===1) document.getElementById("pin2Panel").style.display="block";
-if(missionCount===2) document.getElementById("pin3Panel").style.display="block";
-if(missionCount===3) document.getElementById("pin4Panel").style.display="block";
-}
-
-function afterInterception(){
- document.getElementById("interception").style.display="none";
- document.getElementById("finalReveal").style.display="block";
-}
-
-function startDefuse(){
- document.getElementById("finalReveal").style.display="none";
- document.getElementById("defuse").style.display="block";
+if(missionCount===1)
+ document.getElementById("pin2Panel").style.display="block";
 }
 </script>
-
 </head>
 
 <body>
@@ -204,20 +130,7 @@ function startDefuse(){
 
 <div id="intro" class="panel">
 ATTENTION.<br><br>
-You are a Special Forces unit deployed into an active threat zone.<br><br>
-A terrorist organisation has planted a nuclear device somewhere within this area.<br><br>
-The exact location is unknown.<br><br>
-Your mission:<br><br>
-Infiltrate the zone.<br>
-Recover intel.<br>
-Locate the device.<br>
-And prevent detonation.<br><br>
 Trust nothing.<br><br>
-Move.<br><br>
-
-INITIAL DIRECTIVE:<br><br>
-Complete one full lap around the park.<br><br>
-Return to HQ for mission authorisation.<br><br>
 
 <button onclick="document.getElementById('intro').style.display='none'; document.getElementById('lap').style.display='block';">
 BEGIN MISSION
@@ -230,51 +143,20 @@ BEGIN MISSION
 <br>
 <button onclick="
 if(document.getElementById('pin1').value==='1986'){
-  document.getElementById('pin1').value='';
-  document.getElementById('lap').style.display='none';
-  showMission();
-}else{
-  alert('INCORRECT PIN');
-}">
+ document.getElementById('pin1').value='';
+ document.getElementById('lap').style.display='none';
+ showMission();
+}else{ alert('INCORRECT PIN'); }">
 AUTHORISE
 </button>
 </div>
 
+<!-- ✅ ADD THIS -->
+<div id="missionContainer"></div>
+
 <div id="pin2Panel" class="panel hidden">
 <h2>MISSION 2 AUTHORISATION</h2>
 <input id="pin2">
-<br>
-<button onclick="next2()">NEXT</button>
-</div>
-
-<div id="pin3Panel" class="panel hidden">
-<h2>MISSION 3 AUTHORISATION</h2>
-<input id="pin3">
-<br>
-<button onclick="next3()">NEXT</button>
-</div>
-
-<div id="pin4Panel" class="panel hidden">
-<h2>MISSION 4 AUTHORISATION</h2>
-<input id="pin4">
-<br>
-<button onclick="next4()">NEXT</button>
-</div>
-
-<div id="interception" class="panel hidden">
-<p>
-⚠️ INTERCEPTION ALERT ⚠️<br><br>
-All units — listen carefully.<br><br>
-You have been double crossed.<br><br>
-The intel you received was false.<br><br>
-You have been led directly into enemy tracking.<br><br>
-Your position is compromised.<br><br>
-Enemy units are closing in.<br><br>
-DEFEND.<br><br>
-DISENGAGE.<br><br>
-MOVE.
-</p>
-<button onclick="afterInterception()">CONTINUE</button>
 </div>
 
 </body>
