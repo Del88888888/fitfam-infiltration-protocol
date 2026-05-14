@@ -1,4 +1,6 @@
-<!DOCTYPE html><!DOCTYPE html<head>
+<!DOCTYPE html>
+<html>
+<head>
 <title>FitFam Infiltration Protocol</title>
 
 <style>
@@ -54,110 +56,109 @@ let wrongAttempts = 0;
 
 /* RANDOM (NO REPEAT) */
 function nextMission(){
- let index = Math.floor(Math.random()*missionPool.length);
- return missionPool.splice(index,1)[0];
+let index = Math.floor(Math.random()*missionPool.length);
+return missionPool.splice(index,1)[0];
 }
 
-/* ✅ FIXED */
 function startGame(){
- document.getElementById("intro").style.display = "none";
- document.getElementById("lap").style.display = "block";
+intro.style.display="none";
+lap.style.display="block";
 }
 
-/* PIN SYSTEM */
+/* PIN SYSTEM (FIXED) */
 function checkPin(inputId, correctPin, nextFunc){
- let input = document.getElementById(inputId);
+let input = document.getElementById(inputId);
 
- if(input.value === correctPin){
+if(input.value === correctPin){
    input.value="";
    nextFunc();
- } else {
+} else {
    alert("INCORRECT PIN");
- }
+}
 }
 
-/* ✅ FIXED */
+/* AFTER LAP → MISSION 1 */
 function unlockMission1(){
- document.getElementById("lap").style.display="none";
- showMission();
+lap.style.display="none";
+showMission();
 }
 
-/* SHOW RANDOM + LABEL */
+/* SHOW RANDOM + LABEL CORRECTLY */
 function showMission(){
- let m = nextMission();
- missionCount++;
+let m = nextMission();
+missionCount++;
 
- let title = "MISSION " + missionCount;
+let title = "MISSION " + missionCount;
 
- if(m==="A"){
+if(m==="A"){
   missionA.querySelector("h2").innerText = title + " — INTEL";
   missionA.classList.remove("hidden");
 }
- if(m==="B"){
+if(m==="B"){
   missionB.querySelector("h2").innerText = title + " — STEALTH ROUTE";
   missionB.classList.remove("hidden");
 }
- if(m==="C"){
+if(m==="C"){
   missionC.querySelector("h2").innerText = title + " — CAPTURE THE PROFESSOR";
   missionC.classList.remove("hidden");
 }
 
-/* PIN FLOW */
- if(missionCount === 1) document.getElementById("pin2Panel").style.display="block";
- if(missionCount === 2) document.getElementById("pin3Panel").style.display="block";
- if(missionCount === 3) document.getElementById("pin4Panel").style.display="block";
+/* SHOW CORRECT PIN PANEL */
+if(missionCount === 1) pin2Panel.style.display="block";
+if(missionCount === 2) pin3Panel.style.display="block";
+if(missionCount === 3) pin4Panel.style.display="block";
 }
 
 function nextAfterPin2(){
- document.getElementById("pin2Panel").style.display="none";
- showMission();
+pin2Panel.style.display="none";
+showMission();
 }
 
 function nextAfterPin3(){
- document.getElementById("pin3Panel").style.display="none";
- showMission();
+pin3Panel.style.display="none";
+showMission();
 }
 
 function nextAfterPin4(){
- document.getElementById("pin4Panel").style.display="none";
- document.getElementById("interception").style.display="block";
+pin4Panel.style.display="none";
+interception.style.display="block";
 }
 
 function afterInterception(){
- document.getElementById("interception").style.display="none";
- document.getElementById("finalReveal").style.display="block";
+interception.style.display="none";
+finalReveal.style.display="block";
 }
 
 /* DEFUSE */
 function startDefuse(){
- document.getElementById("finalReveal").style.display="none";
- document.getElementById("defuse").style.display="block";
+finalReveal.style.display="none";
+defuse.style.display="block";
 
- let time=120;
+let time=120;
 
- setInterval(function(){
+setInterval(function(){
   time--;
   let m=Math.floor(time/60);
   let s=time%60;
   countdown.innerText=
   (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
- },1000);
+},1000);
 }
 
 function checkAnswer(){
- let ans=finalAnswer.value.toLowerCase();
+let ans=finalAnswer.value.toLowerCase();
 
- if(ans==="fitfam"){
-  document.getElementById("defuse").style.display="none";
-  document.getElementById("success").style.display="block";
- } else {
+if(ans==="fitfam"){
+  defuse.style.display="none";
+  success.style.display="block";
+} else {
   wrongAttempts++;
   if(wrongAttempts>=3){
    alert("The answer begins with F.");
   } else {
    alert("ACCESS DENIED");
   }
- }
+}
 }
 </script>
 </head>
@@ -196,8 +197,6 @@ Return to HQ for mission authorisation.
 <br>
 <button onclick="checkPin('pin1','1986',unlockMission1)">AUTHORISE</button>
 </div>
-
-<!-- (REST UNCHANGED — EXACTLY SAME AS YOUR ORIGINAL) -->
 
 <!-- MISSION A -->
 <div id="missionA" class="panel hidden">
@@ -253,25 +252,82 @@ mapC.jpg
 imageC.jpg
 </div>
 
-<!-- PIN PANELS -->
+<!-- PIN 2 -->
 <div id="pin2Panel" class="panel hidden">
 <input id="pin2">
 <br>
 <button onclick="checkPin('pin2','2388',nextAfterPin2)">NEXT</button>
 </div>
 
+<!-- PIN 3 -->
 <div id="pin3Panel" class="panel hidden">
 <input id="pin3">
 <br>
 <button onclick="checkPin('pin3','3896',nextAfterPin3)">NEXT</button>
 </div>
 
+<!-- PIN 4 -->
 <div id="pin4Panel" class="panel hidden">
 <input id="pin4">
 <br>
 <button onclick="checkPin('pin4','4832',nextAfterPin4)">NEXT</button>
 </div>
 
+<!-- INTERCEPTION -->
+<div id="interception" class="panel hidden">
+<p>
+⚠️ INTERCEPTION ALERT ⚠️<br><br>
+You have been double crossed.<br><br>
+Enemy units are closing in.<br><br>
+DEFEND. DISENGAGE. MOVE.
+</p>
+
+<button onclick="afterInterception()">CONTINUE</button>
+</div>
+
+<!-- FINAL -->
+<div id="finalReveal" class="panel hidden">
+<p>FINAL INTEL:<br><br>
+Everything you received…<br><br>
+was compromised.<br><br>
+The agent.<br>
+The intel.<br>
+The Professor.<br><br>
+All part of the same deception.<br><br>
+You were being led.<br><br>
+But now…<br><br>
+The device is active.</p>
+
+<button onclick="startDefuse()">START</button>
+</div>
+
+<!-- DEFUSE -->
+<div id="defuse" class="panel hidden">
+<h1 id="countdown">02:00</h1>
+
+<p>
+FINAL AUTHENTICATION REQUIRED.<br><br>
+Think carefully.<br><br>
+What brought you here today?<br><br>
+Who brought this unit together?<br><br>
+…<br><br>
+Who do you trust?
+</p>
+
+<input id="finalAnswer">
+<br>
+<button onclick="checkAnswer()">SUBMIT</button>
+</div>
+
+<!-- SUCCESS -->
+<div id="success" class="panel hidden">
+<p>
+CODE ACCEPTED.<br><br>
+DEVICE DISARMED.<br><br>
+DETONATION ABORTED.<br><br><br>
+Mission complete.
+</p>
+</div>
+
 </body>
 </html>
-<html>
