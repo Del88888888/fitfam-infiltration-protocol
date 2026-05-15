@@ -60,3 +60,73 @@ function showMission(num){
  "<h2>MISSION " + num + " — STEALTH ROUTE</h2>" +
  "<p>Remain undetected.</p>" +
  "<p><b>EXERCISE:</b><br>Bear crawl + 60 pulses</p>" +
+ "<img src='mapB.jpg src='imageB
+ if(m==="C"){
+ box.innerHTML =
+ "<h2>MISSION " + num + " — CAPTURE THE PROFESSOR</h2>" +
+ "<p>Capture target.</p>" +
+ "<p><b>EXERCISE:</b><br>Burpee High Five × 20</p>" +
+ "<img src='mapC.jpg src='imageC.jpgcument.body.appendChild(box);
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="panel">
+<button onclick="
+this.parentElement.style.display='none';
+document.getElementById('pin1box').style.display='block';
+">
+BEGIN MISSION
+</button>
+</div>
+
+<div id="pin1box" class="panel hidden">
+<h2>MISSION 1 AUTHORISATION</h2>
+<input id="pin1"><br>
+
+<button onclick="
+if(document.getElementById('pin1').value==='1986'){
+ this.parentElement.style.display='none';
+ showMission(1);
+ document.getElementById('pin2box').style.display='block';
+} else alert('INCORRECT PIN');
+">
+AUTHORISE
+</button>
+</div>
+
+<div id="pin2box" class="panel hidden">
+<h2>MISSION 2 AUTHORISATION</h2>
+<input id="pin2"><br>
+
+<button onclick="
+if(document.getElementById('pin2').value==='2388'){
+ this.parentElement.style.display='none';
+ showMission(2);
+ document.getElementById('pin3box').style.display='block';
+} else alert('INCORRECT PIN');
+">
+AUTHORISE
+</button>
+</div>
+
+<div id="pin3box" class="panel hidden">
+<h2>MISSION 3 AUTHORISATION</h2>
+<input id="pin3"><br>
+
+<button onclick="
+if(document.getElementById('pin3').value==='3896'){
+ this.parentElement.style.display='none';
+ showMission(3);
+} else alert('INCORRECT PIN');
+">
+AUTHORISE
+</button>
+</div>
+
+</body>
+</html>
