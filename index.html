@@ -19,10 +19,10 @@ body {
   margin:25px;
 }
 
-/* ✅ FINAL BUTTON SIZE (15% SMALLER BOX) */
+/* ✅ FINAL TUNED BUTTON SIZE */
 button {
-  font-size:1.2em;        /* keep your preferred text size */
-  padding:0.65em 1.3em;   /* ✅ reduced ~15% */
+  font-size:1.2em;
+  padding:0.6em 1.2em;   /* ✅ reduced another ~10% */
   background:#FFD200;
   border:none;
   margin-top:20px;
@@ -96,32 +96,3 @@ if(document.getElementById('pin2').value==='2388'){
 } else { alert('INCORRECT PIN'); }">
 AUTHORISE
 </button>
-</div>
-
-<div id="mission2" class="panel hidden">
-<h2>MISSION 2 — STEALTH ROUTE</h2>
-<p>Movement must remain undetected.</p>
-</div>
-
-<div id="pin3Panel" class="panel hidden">
-<h2>MISSION 3 AUTHORISATION</h2>
-<input id="pin3"><br>
-
-<button onclick="
-if(document.getElementById('pin3').value==='3896'){
- document.getElementById('pin3Panel').style.display='none';
- document.getElementById('mission3').style.display='block';
-} else { alert('INCORRECT PIN'); }">
-AUTHORISE
-</button>
-</div>
-
-<div id="mission3" class="panel hidden">
-<h2>MISSION 3 — CAPTURE THE PROFESSOR</h2>
-<p>Capture target.</p>
-</div>
-
-</div>
-
-</body>
-</html>
