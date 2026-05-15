@@ -19,17 +19,16 @@ body {
   margin:25px;
 }
 
-/* ✅ REDUCED BUTTON SIZE (~25% SMALLER) */
+/* ✅ PROPERLY SCALED BUTTON */
 button {
-  padding:30px 60px;     /* was 40px 80px */
+  font-size:1.2em;        /* ✅ slightly bigger than normal */
+  padding:1em 2em;        /* ✅ proportionally sized */
   background:#FFD200;
   border:none;
   margin-top:20px;
-  font-size:60px;        /* was 80px */
   border-radius:10px;
 }
 
-/* INPUT */
 input {
   font-size:100%;
   padding:17px;
@@ -50,7 +49,6 @@ input {
 
 <h1>INFILTRATION PROTOCOL</h1>
 
-<!-- INTRO -->
 <div id="intro" class="panel">
 <p><b>ATTENTION.</b><br><br>
 You are a Special Forces unit deployed into an active threat zone.
@@ -64,7 +62,6 @@ BEGIN MISSION
 </button>
 </div>
 
-<!-- PIN 1 -->
 <div id="lap" class="panel hidden">
 <h2>MISSION 1 AUTHORISATION</h2>
 <input id="pin1"><br>
@@ -79,22 +76,14 @@ AUTHORISE
 </button>
 </div>
 
-<!-- MISSIONS -->
 <div id="missions">
 
-<!-- MISSION 1 -->
 <div id="mission1" class="panel hidden">
 <h2>MISSION 1 — INTEL</h2>
-
 <p>INTEL:<br><br>
 One of our embedded agents reports that the terrorist leader has evacuated the area.</p>
-
-<p><b>EXERCISE:</b><br>
-Run to location<br>
-Push-Up High Five × 30</p>
 </div>
 
-<!-- PIN 2 -->
 <div id="pin2Panel" class="panel hidden">
 <h2>MISSION 2 AUTHORISATION</h2>
 <input id="pin2"><br>
@@ -109,19 +98,11 @@ AUTHORISE
 </button>
 </div>
 
-<!-- MISSION 2 -->
 <div id="mission2" class="panel hidden">
 <h2>MISSION 2 — STEALTH ROUTE</h2>
-
-<p>STEALTH DIRECTIVE:<br><br>
-Movement must remain undetected.</p>
-
-<p><b>EXERCISE:</b><br>
-Bear crawl<br>
-60 Superman pulses</p>
+<p>Movement must remain undetected.</p>
 </div>
 
-<!-- PIN 3 -->
 <div id="pin3Panel" class="panel hidden">
 <h2>MISSION 3 AUTHORISATION</h2>
 <input id="pin3"><br>
@@ -135,18 +116,9 @@ AUTHORISE
 </button>
 </div>
 
-<!-- MISSION 3 -->
 <div id="mission3" class="panel hidden">
 <h2>MISSION 3 — CAPTURE THE PROFESSOR</h2>
-
-<p>UPDATE:<br><br>
-Target located. Capture THE PROFESSOR.</p>
-
-<p><b>EXERCISE:</b><br>
-Partner Burpee High Five × 20</p>
-
-<p><b>PHOTO:</b><br>
-Capture target + upload</p>
+<p>Capture target.</p>
 </div>
 
 </div>
