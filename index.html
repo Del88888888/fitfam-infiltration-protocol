@@ -36,11 +36,81 @@ input {
   text-align:center;
   border-radius:10px;
   border:none;
-  margin-top:15px;
 }
 
 .hidden { display:none; }
 </style>
+
+<script>
+
+/* ✅ SAFE RANDOM (no removal, no array mutation) */
+function getMission(){
+ var missions = ["A","B","C"];
+ return missions[Math.floor(Math.random() * missions.length)];
+}
+
+/* ✅ SHOW RANDOM MISSION (SAFE STRING BUILDING) */
+function showMission(id, number){
+
+ var type = getMission();
+ var content = "";
+
+ if(type==="A"){
+  content =
+  "<h2>MISSION " + number + " — INTEL</h2>" +
+  "<p>INTEL:<br><br>Agent left behind critical intel.</p>" +
+  "<p><b>EXERCISE:</b><br>Push-Up High Five × 30</p>";
+ }
+
+ if(type==="B"){
+  content =
+  "<h2>MISSION " + number + " — STEALTH ROUTE</h2>" +
+  "<p>Remain undetected in hostile territory.</p>" +
+  "<p><b>EXERCISE:</b><br>Bear crawl + 60 pulses</p>";
+ }
+
+ if(type==="C"){
+  content =
+  "<h2>MISSION " + number + " — CAPTURE THE PROFESSOR</h2>" +
+  "<p>High value target located.</p>" +
+  "<p><b>EXERCISE:</b><br>Burpee High Five × 20</p>";
+ }
+
+ document.getElementById(id).innerHTML = content;
+ document.getElementById(id).style.display = "block";
+}
+
+/* BUTTON HANDLERS */
+
+function startGame(){
+ document.getElementById("intro").style.display = "none";
+ document.getElementById("lap").style.display = "block";
+}
+
+function pin1(){
+ if(document.getElementById("pin1").value==="1986"){
+   document.getElementById("lap").style.display="none";
+   showMission("mission1",1);
+   document.getElementById("pin2Panel").style.display="block";
+ } else alert("INCORRECT PIN");
+}
+
+function pin2(){
+ if(document.getElementById("pin2").value==="2388"){
+   document.getElementById("pin2Panel").style.display="none";
+   showMission("mission2",2);
+   document.getElementById("pin3Panel").style.display="block";
+ } else alert("INCORRECT PIN");
+}
+
+function pin3(){
+ if(document.getElementById("pin3").value==="3896"){
+   document.getElementById("pin3Panel").style.display="none";
+   showMission("mission3",3);
+ } else alert("INCORRECT PIN");
+}
+
+</script>
 
 </head>
 
@@ -54,98 +124,36 @@ input {
 You are a Special Forces unit deployed into an active threat zone.
 </p>
 
-<button onclick="
-document.getElementById('intro').style.display='none';
-document.getElementById('lap').style.display='block';
-">
-BEGIN MISSION
-</button>
-
+<button onclick="startGame()">BEGIN MISSION</button>
 </div>
 
 <!-- PIN 1 -->
 <div id="lap" class="panel hidden">
 <h2>MISSION 1 AUTHORISATION</h2>
 <input id="pin1"><br>
-
-<button onclick="
-if(document.getElementById('pin1').value==='1986'){
- document.getElementById('lap').style.display='none';
- document.getElementById('mission1').style.display='block';
- document.getElementById('pin2Panel').style.display='block';
-} else alert('INCORRECT PIN');">
-AUTHORISE
-</button>
+<button onclick="pin1()">AUTHORISE</button>
 </div>
 
 <!-- MISSIONS -->
 <div id="missions">
 
-<!-- MISSION 1 -->
-<div id="mission1" class="panel hidden">
-<h2>MISSION 1 — INTEL</h2>
-<p>
-INTEL:<br><br>
-One of our embedded agents reports that the terrorist leader has evacuated the area.
-</p>
-<p><b>EXERCISE:</b><br>
-Push-Up High Five × 30
-</p>
-</div>
+<div id="mission1" class="panel hidden"></div>
 
-<!-- PIN 2 -->
 <div id="pin2Panel" class="panel hidden">
 <h2>MISSION 2 AUTHORISATION</h2>
 <input id="pin2"><br>
-
-<button onclick="
-if(document.getElementById('pin2').value==='2388'){
- document.getElementById('pin2Panel').style.display='none';
- document.getElementById('mission2').style.display='block';
- document.getElementById('pin3Panel').style.display='block';
-} else alert('INCORRECT PIN');">
-AUTHORISE
-</button>
+<button onclick="pin2()">AUTHORISE</button>
 </div>
 
-<!-- MISSION 2 -->
-<div id="mission2" class="panel hidden">
-<h2>MISSION 2 — STEALTH ROUTE</h2>
-<p>
-STEALTH DIRECTIVE:<br><br>
-Movement must remain undetected.
-</p>
-<p><b>EXERCISE:</b><br>
-Bear crawl<br>
-60 Superman pulses
-</p>
-</div>
+<div id="mission2" class="panel hidden"></div>
 
-<!-- PIN 3 -->
 <div id="pin3Panel" class="panel hidden">
 <h2>MISSION 3 AUTHORISATION</h2>
 <input id="pin3"><br>
-
-<button onclick="
-if(document.getElementById('pin3').value==='3896'){
- document.getElementById('pin3Panel').style.display='none';
- document.getElementById('mission3').style.display='block';
-} else alert('INCORRECT PIN');">
-AUTHORISE
-</button>
+<button onclick="pin3()">AUTHORISE</button>
 </div>
 
-<!-- MISSION 3 -->
-<div id="mission3" class="panel hidden">
-<h2>MISSION 3 — CAPTURE THE PROFESSOR</h2>
-<p>
-UPDATE:<br><br>
-Target located. Capture THE PROFESSOR.
-</p>
-<p><b>EXERCISE:</b><br>
-Partner Burpee High Five × 20
-</p>
-</div>
+<div id="mission3" class="panel hidden"></div>
 
 </div>
 
