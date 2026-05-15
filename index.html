@@ -19,6 +19,7 @@ body {
   margin:25px;
 }
 
+/* FINAL BUTTON SIZE */
 button {
   font-size:1.2em;
   padding:0.6em 1.2em;
@@ -41,6 +42,65 @@ input {
 
 .hidden { display:none; }
 </style>
+
+<script>
+
+/* ✅ RANDOM SYSTEM (NO REPEAT) */
+let missionPool = ["A","B","C"];
+
+function nextMission(){
+ let i = Math.floor(Math.random()*missionPool.length);
+ return missionPool.splice(i,1)[0];
+}
+
+/* ✅ INSERT RANDOM MISSION */
+function showMission(missionNumber){
+
+ let m = nextMission();
+ let container = document.createElement("div");
+ container.className = "panel";
+
+ if(m==="A"){
+ container.innerHTML = `
+<h2>MISSION ${missionNumber} — INTEL</h2>
+<p>INTEL:<br><br>
+One of our embedded agents reports that the terrorist leader has evacuated the area.</p>
+
+<p><b>EXERCISE:</b><br>
+Run to location<br>
+Push-Up High Five × 30</p>
+`;
+}
+
+ if(m==="B"){
+ container.innerHTML = `
+<h2>MISSION ${missionNumber} — STEALTH ROUTE</h2>
+<p>STEALTH DIRECTIVE:<br><br>
+Movement must remain undetected.</p>
+
+<p><b>EXERCISE:</b><br>
+Bear crawl<br>
+60 Superman pulses</p>
+`;
+}
+
+ if(m==="C"){
+ container.innerHTML = `
+<h2>MISSION ${missionNumber} — CAPTURE THE PROFESSOR</h2>
+<p>UPDATE:<br><br>
+Capture THE PROFESSOR.</p>
+
+<p><b>EXERCISE:</b><br>
+Partner Burpee High Five × 20</p>
+`;
+}
+
+ document.getElementById("missions").appendChild(container);
+}
+
+</script>
+
+</head>
 
 <body>
 
@@ -68,21 +128,14 @@ BEGIN MISSION
 <button onclick="
 if(document.getElementById('pin1').value==='1986'){
  document.getElementById('lap').style.display='none';
- document.getElementById('mission1').style.display='block';
- document.getElementById('pin2Panel').style.display='block';  /* ✅ FIX */
+ showMission(1);
+ document.getElementById('pin2Panel').style.display='block';
 } else { alert('INCORRECT PIN'); }">
 AUTHORISE
 </button>
 </div>
 
-<div id="missions">
-
-<!-- MISSION 1 -->
-<div id="mission1" class="panel hidden">
-<h2>MISSION 1 — INTEL</h2>
-<p>INTEL:<br><br>
-One of our embedded agents reports that the terrorist leader has evacuated the area.</p>
-</div>
+<div id="missions"></div>
 
 <!-- PIN 2 -->
 <div id="pin2Panel" class="panel hidden">
@@ -92,18 +145,11 @@ One of our embedded agents reports that the terrorist leader has evacuated the a
 <button onclick="
 if(document.getElementById('pin2').value==='2388'){
  document.getElementById('pin2Panel').style.display='none';
- document.getElementById('mission2').style.display='block';
- document.getElementById('pin3Panel').style.display='block';  /* ✅ FIX */
+ showMission(2);
+ document.getElementById('pin3Panel').style.display='block';
 } else { alert('INCORRECT PIN'); }">
 AUTHORISE
 </button>
-</div>
-
-<!-- MISSION 2 -->
-<div id="mission2" class="panel hidden">
-<h2>MISSION 2 — STEALTH ROUTE</h2>
-<p>STEALTH DIRECTIVE:<br><br>
-Movement must remain undetected.</p>
 </div>
 
 <!-- PIN 3 -->
@@ -114,20 +160,11 @@ Movement must remain undetected.</p>
 <button onclick="
 if(document.getElementById('pin3').value==='3896'){
  document.getElementById('pin3Panel').style.display='none';
- document.getElementById('mission3').style.display='block';
+ showMission(3);
 } else { alert('INCORRECT PIN'); }">
 AUTHORISE
 </button>
 </div>
 
-<!-- MISSION 3 -->
-<div id="mission3" class="panel hidden">
-<h2>MISSION 3 — CAPTURE THE PROFESSOR</h2>
-<p>Capture target.</p>
-</div>
-
-</div>
-
 </body>
 </html>
-``
