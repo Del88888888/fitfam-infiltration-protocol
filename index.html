@@ -61,33 +61,33 @@ function showMission(num){
  box.className="panel";
 
  if(m==="A"){
- box.innerHTML = `
+ box.innerHTML =`
 <h2>MISSION ${num} — INTEL</h2>
-
-<p>Recover the intel left behind.</p>
+<p>Recover the intel.</p>
 
 <p><b>EXERCISE:</b><br>
 Push-Up High Five × 30</p>
 
 <img src="mapA.jpg"imageA.jpgf(m==="B"){
- box.innerHTML = `
+ box.innerHTML =`
 <h2>MISSION ${num} — STEALTH ROUTE</h2>
-
 <p>Remain undetected.</p>
 
 <p><b>EXERCISE:</b><br>
 Bear crawl + 60 pulses</p>
 
 <img src="mapB.jpg"imageB.jpgf(m==="C"){
- box.innerHTML = `
+ box.innerHTML =`
 <h2>MISSION ${num} — CAPTURE THE PROFESSOR</h2>
-
-<p>Capture the target.</p>
+<p>Capture target.</p>
 
 <p><b>EXERCISE:</b><br>
 Burpee High Five × 20</p>
 
-<img src="mapC.jpg"imageC.jpgocument.getElementById("missions").appendChild(box);
+<img src="mapC.jpg"imageC
+
+ /* ✅ SAFE: append to body instead */
+ document.body.appendChild(box);
 }
 
 </script>
@@ -106,7 +106,9 @@ You are deployed into a threat zone.
 <button onclick="
 this.parentElement.style.display='none';
 document.getElementById('lap').style.display='block';
-">BEGIN MISSION</button>
+">
+BEGIN MISSION
+</button>
 </div>
 
 <div id="lap" class="panel hidden">
@@ -120,10 +122,10 @@ if(document.getElementById('pin1').value==='1986'){
  showMission(1);
  document.getElementById('pin2').style.display='block';
 } else alert('INCORRECT PIN');
-">AUTHORISE</button>
+">
+AUTHORISE
+</button>
 </div>
-
-<div id="missions"></div>
 
 <div id="pin2" class="panel hidden">
 <h2>MISSION 2 AUTHORISATION</h2>
@@ -136,7 +138,9 @@ if(document.getElementById('p2').value==='2388'){
  showMission(2);
  document.getElementById('pin3').style.display='block';
 } else alert('INCORRECT PIN');
-">AUTHORISE</button>
+">
+AUTHORISE
+</button>
 </div>
 
 <div id="pin3" class="panel hidden">
@@ -149,7 +153,9 @@ if(document.getElementById('p3').value==='3896'){
  this.parentElement.style.display='none';
  showMission(3);
 } else alert('INCORRECT PIN');
-">AUTHORISE</button>
+">
+AUTHORISE
+</button>
 </div>
 
 </body>
