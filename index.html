@@ -28,12 +28,12 @@ button {
   border-radius:10px;
 }
 
-/* ✅ REDUCED INPUT SIZE BY ~15% */
+/* INPUT SIZE (adjusted earlier) */
 input {
-  font-size:100%;      /* was ~120% */
-  padding:17px;        /* was 20px */
-  width:70%;           /* was 80% */
-  max-width:340px;     /* was 400px */
+  font-size:100%;
+  padding:17px;
+  width:70%;
+  max-width:340px;
   text-align:center;
   border-radius:10px;
   border:none;
@@ -57,7 +57,7 @@ You are a Special Forces unit deployed into an active threat zone.
 document.getElementById('intro').style.display='none';
 document.getElementById('lap').style.display='block';
 ">
-BEGIN MISSION
+<b>BEGIN MISSION</b>
 </button>
 </div>
 
@@ -65,13 +65,14 @@ BEGIN MISSION
 <div id="lap" class="panel hidden">
 <h2>MISSION 1 AUTHORISATION</h2>
 <input id="pin1"><br>
+
 <button onclick="
 if(document.getElementById('pin1').value==='1986'){
  document.getElementById('lap').style.display='none';
  document.getElementById('mission1').style.display='block';
  document.getElementById('pin2Panel').classList.remove('hidden');
 } else { alert('INCORRECT PIN'); }">
-AUTHORISE
+<b>AUTHORISE</b>
 </button>
 </div>
 
@@ -94,13 +95,14 @@ Push-Up High Five × 30</p>
 <div id="pin2Panel" class="panel hidden">
 <h2>MISSION 2 AUTHORISATION</h2>
 <input id="pin2"><br>
+
 <button onclick="
 if(document.getElementById('pin2').value==='2388'){
  document.getElementById('pin2Panel').style.display='none';
  document.getElementById('mission2').style.display='block';
  document.getElementById('pin3Panel').classList.remove('hidden');
 } else { alert('INCORRECT PIN'); }">
-AUTHORISE
+<b>AUTHORISE</b>
 </button>
 </div>
 
@@ -120,12 +122,13 @@ Bear crawl<br>
 <div id="pin3Panel" class="panel hidden">
 <h2>MISSION 3 AUTHORISATION</h2>
 <input id="pin3"><br>
+
 <button onclick="
 if(document.getElementById('pin3').value==='3896'){
  document.getElementById('pin3Panel').style.display='none';
  document.getElementById('mission3').style.display='block';
 } else { alert('INCORRECT PIN'); }">
-AUTHORISE
+<b>AUTHORISE</b>
 </button>
 </div>
 
@@ -147,3 +150,4 @@ Capture target + upload</p>
 
 </body>
 </html>
+``
