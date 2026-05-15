@@ -1,61 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>INFILTRATION PROTOCOL</title>
-
-<style>
-body {
-  background:#0b0b0b;
-  color:white;
-  font-family:Arial;
-  text-align:center;
-  padding:30px;
-  font-size:250%;
-}
-
-.panel {
-  border:3px solid #FFD200;
-  padding:25px;
-  margin:25px;
-}
-
-button {
-  font-size:1.2em;
-  padding:0.6em 1.2em;
-  background:#FFD200;
-  border:none;
-  margin-top:20px;
-  border-radius:10px;
-}
-
-input {
-  font-size:100%;
-  padding:17px;
-  width:70%;
-  max-width:340px;
-  text-align:center;
-  border-radius:10px;
-  border:none;
-}
-
-img {
-  width:80%;
-  max-width:400px;
-  margin-top:15px;
-}
-
-.hidden { display:none; }
-</style>
-
 <script>
 
-/* ✅ SAFE RANDOM (NO REMOVAL) */
 function nextMission(){
- const missions = ["A","B","C"];
- return missions[Math.floor(Math.random()*missions.length)];
+ const m = ["A","B","C"];
+ return m[Math.floor(Math.random()*m.length)];
 }
 
-/* ✅ SHOW MISSION (SAFE) */
 function showMission(num){
 
  let m = nextMission();
@@ -65,104 +14,34 @@ function showMission(num){
  if(m==="A"){
  box.innerHTML = `
 <h2>MISSION ${num} — INTEL</h2>
-<p>Recover intel.</p>
-<p><b>EXERCISE:</b><br>Push-Up High Five × 30</p>
 
-mapA.jpg
-imageA.jpg
-`;
- }
+<p>Recover the intel.</p>
 
- if(m==="B"){
+<p><b>EXERCISE:</b><br>
+Push-Up High Five × 30</p>
+
+<img src="mapAsrc="imageA.jpgf(m==="B"){
  box.innerHTML = `
 <h2>MISSION ${num} — STEALTH ROUTE</h2>
-<p>Stay undetected.</p>
-<p><b>EXERCISE:</b><br>Bear crawl + 60 pulses</p>
+
+<p>Remain undetected.</p>
+
+<p><b>EXERCISE:</b><br>
+Bear crawl + 60 pulses</p>
 
 mapB.jpg
-imageB.jpg
-`;
- }
+<img src="imageB
 
  if(m==="C"){
  box.innerHTML = `
 <h2>MISSION ${num} — CAPTURE THE PROFESSOR</h2>
+
 <p>Capture target.</p>
-<p><b>EXERCISE:</b><br>Burpee High Five × 20</p>
 
-mapC.jpg
-imageC.jpg
-`;
- }
+<p><b>EXERCISE:</b><br>
+Burpee High Five × 20</p>
 
- document.getElementById("missions").appendChild(box);
+<img src="mapC.jpg"imageC.jpgocument.getElementById("missions").appendChild(box);
 }
 
 </script>
-
-</head>
-
-<body>
-
-<h1>INFILTRATION PROTOCOL</h1>
-
-<!-- INTRO -->
-<div id="intro" class="panel">
-<p><b>ATTENTION.</b><br><br>
-You are deployed into a threat zone.
-</p>
-
-<button onclick="
-document.getElementById('intro').style.display='none';
-document.getElementById('lap').style.display='block';
-">BEGIN MISSION</button>
-</div>
-
-<!-- PIN 1 -->
-<div id="lap" class="panel hidden">
-<h2>MISSION 1 AUTHORISATION</h2>
-<input id="pin1"><br>
-
-<button onclick="
-if(document.getElementById('pin1').value==='1986'){
- document.getElementById('lap').style.display='none';
- showMission(1);
- document.getElementById('pin2').style.display='block';
-} else alert('INCORRECT PIN');">
-AUTHORISE
-</button>
-</div>
-
-<div id="missions"></div>
-
-<!-- PIN 2 -->
-<div id="pin2" class="panel hidden">
-<h2>MISSION 2 AUTHORISATION</h2>
-<input id="p2"><br>
-
-<button onclick="
-if(document.getElementById('p2').value==='2388'){
- this.parentElement.style.display='none';
- showMission(2);
- document.getElementById('pin3').style.display='block';
-} else alert('INCORRECT PIN');">
-AUTHORISE
-</button>
-</div>
-
-<!-- PIN 3 -->
-<div id="pin3" class="panel hidden">
-<h2>MISSION 3 AUTHORISATION</h2>
-<input id="p3"><br>
-
-<button onclick="
-if(document.getElementById('p3').value==='3896'){
- this.parentElement.style.display='none';
- showMission(3);
-} else alert('INCORRECT PIN');">
-AUTHORISE
-</button>
-</div>
-
-</body>
-</html>
