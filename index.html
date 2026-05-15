@@ -1,25 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Test Build</title>
+<title>Step 2</title>
 </head>
 
 <body>
 
 <h1>INFILTRATION PROTOCOL</h1>
 
+<!-- INTRO -->
 <div id="intro">
-<p><b>ATTENTION.</b><br><br>
-Test intro screen
-</p>
-
+<p><b>ATTENTION.</b><br><br>Test intro</p>
 <button onclick="startGame()">BEGIN MISSION</button>
 </div>
 
+<!-- PIN -->
 <div id="lap" style="display:none;">
 <h2>MISSION 1 AUTHORISATION</h2>
 <input id="pin1"><br>
 <button onclick="unlock1()">AUTHORISE</button>
+</div>
+
+<!-- ✅ SINGLE MISSION -->
+<div id="mission1" style="display:none;">
+<h2>MISSION 1 — INTEL</h2>
+
+<p>INTEL:<br><br>
+One of our embedded agents reports that the terrorist leader has evacuated the area.
+</p>
+
+<p><b>EXERCISE:</b><br>
+Run to location<br>
+Push-Up High Five × 30</p>
 </div>
 
 <script>
@@ -32,7 +44,8 @@ function unlock1(){
  let v = document.getElementById("pin1").value;
 
  if(v==="1986"){
-   alert("PIN WORKS ✅");
+   document.getElementById("lap").style.display="none";
+   document.getElementById("mission1").style.display="block";
  } else {
    alert("WRONG PIN");
  }
@@ -41,4 +54,3 @@ function unlock1(){
 
 </body>
 </html>
-``
