@@ -48,15 +48,14 @@ img {
 </style>
 
 <script>
-let missionPool = ["A","B","C"];
 
-/* ✅ SAFE RANDOM */
+/* ✅ SAFE RANDOM (NO REMOVAL) */
 function nextMission(){
- let i = Math.floor(Math.random()*missionPool.length);
- return missionPool.splice(i,1)[0];
+ const missions = ["A","B","C"];
+ return missions[Math.floor(Math.random()*missions.length)];
 }
 
-/* ✅ SHOW MISSION */
+/* ✅ SHOW MISSION (SAFE) */
 function showMission(num){
 
  let m = nextMission();
@@ -66,26 +65,32 @@ function showMission(num){
  if(m==="A"){
  box.innerHTML = `
 <h2>MISSION ${num} — INTEL</h2>
-<p>Recover intel.<br><br>
-<b>EXERCISE:</b><br>Push-Up High Five × 30</p>
+<p>Recover intel.</p>
+<p><b>EXERCISE:</b><br>Push-Up High Five × 30</p>
 
-<img src="mapA.jpg"imageA.jpgf(m==="B"){
+<img src="mapA.jpg"imageA
+
+ if(m==="B"){
  box.innerHTML = `
 <h2>MISSION ${num} — STEALTH ROUTE</h2>
-<p>Stay undetected.<br><br>
-<b>EXERCISE:</b><br>Bear crawl + 60 pulses</p>
+<p>Stay undetected.</p>
+<p><b>EXERCISE:</b><br>Bear crawl + 60 pulses</p>
 
-<img.jpg
-<img src="imageB
+<img src="mapBB.jpg
+`;
+ }
 
  if(m==="C"){
  box.innerHTML = `
 <h2>MISSION ${num} — CAPTURE THE PROFESSOR</h2>
-<p>Capture target.<br><br>
-<b>EXERCISE:</b><br>Burpee High Five × 20</p>
+<p>Capture target.</p>
+<p><b>EXERCISE:</b><br>Burpee High Five × 20</p>
 
-<img src="mapCsrc="imageC.jpgocument.getElementById("missions").appendChild(box);
+<img src="mapC.jpg"imageC
+
+ document.getElementById("missions").appendChild(box);
 }
+
 </script>
 
 </head>
@@ -116,8 +121,9 @@ if(document.getElementById('pin1').value==='1986'){
  document.getElementById('lap').style.display='none';
  showMission(1);
  document.getElementById('pin2').style.display='block';
-} else alert('INCORRECT PIN');
-">AUTHORISE</button>
+} else alert('INCORRECT PIN');">
+AUTHORISE
+</button>
 </div>
 
 <div id="missions"></div>
@@ -132,8 +138,9 @@ if(document.getElementById('p2').value==='2388'){
  this.parentElement.style.display='none';
  showMission(2);
  document.getElementById('pin3').style.display='block';
-} else alert('INCORRECT PIN');
-">AUTHORISE</button>
+} else alert('INCORRECT PIN');">
+AUTHORISE
+</button>
 </div>
 
 <!-- PIN 3 -->
@@ -145,8 +152,9 @@ if(document.getElementById('p2').value==='2388'){
 if(document.getElementById('p3').value==='3896'){
  this.parentElement.style.display='none';
  showMission(3);
-} else alert('INCORRECT PIN');
-">AUTHORISE</button>
+} else alert('INCORRECT PIN');">
+AUTHORISE
+</button>
 </div>
 
 </body>
