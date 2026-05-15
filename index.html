@@ -1,308 +1,48 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>INFILTRATION PROTOCOL</title>
-
-<style>
-body {
-  background:#0b0b0b;
-  color:white;
-  font-family:Arial;
-  text-align:center;
-  padding:30px;
-  font-size:250%;
-}
-
-.panel {
-  border:3px solid #FFD200;
-  padding:25px;
-  margin:25px;
-}
-
-button {
-  font-size:1.2em;
-  padding:0.6em 1.2em;
-  background:#FFD200;
-  border:none;
-  margin-top:20px;
-  border-radius:10px;
-}
-
-input {
-  font-size:100%;
-  padding:17px;
-  width:70%;
-  max-width:340px;
-  text-align:center;
-  border-radius:10px;
-  border:none;
-  margin-top:15px;
-}
-
-.hidden { display:none; }
-</style>
-
 <script>
 
 /* RANDOM MISSIONS */
 let missionPool = ["A","B","C"];
 
-/* RANDOM ENDINGS */
-function showRandomEnding(){
- let r = Math.floor(Math.random()*3);
-
- let text = "";
-
- if(r===0){
- text = `CODE ACCEPTED.<br><br>
-DEVICE DISARMED.<br><br>
-
-The world was saved.<br><br>
-
-But no one will ever know your names.<br><br>
-
-You were honoured quietly.<br><br>
-
-The leader reached out.<br>
-A final conversation.<br><br>
-
-No more missions.<br><br>
-
-A quieter life awaits…<br><br>
-
-Perhaps…<br>
-a FitFam leader.`;
- }
-
- if(r===1){
- text = `CODE ACCEPTED.<br><br>
-DEVICE DISARMED.<br><br>
-
-The world was saved.<br><br>
-
-But your names remain hidden.<br><br>
-
-Time passes…<br><br>
-
-During a FitFam session…<br><br>
-
-All phones vibrate.<br><br>
-
-Message decrypted:<br><br>
-
-TARGET IDENTIFIED.<br><br>
-
-You look at each other.<br><br>
-
-Gear up.<br><br>
-
-This isn’t over.`;
- }
-
- if(r===2){
- text = `CODE ACCEPTED.<br><br>
-
-A loud BANG echoes…<br><br>
-
-You wake up.<br><br>
-
-Inside a taxi.<br><br>
-
-An accident outside.<br><br>
-
-Your phone vibrates.<br><br>
-
-Message decrypted:<br><br>
-
-A nuclear device is nearby.<br><br>
-
-Time remaining: 10 hours.<br><br>
-
-You pause…<br><br>
-
-Deja vu.<br><br>
-
-You smile.<br><br>
-
-Let’s go again.`;
- }
-
- document.getElementById("successText").innerHTML = text;
- document.getElementById("success").style.display="block";
-}
-
-/* RANDOM MISSION */
 function nextMission(){
  let i = Math.floor(Math.random()*missionPool.length);
  return missionPool.splice(i,1)[0];
 }
 
 function showMission(num){
+
  let m = nextMission();
  let box = document.createElement("div");
  box.className="panel";
 
  if(m==="A"){
- box.innerHTML = `<h2>MISSION ${num} — INTEL</h2>
-<p>Recover intel.</p>
-<p><b>EXERCISE:</b><br>Push-Up High Five × 30</p>`;
- }
+ box.innerHTML = `
+<h2>MISSION ${num} — INTEL</h2>
 
- if(m==="B"){
- box.innerHTML = `<h2>MISSION ${num} — STEALTH ROUTE</h2>
+<p>INTEL:<br><br>
+Recover intel.</p>
+
+<p><b>EXERCISE:</b><br>
+Push-Up High Five × 30</p>
+
+<img src="mapAsrc="imageA.jpgf(m==="B"){
+ box.innerHTML = `
+<h2>MISSION ${num} — STEALTH ROUTE</h2>
+
 <p>Stay undetected.</p>
-<p><b>EXERCISE:</b><br>Bear crawl + 60 pulses</p>`;
- }
 
- if(m==="C"){
- box.innerHTML = `<h2>MISSION ${num} — CAPTURE THE PROFESSOR</h2>
+<p><b>EXERCISE:</b><br>
+Bear crawl + 60 pulses</p>
+
+<img src="mapB.jpg"imageB.jpgf(m==="C"){
+ box.innerHTML = `
+<h2>MISSION ${num} — CAPTURE THE PROFESSOR</h2>
+
 <p>Capture target.</p>
-<p><b>EXERCISE:</b><br>Burpee High Five × 20</p>`;
- }
 
- document.getElementById("missions").appendChild(box);
-}
+<p><b>EXERCISE:</b><br>
+Burpee High Five × 20</p>
 
-/* TIMER */
-let timer;
-
-function startDefuse(){
- document.getElementById("final").style.display="none";
- document.getElementById("defuse").style.display="block";
-
- let t=120;
-
- timer = setInterval(()=>{
-   t--;
-   let m=Math.floor(t/60);
-   let s=t%60;
-
-   document.getElementById("clock").innerText =
-   (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
-
-   if(t<=0){
-     clearInterval(timer);
-     document.getElementById("defuse").style.display="none";
-     document.getElementById("fail").style.display="block";
-   }
- },1000);
-}
-
-/* ANSWER */
-function submitAnswer(){
- let v = document.getElementById("answer").value.toLowerCase();
-
- if(v==="fitfam"){
-   clearInterval(timer);
-   document.getElementById("defuse").style.display="none";
-   showRandomEnding();
- } else {
-   alert("ACCESS DENIED");
- }
+<img src="mapCsrc="imageC.jpgocument.getElementById("missions").appendChild(box);
 }
 
 </script>
-
-</head>
-
-<body>
-
-<h1>INFILTRATION PROTOCOL</h1>
-
-<!-- INTRO -->
-<div id="intro" class="panel">
-<p><b>ATTENTION.</b><br><br>
-You are deployed into a threat zone.</p>
-
-<button onclick="
-this.parentElement.style.display='none';
-document.getElementById('lap').style.display='block';
-">BEGIN MISSION</button>
-</div>
-
-<!-- PIN 1 -->
-<div id="lap" class="panel hidden">
-<h2>MISSION 1 AUTHORISATION</h2>
-<input id="pin1"><br>
-<button onclick="
-if(document.getElementById('pin1').value==='1986'){
- document.getElementById('lap').style.display='none';
- showMission(1);
- document.getElementById('pin2').style.display='block';
-} else alert('INCORRECT PIN');">
-AUTHORISE
-</button>
-</div>
-
-<div id="missions"></div>
-
-<!-- PIN 2 -->
-<div id="pin2" class="panel hidden">
-<h2>MISSION 2 AUTHORISATION</h2>
-<input id="p2"><br>
-<button onclick="
-if(document.getElementById('p2').value==='2388'){
- this.parentElement.style.display='none';
- showMission(2);
- document.getElementById('pin3').style.display='block';
-} else alert('INCORRECT PIN');">
-AUTHORISE
-</button>
-</div>
-
-<!-- PIN 3 -->
-<div id="pin3" class="panel hidden">
-<h2>MISSION 3 AUTHORISATION</h2>
-<input id="p3"><br>
-<button onclick="
-if(document.getElementById('p3').value==='3896'){
- this.parentElement.style.display='none';
- showMission(3);
- document.getElementById('interception').style.display='block';
-} else alert('INCORRECT PIN');">
-AUTHORISE
-</button>
-</div>
-
-<!-- INTERCEPTION -->
-<div id="interception" class="panel hidden">
-<p>
-⚠️ INTERCEPTION ALERT ⚠️<br><br>
-You have been double crossed.<br><br>
-Enemy units closing in.<br><br>
-MOVE.
-</p>
-<button onclick="
-this.parentElement.style.display='none';
-document.getElementById('final').style.display='block';
-">CONTINUE</button>
-</div>
-
-<!-- FINAL -->
-<div id="final" class="panel hidden">
-<h2>FINAL INTEL</h2>
-<p>The device is active.</p>
-<button onclick="startDefuse()">START</button>
-</div>
-
-<!-- DEFUSE -->
-<div id="defuse" class="panel hidden">
-<h1 id="clock">02:00</h1>
-<input id="answer"><br>
-<button onclick="submitAnswer()">SUBMIT</button>
-</div>
-
-<!-- FAIL -->
-<div id="fail" class="panel hidden">
-<h2>MISSION FAILED</h2>
-<p>DEVICE DETONATED</p>
-</div>
-
-<!-- SUCCESS -->
-<div id="success" class="panel hidden">
-<h2>MISSION COMPLETE</h2>
-<p id="successText"></p>
-</div>
-
-</body>
-</html>
