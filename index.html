@@ -1,55 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>INFILTRATION PROTOCOL</title>
-
-<style>
-body {
-  background:#0b0b0b;
-  color:white;
-  font-family:Arial;
-  text-align:center;
-  padding:30px;
-  font-size:250%;
-}
-
-.panel {
-  border:3px solid #FFD200;
-  padding:25px;
-  margin:25px;
-}
-
-button {
-  font-size:1.2em;
-  padding:0.6em 1.2em;
-  background:#FFD200;
-  border:none;
-  margin-top:20px;
-  border-radius:10px;
-}
-
-input {
-  font-size:100%;
-  padding:17px;
-  width:70%;
-  max-width:340px;
-  text-align:center;
-  border-radius:10px;
-  border:none;
-}
-
-.hidden { display:none; }
-</style>
-
 <script>
 
-/* ✅ SAFE RANDOM (no removal, no array mutation) */
+/* ✅ NO REPEAT RANDOM SYSTEM */
+var missionPool = ["A","B","C"];
+
 function getMission(){
- var missions = ["A","B","C"];
- return missions[Math.floor(Math.random() * missions.length)];
+ var i = Math.floor(Math.random()*missionPool.length);
+ var m = missionPool[i];
+ missionPool.splice(i,1);
+ return m;
 }
 
-/* ✅ SHOW RANDOM MISSION (SAFE STRING BUILDING) */
+/* ✅ FULL MISSION CONTENT */
 function showMission(id, number){
 
  var type = getMission();
@@ -58,104 +19,30 @@ function showMission(id, number){
  if(type==="A"){
   content =
   "<h2>MISSION " + number + " — INTEL</h2>" +
-  "<p>INTEL:<br><br>Agent left behind critical intel.</p>" +
-  "<p><b>EXERCISE:</b><br>Push-Up High Five × 30</p>";
+  "<p>Agent has left behind critical intel.</p>" +
+  "<p><b>EXERCISE:</b><br>Push-Up High Five × 30</p>" +
+  "<p><b>RECORDING:</b><br>Record FULL TEAM (5–10 sec)<br>Upload with team number</p>";
  }
 
  if(type==="B"){
   content =
   "<h2>MISSION " + number + " — STEALTH ROUTE</h2>" +
-  "<p>Remain undetected in hostile territory.</p>" +
-  "<p><b>EXERCISE:</b><br>Bear crawl + 60 pulses</p>";
+  "<p>Proceed without being detected.</p>" +
+  "<p><b>EXERCISE:</b><br>Bear crawl + 60 Superman pulses</p>" +
+  "<p><b>RECORDING:</b><br>Record FULL TEAM (5–10 sec)<br>Upload with team number</p>";
  }
 
  if(type==="C"){
   content =
   "<h2>MISSION " + number + " — CAPTURE THE PROFESSOR</h2>" +
-  "<p>High value target located.</p>" +
-  "<p><b>EXERCISE:</b><br>Burpee High Five × 20</p>";
+  "<p>High-value target identified.</p>" +
+  "<p><b>EXERCISE:</b><br>Burpee High Five × 20</p>" +
+  "<p><b>PHOTO:</b><br>Take team + Professor photo<br>Upload with team number</p>";
  }
 
  document.getElementById(id).innerHTML = content;
  document.getElementById(id).style.display = "block";
 }
 
-/* BUTTON HANDLERS */
-
-function startGame(){
- document.getElementById("intro").style.display = "none";
- document.getElementById("lap").style.display = "block";
-}
-
-function pin1(){
- if(document.getElementById("pin1").value==="1986"){
-   document.getElementById("lap").style.display="none";
-   showMission("mission1",1);
-   document.getElementById("pin2Panel").style.display="block";
- } else alert("INCORRECT PIN");
-}
-
-function pin2(){
- if(document.getElementById("pin2").value==="2388"){
-   document.getElementById("pin2Panel").style.display="none";
-   showMission("mission2",2);
-   document.getElementById("pin3Panel").style.display="block";
- } else alert("INCORRECT PIN");
-}
-
-function pin3(){
- if(document.getElementById("pin3").value==="3896"){
-   document.getElementById("pin3Panel").style.display="none";
-   showMission("mission3",3);
- } else alert("INCORRECT PIN");
-}
-
 </script>
-
-</head>
-
-<body>
-
-<h1>INFILTRATION PROTOCOL</h1>
-
-<!-- INTRO -->
-<div id="intro" class="panel">
-<p><b>ATTENTION.</b><br><br>
-You are a Special Forces unit deployed into an active threat zone.
-</p>
-
-<button onclick="startGame()">BEGIN MISSION</button>
-</div>
-
-<!-- PIN 1 -->
-<div id="lap" class="panel hidden">
-<h2>MISSION 1 AUTHORISATION</h2>
-<input id="pin1"><br>
-<button onclick="pin1()">AUTHORISE</button>
-</div>
-
-<!-- MISSIONS -->
-<div id="missions">
-
-<div id="mission1" class="panel hidden"></div>
-
-<div id="pin2Panel" class="panel hidden">
-<h2>MISSION 2 AUTHORISATION</h2>
-<input id="pin2"><br>
-<button onclick="pin2()">AUTHORISE</button>
-</div>
-
-<div id="mission2" class="panel hidden"></div>
-
-<div id="pin3Panel" class="panel hidden">
-<h2>MISSION 3 AUTHORISATION</h2>
-<input id="pin3"><br>
-<button onclick="pin3()">AUTHORISE</button>
-</div>
-
-<div id="mission3" class="panel hidden"></div>
-
-</div>
-
-</body>
-</html>
+``
