@@ -10,7 +10,7 @@ body {
   font-family:Arial;
   text-align:center;
   padding:30px;
-  font-size:250%;
+  font-size:220%;
 }
 
 .panel {
@@ -40,13 +40,11 @@ img {
   max-width:400px;
   margin-top:15px;
 }
-
-.hidden { display:none; }
 </style>
 
 <script>
 
-/* ✅ NO REPEAT RANDOM */
+/* SAFE RANDOM */
 var missionPool = ["A","B","C"];
 
 function getMission(){
@@ -56,7 +54,7 @@ function getMission(){
  return m;
 }
 
-/* ✅ SHOW MISSION WITH IMAGES */
+/* SHOW MISSION */
 function showMission(id, number){
 
  var type = getMission();
@@ -67,30 +65,27 @@ function showMission(id, number){
   "<h2>MISSION " + number + " — INTEL</h2>" +
   "<p>Agent left behind critical intel.</p>" +
   "<p><b>EXERCISE:</b><br>Push-Up High Five × 30</p>" +
-  "<p><b>RECORDING:</b><br>Record FULL TEAM (5–10 sec)</p>" +
+  "<p><b>RECORDING:</b><br>Record FULL TEAM</p>" +
   "<img src='mapA.jpgg src='imageA.jpg(type==="B"){
   content =
   "<h2>MISSION " + number + " — STEALTH ROUTE</h2>" +
   "<p>Remain undetected.</p>" +
   "<p><b>EXERCISE:</b><br>Bear crawl + 60 pulses</p>" +
-  "<p><b>RECORDING:</b><br>Record FULL TEAM (5–10 sec)</p>" +
+  "<p><b>RECORDING:</b><br>Record FULL TEAM</p>" +
   "<img src='mapB.jpgg src='imageB.jpg(type==="C"){
   content =
   "<h2>MISSION " + number + " — CAPTURE THE PROFESSOR</h2>" +
   "<p>Capture target.</p>" +
   "<p><b>EXERCISE:</b><br>Burpee High Five × 20</p>" +
-  "<p><b>PHOTO:</b><br>Take team + target photo</p>" +
-  "<img src='mapC.jpgg src='imageC
+  "<p><b>PHOTO:</b><br>Take team photo</p>" +
+  "<img src='mapC.jpgg src='";
+ }
+
  document.getElementById(id).innerHTML = content;
  document.getElementById(id).style.display = "block";
 }
 
-/* ✅ HANDLERS */
-function startGame(){
- document.getElementById("intro").style.display="none";
- document.getElementById("lap").style.display="block";
-}
-
+/* PIN HANDLERS */
 function pin1(){
  if(document.getElementById("pin1").value==="1986"){
    document.getElementById("lap").style.display="none";
@@ -122,38 +117,48 @@ function pin3(){
 
 <h1>INFILTRATION PROTOCOL</h1>
 
+<!-- ✅ BEGIN BUTTON (NO JS DEPENDENCY) -->
 <div id="intro" class="panel">
 <p><b>ATTENTION</b><br><br>
 You are deployed into a threat zone.</p>
 
-<button onclick="startGame()">BEGIN MISSION</button>
+<button onclick="
+document.getElementById('intro').style.display='none';
+document.getElementById('lap').style.display='block';
+">
+BEGIN MISSION
+</button>
 </div>
 
-<div id="lap" class="panel hidden">
+<!-- PIN 1 -->
+<div id="lap" class="panel" style="display:none;">
 <h2>MISSION 1 AUTHORISATION</h2>
 <input id="pin1"><br>
+
 <button onclick="pin1()">AUTHORISE</button>
 </div>
 
 <div id="missions">
 
-<div id="mission1" class="panel hidden"></div>
+<div id="mission1" class="panel" style="display:none;"></div>
 
-<div id="pin2Panel" class="panel hidden">
+<div id="pin2Panel" class="panel" style="display:none;">
 <h2>MISSION 2 AUTHORISATION</h2>
 <input id="pin2"><br>
+
 <button onclick="pin2()">AUTHORISE</button>
 </div>
 
-<div id="mission2" class="panel hidden"></div>
+<div id="mission2" class="panel" style="display:none;"></div>
 
-<div id="pin3Panel" class="panel hidden">
+<div id="pin3Panel" class="panel" style="display:none;">
 <h2>MISSION 3 AUTHORISATION</h2>
 <input id="pin3"><br>
+
 <button onclick="pin3()">AUTHORISE</button>
 </div>
 
-<div id="mission3" class="panel hidden"></div>
+<div id="mission3" class="panel" style="display:none;"></div>
 
 </div>
 
