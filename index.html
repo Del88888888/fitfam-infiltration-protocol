@@ -19,10 +19,9 @@ body {
   margin:25px;
 }
 
-/* ✅ FINAL TUNED BUTTON SIZE */
 button {
   font-size:1.2em;
-  padding:0.6em 1.2em;   /* ✅ reduced another ~10% */
+  padding:0.6em 1.2em;
   background:#FFD200;
   border:none;
   margin-top:20px;
@@ -43,12 +42,11 @@ input {
 .hidden { display:none; }
 </style>
 
-</head>
-
 <body>
 
 <h1>INFILTRATION PROTOCOL</h1>
 
+<!-- INTRO -->
 <div id="intro" class="panel">
 <p><b>ATTENTION.</b><br><br>
 You are a Special Forces unit deployed into an active threat zone.
@@ -62,6 +60,7 @@ BEGIN MISSION
 </button>
 </div>
 
+<!-- PIN 1 -->
 <div id="lap" class="panel hidden">
 <h2>MISSION 1 AUTHORISATION</h2>
 <input id="pin1"><br>
@@ -70,7 +69,7 @@ BEGIN MISSION
 if(document.getElementById('pin1').value==='1986'){
  document.getElementById('lap').style.display='none';
  document.getElementById('mission1').style.display='block';
- document.getElementById('pin2Panel').classList.remove('hidden');
+ document.getElementById('pin2Panel').style.display='block';  /* ✅ FIX */
 } else { alert('INCORRECT PIN'); }">
 AUTHORISE
 </button>
@@ -78,12 +77,14 @@ AUTHORISE
 
 <div id="missions">
 
+<!-- MISSION 1 -->
 <div id="mission1" class="panel hidden">
 <h2>MISSION 1 — INTEL</h2>
 <p>INTEL:<br><br>
 One of our embedded agents reports that the terrorist leader has evacuated the area.</p>
 </div>
 
+<!-- PIN 2 -->
 <div id="pin2Panel" class="panel hidden">
 <h2>MISSION 2 AUTHORISATION</h2>
 <input id="pin2"><br>
@@ -92,7 +93,41 @@ One of our embedded agents reports that the terrorist leader has evacuated the a
 if(document.getElementById('pin2').value==='2388'){
  document.getElementById('pin2Panel').style.display='none';
  document.getElementById('mission2').style.display='block';
- document.getElementById('pin3Panel').classList.remove('hidden');
+ document.getElementById('pin3Panel').style.display='block';  /* ✅ FIX */
 } else { alert('INCORRECT PIN'); }">
 AUTHORISE
 </button>
+</div>
+
+<!-- MISSION 2 -->
+<div id="mission2" class="panel hidden">
+<h2>MISSION 2 — STEALTH ROUTE</h2>
+<p>STEALTH DIRECTIVE:<br><br>
+Movement must remain undetected.</p>
+</div>
+
+<!-- PIN 3 -->
+<div id="pin3Panel" class="panel hidden">
+<h2>MISSION 3 AUTHORISATION</h2>
+<input id="pin3"><br>
+
+<button onclick="
+if(document.getElementById('pin3').value==='3896'){
+ document.getElementById('pin3Panel').style.display='none';
+ document.getElementById('mission3').style.display='block';
+} else { alert('INCORRECT PIN'); }">
+AUTHORISE
+</button>
+</div>
+
+<!-- MISSION 3 -->
+<div id="mission3" class="panel hidden">
+<h2>MISSION 3 — CAPTURE THE PROFESSOR</h2>
+<p>Capture target.</p>
+</div>
+
+</div>
+
+</body>
+</html>
+``
