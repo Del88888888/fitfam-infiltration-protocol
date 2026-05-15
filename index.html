@@ -19,7 +19,6 @@ body {
   margin:25px;
 }
 
-/* ✅ BUTTON */
 button {
   padding:20px 40px;
   background:#FFD200;
@@ -29,7 +28,6 @@ button {
   border-radius:10px;
 }
 
-/* ✅ LARGE PIN INPUT */
 input {
   font-size:120%;
   padding:20px;
@@ -63,9 +61,14 @@ Locate the device.<br>
 And prevent detonation.
 </p>
 
-<button onclick="startGame()">
+<!-- ✅ FIXED BUTTON (NO FUNCTION DEPENDENCY) -->
+<button onclick="
+document.getElementById('intro').style.display='none';
+document.getElementById('lap').style.display='block';
+">
 BEGIN MISSION
 </button>
+
 </div>
 
 <!-- PIN -->
@@ -74,9 +77,16 @@ BEGIN MISSION
 
 <input id="pin1"><br>
 
-<button onclick="unlock1()">
+<button onclick="
+if(document.getElementById('pin1').value==='1986'){
+ document.getElementById('lap').style.display='none';
+ document.getElementById('mission1').style.display='block';
+} else {
+ alert('INCORRECT PIN');
+}">
 AUTHORISE
 </button>
+
 </div>
 
 <!-- MISSION -->
@@ -94,3 +104,11 @@ Run to location<br>
 Partner Push-Up High Five × 30
 </p>
 
+<p><b>RECORDING:</b><br>
+Record FULL TEAM video<br>
+Upload with Team number
+</p>
+</div>
+
+</body>
+</html>
