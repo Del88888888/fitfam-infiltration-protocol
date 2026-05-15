@@ -15,14 +15,15 @@ body {
 
 .panel {
   border:2px solid yellow;
-  margin:20px;
   padding:20px;
+  margin:20px;
 }
 
 button {
   padding:10px 20px;
   background:yellow;
   border:none;
+  font-size:1em;
 }
 
 img {
@@ -36,37 +37,70 @@ img {
 
 <script>
 
-/* SIMPLE RANDOM */
-function nextMission(){
- var m = ["A","B","C"];
+/* RANDOM */
+function getRandom(){
+ const m = ["A","B","C"];
  return m[Math.floor(Math.random()*m.length)];
 }
 
-/* SHOW MISSION (NO BACKTICKS ✅) */
+/* SHOW MISSION */
 function showMission(num){
+ let type = getRandom();
 
- var m = nextMission();
- var box = document.createElement("div");
- box.className = "panel";
+ let div = document.createElement("div");
+ div.className = "panel";
 
- if(m==="A"){
- box.innerHTML =
- "<h2>MISSION " + num + " — INTEL</h2>" +
- "<p>Recover intel.</p>" +
- "<p><b>EXERCISE:</b><br>Push-Up High Five × 30</p>" +
- "<img src='mapA.jpg src='imageA
- if(m==="B"){
- box.innerHTML =
- "<h2>MISSION " + num + " — STEALTH ROUTE</h2>" +
- "<p>Remain undetected.</p>" +
- "<p><b>EXERCISE:</b><br>Bear crawl + 60 pulses</p>" +
- "<img src='mapB.jpg src='imageB
- if(m==="C"){
- box.innerHTML =
- "<h2>MISSION " + num + " — CAPTURE THE PROFESSOR</h2>" +
- "<p>Capture target.</p>" +
- "<p><b>EXERCISE:</b><br>Burpee High Five × 20</p>" +
- "<img src='mapC.jpg src='imageC.jpgcument.body.appendChild(box);
+ let content = "";
+
+ if(type==="A"){
+  content += "<h2>MISSION "+num+" — INTEL</h2>";
+  content += "<p>Recover intel.</p>";
+  content += "<p><b>EXERCISE:</b><br>Push-Up High Five x30</p>";
+  content += "<img src='mapAontent += "<img src='imageA.jpg(type==="B"){
+  content += "<h2>MISSION "+num+" — STEALTH ROUTE</h2>";
+  content += "<p>Remain undetected.</p>";
+  content += "<p><b>EXERCISE:</b><br>Bear crawl + 60 pulses</p>";
+  content += "<img src='mapBontent += "<img src='";
+ }
+
+ if(type==="C"){
+  content += "<h2>MISSION "+num+" — CAPTURE THE PROFESSOR</h2>";
+  content += "<p>Capture target.</p>";
+  content += "<p><b>EXERCISE:</b><br>Burpee High Five x20</p>";
+  content += "mapC.jpg";
+  content += "<img src='imageC.jpgv.innerHTML = content;
+
+ document.body.appendChild(div);
+}
+
+/* BUTTON HANDLERS */
+
+function startGame(){
+ document.getElementById("intro").style.display="none";
+ document.getElementById("pin1box").style.display="block";
+}
+
+function submitPin1(){
+ if(document.getElementById("pin1").value==="1986"){
+   document.getElementById("pin1box").style.display="none";
+   showMission(1);
+   document.getElementById("pin2box").style.display="block";
+ } else alert("INCORRECT PIN");
+}
+
+function submitPin2(){
+ if(document.getElementById("pin2").value==="2388"){
+   document.getElementById("pin2box").style.display="none";
+   showMission(2);
+   document.getElementById("pin3box").style.display="block";
+ } else alert("INCORRECT PIN");
+}
+
+function submitPin3(){
+ if(document.getElementById("pin3").value==="3896"){
+   document.getElementById("pin3box").style.display="none";
+   showMission(3);
+ } else alert("INCORRECT PIN");
 }
 
 </script>
@@ -75,57 +109,30 @@ function showMission(num){
 
 <body>
 
-<div class="panel">
-<button onclick="
-this.parentElement.style.display='none';
-document.getElementById('pin1box').style.display='block';
-">
-BEGIN MISSION
-</button>
+<div id="intro" class="panel">
+<p><b>ATTENTION.</b><br><br>
+You are deployed into a threat zone.
+</p>
+
+<button onclick="startGame()">BEGIN MISSION</button>
 </div>
 
 <div id="pin1box" class="panel hidden">
 <h2>MISSION 1 AUTHORISATION</h2>
 <input id="pin1"><br>
-
-<button onclick="
-if(document.getElementById('pin1').value==='1986'){
- this.parentElement.style.display='none';
- showMission(1);
- document.getElementById('pin2box').style.display='block';
-} else alert('INCORRECT PIN');
-">
-AUTHORISE
-</button>
+<button onclick="submitPin1()">AUTHORISE</button>
 </div>
 
 <div id="pin2box" class="panel hidden">
 <h2>MISSION 2 AUTHORISATION</h2>
 <input id="pin2"><br>
-
-<button onclick="
-if(document.getElementById('pin2').value==='2388'){
- this.parentElement.style.display='none';
- showMission(2);
- document.getElementById('pin3box').style.display='block';
-} else alert('INCORRECT PIN');
-">
-AUTHORISE
-</button>
+<button onclick="submitPin2()">AUTHORISE</button>
 </div>
 
 <div id="pin3box" class="panel hidden">
 <h2>MISSION 3 AUTHORISATION</h2>
 <input id="pin3"><br>
-
-<button onclick="
-if(document.getElementById('pin3').value==='3896'){
- this.parentElement.style.display='none';
- showMission(3);
-} else alert('INCORRECT PIN');
-">
-AUTHORISE
-</button>
+<button onclick="submitPin3()">AUTHORISE</button>
 </div>
 
 </body>
