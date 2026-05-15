@@ -10,24 +10,40 @@ body {
   font-family:Arial;
   text-align:center;
   padding:30px;
-  font-size:250%; /* ✅ 2.5x SIZE */
+  font-size:250%;
 }
 
 .panel {
   border:3px solid #FFD200;
-  padding:20px;
-  margin:20px;
+  padding:25px;
+  margin:25px;
 }
 
+/* ✅ BUTTON */
 button {
-  padding:10px 20px;
+  padding:20px 40px;
   background:#FFD200;
   border:none;
-  margin-top:15px;
+  margin-top:20px;
   font-size:80%;
+  border-radius:10px;
 }
 
-.hidden { display:none; }
+/* ✅ LARGE PIN INPUT */
+input {
+  font-size:120%;
+  padding:20px;
+  width:80%;
+  max-width:400px;
+  text-align:center;
+  border-radius:10px;
+  border:none;
+  margin-top:15px;
+}
+
+.hidden {
+  display:none;
+}
 </style>
 
 </head>
@@ -39,17 +55,17 @@ button {
 <!-- INTRO -->
 <div id="intro" class="panel">
 <p><b>ATTENTION.</b><br><br>
-You are a Special Forces unit deployed into an active threat zone.
+You are a Special Forces unit deployed into an active threat zone.<br><br>
+Your mission:<br><br>
+Infiltrate the zone.<br>
+Recover intel.<br>
+Locate the device.<br>
+And prevent detonation.
 </p>
 
-<!-- ✅ FIXED BUTTON (NO JS DEPENDENCY ISSUE) -->
-<button onclick="
-document.getElementById('intro').style.display='none';
-document.getElementById('lap').style.display='block';
-">
+<button onclick="startGame()">
 BEGIN MISSION
 </button>
-
 </div>
 
 <!-- PIN -->
@@ -58,23 +74,23 @@ BEGIN MISSION
 
 <input id="pin1"><br>
 
-<button onclick="
-if(document.getElementById('pin1').value==='1986'){
- document.getElementById('lap').style.display='none';
- document.getElementById('mission1').style.display='block';
-} else {
- alert('INCORRECT PIN');
-}">
+<button onclick="unlock1()">
 AUTHORISE
 </button>
-
 </div>
 
-<!-- ✅ SIMPLE MISSION (SAFE TEST) -->
+<!-- MISSION -->
 <div id="mission1" class="panel hidden">
-<h2>MISSION 1</h2>
-<p>Mission is working ✅</p>
-</div>
+<h2>MISSION 1 — INTEL</h2>
 
-</body>
-</html>
+<p>
+INTEL:<br><br>
+One of our embedded agents reports that the terrorist leader has evacuated the area.<br><br>
+Before extraction, the agent left behind intel.
+</p>
+
+<p><b>EXERCISE:</b><br>
+Run to location<br>
+Partner Push-Up High Five × 30
+</p>
+
