@@ -1,7 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Step 2</title>
+<title>Step 3</title>
+
+<style>
+body {
+  background:#0b0b0b;
+  color:white;
+  font-family:Arial;
+  text-align:center;
+  padding:30px;
+}
+.panel {
+  border:2px solid yellow;
+  margin:20px;
+  padding:20px;
+}
+</style>
+
 </head>
 
 <body>
@@ -9,46 +25,77 @@
 <h1>INFILTRATION PROTOCOL</h1>
 
 <!-- INTRO -->
-<div id="intro">
-<p><b>ATTENTION.</b><br><br>Test intro</p>
+<div id="intro" class="panel">
+<p><b>ATTENTION.</b><br><br>Intro text</p>
 <button onclick="startGame()">BEGIN MISSION</button>
 </div>
 
-<!-- PIN -->
-<div id="lap" style="display:none;">
+<!-- PIN 1 -->
+<div id="lap" class="panel" style="display:none;">
 <h2>MISSION 1 AUTHORISATION</h2>
 <input id="pin1"><br>
 <button onclick="unlock1()">AUTHORISE</button>
 </div>
 
-<!-- ✅ SINGLE MISSION -->
-<div id="mission1" style="display:none;">
-<h2>MISSION 1 — INTEL</h2>
+<!-- ✅ WHERE MISSIONS STACK -->
+<div id="missions"></div>
 
-<p>INTEL:<br><br>
-One of our embedded agents reports that the terrorist leader has evacuated the area.
-</p>
+<!-- PIN 2 -->
+<div id="pin2Panel" class="panel" style="display:none;">
+<h2>MISSION 2 AUTHORISATION</h2>
+<input id="pin2"><br>
+<button onclick="unlock2()">AUTHORISE</button>
+</div>
 
-<p><b>EXERCISE:</b><br>
-Run to location<br>
-Push-Up High Five × 30</p>
+<!-- PIN 3 -->
+<div id="pin3Panel" class="panel" style="display:none;">
+<h2>MISSION 3 AUTHORISATION</h2>
+<input id="pin3"><br>
+<button onclick="unlock3()">AUTHORISE</button>
 </div>
 
 <script>
+let missionCount = 0;
+
+/* START */
 function startGame(){
  document.getElementById("intro").style.display="none";
  document.getElementById("lap").style.display="block";
 }
 
+/* PIN 1 */
 function unlock1(){
- let v = document.getElementById("pin1").value;
-
- if(v==="1986"){
+ if(document.getElementById("pin1").value==="1986"){
    document.getElementById("lap").style.display="none";
-   document.getElementById("mission1").style.display="block";
- } else {
-   alert("WRONG PIN");
- }
+   addMission("MISSION 1 — INTEL");
+   document.getElementById("pin2Panel").style.display="block";
+ } else alert("WRONG PIN");
+}
+
+/* PIN 2 */
+function unlock2(){
+ if(document.getElementById("pin2").value==="2388"){
+   document.getElementById("pin2Panel").style.display="none";
+   addMission("MISSION 2 — STEALTH ROUTE");
+   document.getElementById("pin3Panel").style.display="block";
+ } else alert("WRONG PIN");
+}
+
+/* PIN 3 */
+function unlock3(){
+ if(document.getElementById("pin3").value==="3896"){
+   document.getElementById("pin3Panel").style.display="none";
+   addMission("MISSION 3 — CAPTURE THE PROFESSOR");
+ } else alert("WRONG PIN");
+}
+
+/* ✅ ADD MISSION (STACK) */
+function addMission(title){
+ let m = document.createElement("div");
+ m.className = "panel";
+ m.innerHTML = "<h2>" + title + "</h2><p>Mission content</p>";
+
+ document.getElementById("missions").appendChild(m);
 }
 </script>
 
