@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><!DOCTYPE html>
 <head>
 <title>INFILTRATION PROTOCOL</title>
 
@@ -43,8 +42,6 @@ img {
 </style>
 
 <script>
-
-/* RANDOM NO REPEAT */
 var missionPool = ["A","B","C"];
 
 function pickMission(){
@@ -64,7 +61,6 @@ function revealMission(slot){
  document.getElementById("m"+slot+type).style.display="block";
 }
 
-/* FLOW */
 function startGame(){
  document.getElementById("intro").style.display="none";
  document.getElementById("pin1").style.display="block";
@@ -75,7 +71,7 @@ function p1(){
    document.getElementById("pin1").style.display="none";
    revealMission(1);
    document.getElementById("pin2").style.display="block";
- } else alert("WRONG PIN");
+ } else alert("INCORRECT PIN");
 }
 
 function p2(){
@@ -83,16 +79,15 @@ function p2(){
    document.getElementById("pin2").style.display="none";
    revealMission(2);
    document.getElementById("pin3").style.display="block";
- } else alert("WRONG PIN");
+ } else alert("INCORRECT PIN");
 }
 
 function p3(){
  if(document.getElementById("pinInput3").value==="3896"){
    document.getElementById("pin3").style.display="none";
    revealMission(3);
- } else alert("WRONG PIN");
+ } else alert("INCORRECT PIN");
 }
-
 </script>
 
 </head>
@@ -101,45 +96,90 @@ function p3(){
 
 <h1>INFILTRATION PROTOCOL</h1>
 
+<!-- INTRO -->
 <div id="intro" class="panel">
-<p><b>ATTENTION</b><br><br>
-You are deployed into a high-risk threat zone.<br>
-Your mission: locate, intercept, and neutralise the threat.</p>
+<p><b>ATTENTION.</b><br><br>
+You are a Special Forces unit deployed into an active threat zone.<br><br>
+Your mission:<br>
+Infiltrate.<br>
+Recover intel.<br>
+Prevent detonation.
+</p>
+
 <button onclick="startGame()">BEGIN MISSION</button>
 </div>
 
+<!-- PIN 1 -->
 <div id="pin1" class="panel hidden">
 <h2>MISSION 1 AUTHORISATION</h2>
 <input id="pinInput1"><br>
 <button onclick="p1()">AUTHORISE</button>
 </div>
 
-<!-- ✅ MISSION 1 (3 variants) -->
+<!-- ✅ MISSION 1 -->
 
 <div id="m1A" class="panel hidden">
 <h2>MISSION 1 — INTEL</h2>
-<p>Agent reports enemy leader has fled. Intel was left behind.</p>
-<p><b>EXERCISE:</b><br>Push-Up High Five × 30</p>
-<p><b>RECORDING:</b><br>Record full team (5–10 sec)</p>
-<img src="mapA.jpg"><img src="imageA.jpg">
+<p>
+One of our embedded agents reports that the terrorist leader has evacuated the area.<br><br>
+Before extraction, the agent left behind intel.
+</p>
+
+<p><b>EXERCISE:</b><br>
+Partner Push-Up High Five × 30
+</p>
+
+<p><b>RECORDING:</b><br>
+Record FULL TEAM (5–10 sec)<br>
+Show all members clearly
+</p>
+
+<img src="mapA.jpg">
+<img src="imageA.jpg">
 </div>
 
 <div id="m1B" class="panel hidden">
 <h2>MISSION 1 — STEALTH ROUTE</h2>
-<p>A hidden route allows silent movement.</p>
-<p><b>EXERCISE:</b><br>Bear crawl + 60 pulses</p>
-<p><b>RECORDING:</b><br>Record full team</p>
-<img src="mapB.jpg"><img src="imageB.jpg">
+<p>
+Intel suggests a low-visibility access route nearby.<br><br>
+Movement must remain undetected.
+</p>
+
+<p><b>EXERCISE:</b><br>
+Bear crawl<br>
+60 Superman pulses
+</p>
+
+<p><b>RECORDING:</b><br>
+Record FULL TEAM (5–10 sec)<br>
+Ensure exercise is visible
+</p>
+
+<img src="mapB.jpg">
+<img src="imageB.jpg">
 </div>
 
 <div id="m1C" class="panel hidden">
 <h2>MISSION 1 — CAPTURE TARGET</h2>
-<p>Target spotted. Move fast.</p>
-<p><b>EXERCISE:</b><br>Burpee High Five × 20</p>
-<p><b>PHOTO:</b><br>Take team + target photo</p>
-<img src="mapC.jpg"><img src="imageC.jpg">
+<p>
+Target briefly exposed.<br><br>
+Move quickly and engage.
+</p>
+
+<p><b>EXERCISE:</b><br>
+Partner Burpee High Five × 20
+</p>
+
+<p><b>PHOTO:</b><br>
+Take group photo with target<br>
+Team must be visible
+</p>
+
+<img src="mapC.jpg">
+<img src="imageC.jpg">
 </div>
 
+<!-- PIN 2 -->
 <div id="pin2" class="panel hidden">
 <h2>MISSION 2 AUTHORISATION</h2>
 <input id="pinInput2"><br>
@@ -150,25 +190,63 @@ Your mission: locate, intercept, and neutralise the threat.</p>
 
 <div id="m2A" class="panel hidden">
 <h2>MISSION 2 — INTEL</h2>
-<p>Additional intel must be secured.</p>
-<p><b>EXERCISE:</b><br>Push-Up High Five × 30</p>
-<img src="mapA.jpg"><img src="imageA.jpg">
+<p>
+Further intel located.<br><br>
+Secure it before enemy retrieval.
+</p>
+
+<p><b>EXERCISE:</b><br>
+Partner Push-Up High Five × 30
+</p>
+
+<p><b>RECORDING:</b><br>
+Record FULL TEAM (5–10 sec)
+</p>
+
+<img src="mapA.jpg">
+<img src="imageA.jpg">
 </div>
 
 <div id="m2B" class="panel hidden">
 <h2>MISSION 2 — STEALTH ROUTE</h2>
-<p>Remain unseen.</p>
-<p><b>EXERCISE:</b><br>Bear crawl + 60 pulses</p>
-<img src="mapB.jpg"><img src="imageB.jpg">
+<p>
+Enemy movement increasing.<br><br>
+Stay hidden.
+</p>
+
+<p><b>EXERCISE:</b><br>
+Bear crawl<br>
+60 Superman pulses
+</p>
+
+<p><b>RECORDING:</b><br>
+Record FULL TEAM
+</p>
+
+<img src="mapB.jpg">
+<img src="imageB.jpg">
 </div>
 
 <div id="m2C" class="panel hidden">
-<h2>MISSION 2 — CAPTURE</h2>
-<p>Engage target.</p>
-<p><b>EXERCISE:</b><br>Burpee × 20</p>
-<img src="mapC.jpg"><img src="imageC.jpg">
+<h2>MISSION 2 — CAPTURE TARGET</h2>
+<p>
+Target relocated.<br><br>
+Intercept immediately.
+</p>
+
+<p><b>EXERCISE:</b><br>
+Partner Burpee High Five × 20
+</p>
+
+<p><b>PHOTO:</b><br>
+Take team + target photo
+</p>
+
+<img src="mapC.jpg">
+<img src="imageC.jpg">
 </div>
 
+<!-- PIN 3 -->
 <div id="pin3" class="panel hidden">
 <h2>MISSION 3 AUTHORISATION</h2>
 <input id="pinInput3"><br>
@@ -178,20 +256,60 @@ Your mission: locate, intercept, and neutralise the threat.</p>
 <!-- ✅ MISSION 3 -->
 
 <div id="m3A" class="panel hidden">
-<h2>MISSION 3 — INTEL</h2>
-<img src="mapA.jpg"><img src="imageA.jpg">
+<h2>MISSION 3 — FINAL INTEL</h2>
+<p>
+Final intel required to locate the device.
+</p>
+
+<p><b>EXERCISE:</b><br>
+Partner Push-Up High Five × 30
+</p>
+
+<p><b>RECORDING:</b><br>
+Record FULL TEAM
+</p>
+
+<img src="mapA.jpg">
+<img src="imageA.jpg">
 </div>
 
 <div id="m3B" class="panel hidden">
-<h2>MISSION 3 — STEALTH</h2>
-<img src="mapB.jpg"><img src="imageB.jpg">
+<h2>MISSION 3 — FINAL STEALTH</h2>
+<p>
+Final stretch.<br>
+Avoid detection.
+</p>
+
+<p><b>EXERCISE:</b><br>
+Bear crawl<br>
+60 Superman pulses
+</p>
+
+<p><b>RECORDING:</b><br>
+Record FULL TEAM
+</p>
+
+<img src="mapB.jpg">
+<img src="imageB.jpg">
 </div>
 
 <div id="m3C" class="panel hidden">
 <h2>MISSION 3 — FINAL CAPTURE</h2>
-<img src="mapC.jpg"><img src="imageC.jpg">
+<p>
+Final engagement before mission end.
+</p>
+
+<p><b>EXERCISE:</b><br>
+Partner Burpee High Five × 20
+</p>
+
+<p><b>PHOTO:</b><br>
+Final team + target photo
+</p>
+
+<img src="mapC.jpg">
+<img src="imageC.jpg">
 </div>
 
 </body>
 </html>
-``
