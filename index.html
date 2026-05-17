@@ -1,69 +1,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>INFILTRATION PROTOCOL</title>
+<title>FitFam Infiltration Protocol</title>
 
 <style>
 body {
-  margin:0;
-  padding:30px;
-  font-family:Arial, Helvetica, sans-serif;
-  background:#0b0b0b;
-  color:#f5f5f5;
-  text-align:center;
-  font-size:42px;
+  margin: 0;
+  padding: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0b0b0b;
+  color: #f5f5f5;
+  text-align: center;
+  font-size: 42px;
 }
-h1 { font-size:64px; color:#ffd200; }
-h2 { font-size:52px; color:#ffd200; }
+
+h1 { font-size: 64px; color: #ffd200; }
+h2 { font-size: 52px; color: #ffd200; }
 
 .panel {
-  border:3px solid #444;
-  padding:30px;
-  margin:30px auto;
-  max-width:900px;
-  background:#111;
+  border: 3px solid #444;
+  padding: 30px;
+  margin: 30px auto;
+  max-width: 900px;
+  background: #111;
 }
 
 button {
-  font-size:42px;
-  padding:20px 40px;
-  margin-top:20px;
-  background:#ffd200;
-  color:#000;
-  border:none;
-  cursor:pointer;
+  font-size: 42px;
+  padding: 20px 40px;
+  margin-top: 20px;
+  background: #ffd200;
+  color: #000;
+  border: none;
+  cursor: pointer;
 }
 
 input {
-  font-size:42px;
-  padding:20px;
-  width:80%;
-  max-width:500px;
-  text-align:center;
-  margin-top:15px;
+  font-size: 42px;
+  padding: 20px;
+  width: 80%;
+  max-width: 500px;
+  text-align: center;
+  margin-top: 15px;
 }
 
-.hidden { display:none; }
+.hidden { display: none; }
 
 #cornerLogo {
- position: fixed;
- top:20px;
- right:20px;
- width:90px;
- border-radius:50%;
- border:3px solid #ffd200;
- pointer-events:none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 90px;
+  border-radius: 50%;
+  border: 3px solid #ffd200;
+  pointer-events:none;
+}
+
+#timer {
+  font-size: 60px;
+  color: #ff4444;
+  margin-top: 20px;
 }
 </style>
-</head>
 
+</head>
 <body>
 
 <img src="my-photo.jpg" id="cornerLogo">
 
-<h1>INFILTRATION PROTOCOL</h1>
+<h1>FITFAM INFILTRATION PROTOCOL</h1>
 
-<!-- INTRO -->
+<!-- HQ BRIEFING -->
 <div id="intro" class="panel">
 <h2>HQ BRIEFING</h2>
 <p>ATTENTION.</p>
@@ -77,39 +84,50 @@ input {
 <p>And prevent detonation.</p>
 <p>Trust nothing.</p>
 <p>Move.</p>
-<button onclick="startMission()">BEGIN</button>
+<button onclick="startGame()">BEGIN</button>
 </div>
 
-<!-- PRE LAP -->
-<div id="preLap" class="panel hidden">
+<!-- PRE MISSION -->
+<div id="preMission" class="panel hidden">
 <h2>INITIAL DIRECTIVE</h2>
 <p>Complete one full lap around the park.</p>
 <p>Return to HQ for mission authorisation.</p>
-<button onclick="showPin1()">READY</button>
+<button onclick="showPin1()">RETURN TO HQ</button>
 </div>
 
 <!-- PIN 1 -->
 <div id="pin1" class="panel hidden">
 <h2>ENTER PIN</h2>
 <input id="pin1Input">
-<button onclick="checkPin1()">AUTHORISE</button>
+<br>
+<button onclick="unlock1()">AUTHORISE</button>
 </div>
 
 <!-- MISSION -->
-<div id="missionPanel" class="panel hidden">
+<div id="mission" class="panel hidden">
 <h2 id="missionTitle"></h2>
-<p id="missionText"></p>
+<div id="missionText"></div>
+<button onclick="showNextPin()">RETURN TO HQ</button>
 </div>
 
-<!-- NEXT PIN -->
-<div id="nextPin" class="panel hidden">
-<h2>ENTER NEXT PIN</h2>
-<input id="nextPinInput">
-<button onclick="checkNextPin()">AUTHORISE</button>
+<!-- PIN 2 -->
+<div id="pin2" class="panel hidden">
+<h2>ENTER PIN</h2>
+<input id="pin2Input">
+<br>
+<button onclick="unlock2()">AUTHORISE</button>
+</div>
+
+<!-- PIN 3 -->
+<div id="pin3" class="panel hidden">
+<h2>ENTER PIN</h2>
+<input id="pin3Input">
+<br>
+<button onclick="unlock3()">AUTHORISE</button>
 </div>
 
 <!-- INTERCEPTION -->
-<div id="intercept" class="panel hidden">
+<div id="interception" class="panel hidden">
 <h2>⚠️ INTERCEPTION ALERT ⚠️</h2>
 <p>All units — listen carefully.</p>
 <p>You have been double crossed.</p>
@@ -120,8 +138,7 @@ input {
 <p>DEFEND.</p>
 <p>DISENGAGE.</p>
 <p>MOVE.</p>
-<p><b>Run 1 full lap as fast as possible</b></p>
-<button onclick="finalReveal()">CONTINUE</button>
+<button onclick="startFinal()">CONTINUE</button>
 </div>
 
 <!-- FINAL REVEAL -->
@@ -138,199 +155,165 @@ input {
 <p>The device is active.</p>
 <p>DEFUSAL PHASE</p>
 <p>You have 2 minutes to stop the detonation.</p>
-<button onclick="startTimer()">START TIMER</button>
-</div>
 
-<!-- TIMER -->
-<div id="timerPanel" class="panel hidden">
-<h2 id="timer">02:00</h2>
-<p>FINAL AUTHENTICATION REQUIRED.</p>
-<p>Think carefully.</p>
-<p>What brought you here today?</p>
-<p>Who brought this unit together?</p>
-<p>Who do you trust?</p>
+<div id="timer">02:00</div>
+
 <input id="finalAnswer">
-<button onclick="checkAnswer()">SUBMIT</button>
-<p id="hint"></p>
-</div>
-
-<!-- SUCCESS -->
-<div id="successPanel" class="panel hidden">
-<h2>CODE ACCEPTED.</h2>
-<p>DEVICE DISARMED.</p>
-<p>DETONATION ABORTED.</p>
-<button onclick="showEnding()">CONTINUE</button>
-</div>
-
-<!-- FAILURE -->
-<div id="failPanel" class="panel hidden">
-<h2>MISSION FAILED</h2>
-<p>DEVICE DETONATED.</p>
+<br>
+<button onclick="checkFinal()">ENTER</button>
 </div>
 
 <!-- ENDING -->
-<div id="endingPanel" class="panel hidden">
-<p id="endingText"></p>
+<div id="ending" class="panel hidden">
+<div id="endingText"></div>
 </div>
 
 <script>
 
-// Missions
-const missions = [
-  {title:"MISSION A — INTEL", text:`INTEL:
-One of our embedded agents reports that the terrorist leader has evacuated the area.
-Before extraction, the agent left behind intel.
-This intel contains an entry point into their network.
-Recover the intel.
+// mission pool
+const missions = ["A","B","C"];
+let order = missions.sort(() => Math.random()-0.5);
+let stage=0;
 
-Task
-Run to the location (see map and photo)
-
-Exercise
-Partner Push-Up High Five × 30 EACH
-
-Return
-Run back to HQ → receive next PIN`},
-
-  {title:"MISSION B — STEALTH ROUTE", text:`STEALTH DIRECTIVE:
-Intel indicates a low-visibility access route nearby.
-You are entering enemy-controlled territory.
-Movement must remain undetected.
-
-Task
-Bear crawl ALL THE WAY to the location
-
-Exercise
-60 Superman pulses
-
-Return
-Return to HQ → receive next PIN`},
-
-  {title:"MISSION C — CAPTURE THE PROFESSOR", text:`UPDATE:
-We have located a high-value target.
-Codename: THE PROFESSOR.
-
-Task
-Run to the location
-
-Exercise
-Partner Burpee High Five × 20 EACH
-
-Return
-Run back to HQ → receive next PIN`}
-];
-
-let remaining = [...missions];
-let stage = 1;
-
-function startMission() {
- intro.classList.add("hidden");
- preLap.classList.remove("hidden");
+function startGame(){
+hide("intro");
+show("preMission");
 }
 
-function showPin1() {
- preLap.classList.add("hidden");
- pin1.classList.remove("hidden");
+function showPin1(){
+hide("preMission");
+show("pin1");
 }
 
-function checkPin1() {
- if(pin1Input.value==="1986"){
-  pin1.classList.add("hidden");
-  nextMission();
- } else alert("ACCESS DENIED");
+function unlock1(){
+if(val("pin1Input")=="1986"){
+hide("pin1");
+loadMission();
+}else alert("ACCESS DENIED.");
 }
 
-function nextMission(){
- if(remaining.length===0){
-  missionPanel.classList.add("hidden");
-  intercept.classList.remove("hidden");
-  return;
- }
-
- let rand = Math.floor(Math.random()*remaining.length);
- let m = remaining.splice(rand,1)[0];
-
- missionTitle.innerText = m.title;
- missionText.innerText = m.text;
-
- missionPanel.classList.remove("hidden");
- nextPin.classList.remove("hidden");
+function unlock2(){
+if(val("pin2Input")=="2388"){
+hide("pin2");
+loadMission();
+}else alert("ACCESS DENIED.");
 }
 
-function checkNextPin(){
- const pins = ["2388","3896"];
- if(nextPinInput.value === pins[stage-1]){
-  stage++;
-  nextPinInput.value="";
-  nextMission();
- } else alert("ACCESS DENIED");
+function unlock3(){
+if(val("pin3Input")=="3896"){
+hide("pin3");
+show("interception");
+}else alert("ACCESS DENIED.");
 }
 
-function finalReveal(){
- intercept.classList.add("hidden");
- finalReveal.classList.remove("hidden");
+function loadMission(){
+let m = order[stage];
+
+show("mission");
+set("missionTitle","MISSION "+(stage+1));
+
+if(m=="A"){
+set("missionText",`
+<p>INTEL:</p>
+<p>One of our embedded agents reports that the terrorist leader has evacuated the area.</p>
+<p>Before extraction, the agent left behind intel.</p>
+<p>This intel contains an entry point into their network.</p>
+<p>Recover the intel.</p>
+`);
+}
+if(m=="B"){
+set("missionText",`
+<p>STEALTH DIRECTIVE:</p>
+<p>Intel indicates a low-visibility access route nearby.</p>
+<p>You are entering enemy-controlled territory.</p>
+<p>Movement must remain undetected.</p>
+<p>Proceed with stealth.</p>
+<p>Noise will compromise your position.</p>
+`);
+}
+if(m=="C"){
+set("missionText",`
+<p>UPDATE:</p>
+<p>We have located a high-value target.</p>
+<p>Codename: THE PROFESSOR.</p>
+<p>This individual is directly linked to the nuclear device.</p>
+<p>Move immediately.</p>
+<p>Apprehend the target and secure the area.</p>
+<p>Neutralise resistance.</p>
+`);
+}
 }
 
-let time = 120;
-let timerInterval;
-let attempts = 0;
+function showNextPin(){
+hide("mission");
+stage++;
+if(stage==1) show("pin2");
+else if(stage==2) show("pin3");
+}
+
+function startFinal(){
+hide("interception");
+show("finalReveal");
+startTimer();
+}
+
+// timer
+let t=120;
+let timer;
 
 function startTimer(){
- finalReveal.classList.add("hidden");
- timerPanel.classList.remove("hidden");
+timer=setInterval(()=>{
+t--;
+let m=Math.floor(t/60);
+let s=t%60;
+document.getElementById("timer").innerText =
+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
 
- timerInterval = setInterval(()=>{
-  time--;
-  let m = String(Math.floor(time/60)).padStart(2,'0');
-  let s = String(time%60).padStart(2,'0');
-  timer.innerText = `${m}:${s}`;
-
-  if(time<=0){
-    clearInterval(timerInterval);
-    timerPanel.classList.add("hidden");
-    failPanel.classList.remove("hidden");
-  }
- },1000);
+if(t<=0){
+clearInterval(timer);
+alert("MISSION FAILED.");
+}
+},1000);
 }
 
-function checkAnswer(){
- if(finalAnswer.value.trim().toLowerCase()==="fitfam"){
-  clearInterval(timerInterval);
-  timerPanel.classList.add("hidden");
-  successPanel.classList.remove("hidden");
- } else {
-  attempts++;
-  if(attempts>=4){
-    hint.innerText="Hint: The answer begins with 'F'";
-  }
- }
+// final auth
+let attempts=0;
+
+function checkFinal(){
+let ans = val("finalAnswer").toLowerCase();
+if(ans=="fitfam"){
+clearInterval(timer);
+showEnding();
+}else{
+attempts++;
+if(attempts>=4){
+alert("ACCESS DENIED.\nSystem override initiated…\nHint:\nThe answer begins with “F”.");
+}else{
+alert("ACCESS DENIED.");
+}
+}
 }
 
-// endings
-const endings = [
-`ENDING 1 — THE QUIET EXIT
-The world was saved.
-But no one will ever know your names.`,
-
-`ENDING 2 — ONE LAST MISSION
-TARGET IDENTIFIED.
-This isn’t over yet.`,
-
-`ENDING 3 — THE LOOP
-You wake up.
-You’re ready.
-Let’s go again.`
-];
-
+// ending random
 function showEnding(){
- successPanel.classList.add("hidden");
- endingPanel.classList.remove("hidden");
+hide("finalReveal");
+show("ending");
 
- const e = endings[Math.floor(Math.random()*endings.length)];
- endingText.innerText = e;
+let r = Math.floor(Math.random()*3);
+
+if(r==0) set("endingText",`ENDING 1 — THE QUIET EXIT`);
+if(r==1) set("endingText",`ENDING 2 — ONE LAST MISSION`);
+if(r==2) set("endingText",`ENDING 3 — THE LOOP`);
 }
+
+// helpers
+function hide(id){document.getElementById(id).classList.add("hidden");}
+function show(id){document.getElementById(id).classList.remove("hidden");}
+function val(id){return document.getElementById(id).value;}
+function set(id,txt){document.getElementById(id).innerHTML=txt;}
 
 </script>
 
 </body>
 </html>
+``
