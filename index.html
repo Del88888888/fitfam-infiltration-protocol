@@ -1,238 +1,335 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>FitFam Infiltration Protocol</title>
-
-<style>
-body {
-  margin:0;
-  padding:30px;
-  font-family: Arial, Helvetica, sans-serif;
-  background:#0b0b0b;
-  color:#f5f5f5;
-  text-align:center;
-  font-size:42px;
-}
-
-h1 { font-size:64px; color:#ffd200; }
-h2 { font-size:52px; color:#ffd200; }
-
-.panel {
-  border:3px solid #444;
-  padding:30px;
-  margin:30px auto;
-  max-width:900px;
-  background:#111;
-}
-
-button {
-  font-size:42px;
-  padding:20px 40px;
-  margin-top:20px;
-  background:#ffd200;
-  color:#000;
-  border:none;
-  cursor:pointer;
-}
-
-input {
-  font-size:42px;
-  padding:20px;
-  width:80%;
-  max-width:500px;
-  text-align:center;
-  margin-top:15px;
-}
-
-.hidden { display:none; }
-
-#cornerLogo {
-  position:fixed;
-  top:20px;
-  right:20px;
-  width:90px;
-  border-radius:50%;
-  border:3px solid #ffd200;
-}
-
-#timer {
-  font-size:60px;
-  color:#ff4444;
-  margin-top:20px;
-}
-</style>
+  <title>FitFam Infiltration Protocol</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 30px;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0b0b0b;
+      color: #f5f5f5;
+      text-align: center;
+      font-size: 42px;
+    }
+    h1 { font-size: 64px; color: #ffd200; }
+    h2 { font-size: 52px; color: #ffd200; }
+    .panel {
+      border: 3px solid #444;
+      padding: 30px;
+      margin: 30px auto;
+      max-width: 900px;
+      background: #111;
+    }
+    button {
+      font-size: 42px;
+      padding: 20px 40px;
+      margin-top: 20px;
+      background: #ffd200;
+      color: #000;
+      border: none;
+      cursor: pointer;
+    }
+    input {
+      font-size: 42px;
+      padding: 20px;
+      width: 80%;
+      max-width: 500px;
+      text-align: center;
+      margin-top: 15px;
+    }
+    .hidden { display: none; }
+    #cornerLogo {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 90px;
+      border-radius: 50%;
+      border: 3px solid #ffd200;
+      pointer-events: none;
+    }
+    .textBlock {
+      white-space: pre-line;
+      line-height: 1.35;
+    }
+    img {
+      width: 100%;
+      max-width: 700px;
+      margin-top: 20px;
+      border: 3px solid #444;
+    }
+    #timer {
+      font-size: 90px;
+      color: #ffd200;
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- ✅ FIXED IMAGE -->
 <img src="my-photo.jpg" id="cornerLogo">
 
 <h1>FITFAM INFILTRATION PROTOCOL</h1>
 
-<!-- INTRO -->
-<div id="intro" class="panel">
+<!-- BRIEFING -->
+<div id="briefing" class="panel">
 <h2>HQ BRIEFING</h2>
+<p class="textBlock">
+ATTENTION.
 
-<p>ATTENTION.</p>
-<p>You are a Special Forces unit deployed into an active threat zone.</p>
-<p>A terrorist organisation has planted a nuclear device somewhere within this area.</p>
-<p>The exact location is unknown.</p>
-<p>Your mission:</p>
-<p>Infiltrate the zone.</p>
-<p>Recover intel.</p>
-<p>Locate the device.</p>
-<p>And prevent detonation.</p>
-<p>Trust nothing.</p>
-<p>Move.</p>
+You are a Special Forces unit deployed into an active threat zone.
 
-<button id="beginBtn">BEGIN</button>
+A terrorist organisation has planted a nuclear device somewhere within this area.
+
+The exact location is unknown.
+
+Your mission:
+
+Infiltrate the zone.
+Recover intel.
+Locate the device.
+And prevent detonation.
+
+Trust nothing.
+
+Move.
+</p>
+<button onclick="show('pre')">BEGIN MISSION</button>
 </div>
 
 <!-- PRE -->
 <div id="pre" class="panel hidden">
-<h2>INITIAL DIRECTIVE:</h2>
-<p>Complete one full lap around the park.</p>
-<p>Return to HQ for mission authorisation.</p>
+<p class="textBlock">
+INITIAL DIRECTIVE:
 
-<button id="toPin1">RETURN TO HQ</button>
+Complete one full lap around the park.
+
+Return to HQ for mission authorisation.
+</p>
+<button onclick="show('pin1')">RETURN TO HQ</button>
 </div>
 
 <!-- PIN 1 -->
 <div id="pin1" class="panel hidden">
-<h2>PIN 1</h2>
+<h2>MISSION 1</h2>
 <input id="p1">
 <br>
-<button id="btnPin1">AUTHORISE</button>
+<button onclick="pin(1)">AUTHORISE</button>
 </div>
 
 <!-- PIN 2 -->
 <div id="pin2" class="panel hidden">
-<h2>PIN 2</h2>
+<h2>MISSION 2</h2>
 <input id="p2">
 <br>
-<button id="btnPin2">AUTHORISE</button>
+<button onclick="pin(2)">AUTHORISE</button>
 </div>
 
 <!-- PIN 3 -->
 <div id="pin3" class="panel hidden">
-<h2>PIN 3</h2>
+<h2>MISSION 3</h2>
 <input id="p3">
 <br>
-<button id="btnPin3">AUTHORISE</button>
+<button onclick="pin(3)">AUTHORISE</button>
+</div>
+
+<!-- PIN 4 -->
+<div id="pin4" class="panel hidden">
+<h2>FINAL CLEARANCE</h2>
+<input id="p4">
+<br>
+<button onclick="pin(4)">AUTHORISE DEFUSAL</button>
 </div>
 
 <!-- MISSION -->
 <div id="mission" class="panel hidden">
 <h2 id="missionTitle"></h2>
-<div id="missionText"></div>
-<button id="backHQ">RETURN TO HQ → receive next PIN</button>
+<p id="missionText" class="textBlock"></p>
+<div id="media"></div>
+<button onclick="backToHQ()">RETURN TO HQ</button>
 </div>
 
 <!-- INTERCEPTION -->
-<div id="interception" class="panel hidden">
-<h2>⚠️ INTERCEPTION ALERT ⚠️</h2>
+<div id="intercept" class="panel hidden">
+<p class="textBlock">
+⚠️ INTERCEPTION ALERT ⚠️
 
-<p>All units — listen carefully.</p>
-<p>You have been double crossed.</p>
-<p>The intel you received was false.</p>
-<p>You have been led directly into enemy tracking.</p>
-<p>Your position is compromised.</p>
-<p>Enemy units are closing in.</p>
-<p>DEFEND.</p>
-<p>DISENGAGE.</p>
-<p>MOVE.</p>
+All units — listen carefully.
 
-<p><strong>Task</strong></p>
-<p>Run 1 full lap as fast as possible</p>
-<p>No recording required</p>
+You have been double crossed.
 
-<button id="toFinal">CONTINUE</button>
+The intel you received was false.
+
+You have been led directly into enemy tracking.
+
+Your position is compromised.
+
+Enemy units are closing in.
+
+DEFEND.
+DISENGAGE.
+MOVE.
+
+Task
+Run 1 full lap as fast as possible
+No recording required
+</p>
+<button onclick="show('pin4')">RETURN TO HQ</button>
 </div>
 
 <!-- FINAL -->
 <div id="final" class="panel hidden">
-<h2>FINAL INTEL:</h2>
+<p class="textBlock">
+FINAL INTEL:
 
-<p>Everything you received…</p>
-<p>was compromised.</p>
-<p>The agent.</p>
-<p>The intel.</p>
-<p>The Professor.</p>
+Everything you received…
 
-<p>All part of the same deception.</p>
+was compromised.
 
-<p>You were being led.</p>
+The agent.
+The intel.
+The Professor.
 
-<p>But now…</p>
+All part of the same deception.
 
-<p>The device is active.</p>
+You were being led.
 
-<p>DEFUSAL PHASE</p>
-<p>You have 2 minutes to stop the detonation.</p>
+But now…
 
-<div id="timer">02:00</div>
+The device is active.
 
-<p>FINAL AUTHENTICATION REQUIRED.</p>
-<p>Think carefully.</p>
-<p>What brought you here today?</p>
-<p>Who brought this unit together?</p>
-<p>Who do you trust?</p>
+DEFUSAL PHASE
 
-<input id="answer">
-<br>
-<button id="submitAnswer">ENTER</button>
+You have 2 minutes to stop the detonation.
+</p>
+<button onclick="startTimer()">BEGIN DEFUSAL</button>
 </div>
 
-<!-- END -->
-<div id="end" class="panel hidden">
-<div id="endText"></div>
+<!-- DEFUSAL -->
+<div id="defusal" class="panel hidden">
+<div id="timer">02:00</div>
+<p class="textBlock">
+FINAL AUTHENTICATION REQUIRED.
+
+Think carefully.
+
+What brought you here today?
+Who brought this unit together?
+
+Who do you trust?
+</p>
+<input id="answer">
+<br>
+<button onclick="check()">AUTHENTICATE</button>
+<p id="hint" class="textBlock hidden">
+ACCESS DENIED.
+
+System override initiated…
+
+Hint:
+
+The answer begins with “F”.
+
+Trust your unit.
+</p>
+</div>
+
+<!-- SUCCESS -->
+<div id="success" class="panel hidden">
+<p id="ending" class="textBlock"></p>
+</div>
+
+<!-- FAILURE -->
+<div id="fail" class="panel hidden">
+<p>DETONATION</p>
 </div>
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function(){
+const pins = {1:"1986",2:"2388",3:"3896",4:"4832"};
 
-// HELPERS
-function show(id){document.getElementById(id).classList.remove("hidden");}
-function hide(id){document.getElementById(id).classList.add("hidden");}
+let missions = [
+  {text:`MISSION A — INTEL`, map:"mapA.jpg", img:"imageA.jpg"},
+  {text:`MISSION B — STEALTH ROUTE`, map:"mapB.jpg", img:"imageB.jpg"},
+  {text:`MISSION C — CAPTURE THE PROFESSOR`, map:"mapC.jpg", img:"imageC.jpg"}
+];
 
-// SAFE RANDOM
-let missions=["A","B","C"];
-for(let i=missions.length-1;i>0;i--){
-  let j=Math.floor(Math.random()*(i+1));
-  [missions[i],missions[j]]=[missions[j],missions[i]];
+missions.sort(()=>Math.random()-0.5);
+
+let current=0;
+
+function show(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
 }
 
-let step=0;
+function pin(n){
+  if(document.getElementById("p"+n).value===pins[n]){
+    if(n<4){
+      launch(n-1);
+    } else {
+      show("final");
+    }
+  } else alert("ACCESS DENIED");
+}
 
-// NAVIGATION
-document.getElementById("beginBtn").onclick = ()=>{
-  hide("intro");
-  show("pre");
-};
+function launch(i){
+  current=i;
+  let m = missions[i];
+  document.getElementById("missionTitle").innerText = m.text;
+  document.getElementById("missionText").innerText = m.text;
+  document.getElementById("media").innerHTML =
+    `<img src="${m.map")+m+":"+(s<10?"0":"")+s;
+    if(t<=0){
+      clearInterval(timer);
+      show("fail");
+    }
+  },1000);
+}
 
-document.getElementById("toPin1").onclick = ()=>{
-  hide("pre");
-  show("pin1");
-};
+let tries=0;
 
-// PIN 1
-document.getElementById("btnPin1").onclick = ()=>{
-  if(p1.value==="1986"){
-    hide("pin1");
-    loadMission();
-  } else alert("ACCESS DENIED.");
-};
+function check(){
+  if(document.getElementById("answer").value.toLowerCase()==="fitfam"){
+    clearInterval(timer);
+    finish();
+  } else {
+    tries++;
+    if(tries>=4) document.getElementById("hint").classList.remove("hidden");
+    else alert("ACCESS DENIED");
+  }
+}
 
-// PIN 2
-document.getElementById("btnPin2").onclick = ()=>{
-  if(p2.value==="2388"){
-    hide("pin2");
-    loadMission();
-  } else alert("ACCESS DENIED.");
-};
+function finish(){
+  let endings=[
+`CODE ACCEPTED.
 
-// PIN 3
-document.getElementById("btnPin3").onclick = ()=>{
-  if(p3.value==="3896"){
+DEVICE DISARMED.
+
+DETONATION ABORTED.`,
+
+`CODE ACCEPTED.
+
+DEVICE DISARMED.
+
+DETONATION ABORTED.
+
+This isn’t over yet.`,
+
+`CODE ACCEPTED.
+
+DEVICE DISARMED.
+
+…
+
+A loud BANG.`
+  ];
+  document.getElementById("ending").innerText =
+    endings[Math.floor(Math.random()*endings.length)];
+  show("success");
+}
+
+</script>
+
+</body>
+</html>
