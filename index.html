@@ -79,6 +79,13 @@
       display: block;
     }
 
+    .mediaTitle {
+      color: #ffd200;
+      font-weight: bold;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
     #timer {
       font-size: 90px;
       color: #ffd200;
@@ -259,6 +266,8 @@ Trust your unit.</p>
 <div id="success" class="panel hidden">
   <h2>MISSION COMPLETE</h2>
   <p id="successText" class="textBlock"></p>
+  <h2>ENDING</h2>
+  <p id="endingText" class="textBlock"></p>
 </div>
 
 <div id="failure" class="panel hidden">
@@ -279,9 +288,7 @@ Trust your unit.</p>
       code: "A",
       map: "mapA.jpg",
       photo: "imageA.jpg",
-      content: `MISSION A — INTEL
-
-INTEL:
+      content: `INTEL:
 
 One of our embedded agents reports that the terrorist leader has evacuated the area.
 
@@ -306,12 +313,6 @@ Record a 5–10 second video of the FULL TEAM performing the exercise at the loc
 
 Upload with Team Number clearly labelled.
 
-Map
-Map Image A
-
-Location Photo
-Location Photo A
-
 Return
 Run back to HQ → receive next PIN`
     },
@@ -319,9 +320,7 @@ Run back to HQ → receive next PIN`
       code: "B",
       map: "mapB.jpg",
       photo: "imageB.jpg",
-      content: `MISSION B — STEALTH ROUTE
-
-STEALTH DIRECTIVE:
+      content: `STEALTH DIRECTIVE:
 
 Intel indicates a low-visibility access route nearby.
 
@@ -349,12 +348,6 @@ Record a 5–10 second video of the FULL TEAM performing the exercise at the loc
 
 Upload with Team Number clearly labelled
 
-Map
-Map Image B
-
-Location Photo
-Location Photo B
-
 Return
 Return to HQ → receive next PIN`
     },
@@ -362,9 +355,7 @@ Return to HQ → receive next PIN`
       code: "C",
       map: "mapC.jpg",
       photo: "imageC.jpg",
-      content: `MISSION C — CAPTURE THE PROFESSOR
-
-UPDATE:
+      content: `UPDATE:
 
 We have located a high-value target.
 
@@ -397,12 +388,6 @@ Take ONE photo at the location showing:
 All team members must be visible
 
 Upload with Team Number clearly labelled
-
-Map
-Map Image C
-
-Location Photo
-Location Photo C
 
 Return
 Run back to HQ → receive next PIN`
@@ -664,9 +649,9 @@ Let’s go again.`
     document.getElementById("missionContent").innerText = mission.content;
 
     document.getElementById("missionMedia").innerHTML =
-      '<h2>Map</h2>' +
+      '<p class="mediaTitle">Map</p>' +
       '<img src="' + mission.map + '" class="missionImage" alt="Map Image ' + mission.code + '">' +
-      '<h2>Location Photo</h2>' +
+      '<p class="mediaTitle">Location Photo</p>' +
       '<img src="' + mission.photo + '" class="missionImage" alt="Location Photo ' + mission.code + '">';
 
     showScreen("mission");
@@ -762,8 +747,8 @@ You are cleared for extraction.`;
 
     const randomEnding = endings[Math.floor(Math.random() * endings.length)];
 
-    document.getElementById("successText").innerText =
-      successIntro + "\n\n" + randomEnding;
+    document.getElementById("successText").innerText = successIntro;
+    document.getElementById("endingText").innerText = randomEnding;
 
     showScreen("success");
   }
