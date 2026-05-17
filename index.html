@@ -1,4 +1,5 @@
-<!DOCTYPE html><!DOCTYPE html>
+<!DOCTYPE html>
+<html>
 <head>
 <title>INFILTRATION PROTOCOL</title>
 
@@ -6,7 +7,7 @@
 body {
   background:#0b0b0b;
   color:white;
-  font-family:Arial;
+  font-family:Arial, sans-serif;
   text-align:center;
   padding:30px;
   font-size:220%;
@@ -19,17 +20,19 @@ body {
 }
 
 button {
-  font-size:1.2em;
-  padding:0.6em 1.2em;
   background:#FFD200;
   border:none;
-  margin-top:20px;
+  padding:12px 20px;
+  font-size:1em;
+  border-radius:8px;
+  margin-top:15px;
 }
 
 input {
+  font-size:1em;
+  padding:10px;
+  margin-top:15px;
   width:70%;
-  padding:15px;
-  font-size:100%;
 }
 
 img {
@@ -42,6 +45,8 @@ img {
 </style>
 
 <script>
+
+/* ========== RANDOM MISSIONS ========= */
 var missionPool = ["A","B","C"];
 
 function pickMission(){
@@ -51,265 +56,181 @@ function pickMission(){
  return m;
 }
 
+/* ========== SHOW MISSION ========= */
 function revealMission(slot){
- var type = pickMission();
-
- document.getElementById("m"+slot+"A").style.display="none";
- document.getElementById("m"+slot+"B").style.display="none";
- document.getElementById("m"+slot+"C").style.display="none";
-
- document.getElementById("m"+slot+type).style.display="block";
+ var m = pickMission();
+ document.getElementById("m"+slot+m).style.display="block";
 }
 
+/* ========== FLOW ========= */
 function startGame(){
  document.getElementById("intro").style.display="none";
- document.getElementById("pin1").style.display="block";
+ document.getElementById("pin1Box").style.display="block";
 }
 
-function p1(){
- if(document.getElementById("pinInput1").value==="1986"){
-   document.getElementById("pin1").style.display="none";
+function pin1(){
+ if(document.getElementById("p1").value==="1986"){
+   document.getElementById("pin1Box").style.display="none";
    revealMission(1);
-   document.getElementById("pin2").style.display="block";
- } else alert("INCORRECT PIN");
+   document.getElementById("pin2Box").style.display="block";
+ } else alert("WRONG PIN");
 }
 
-function p2(){
- if(document.getElementById("pinInput2").value==="2388"){
-   document.getElementById("pin2").style.display="none";
+function pin2(){
+ if(document.getElementById("p2").value==="2388"){
+   document.getElementById("pin2Box").style.display="none";
    revealMission(2);
-   document.getElementById("pin3").style.display="block";
- } else alert("INCORRECT PIN");
+   document.getElementById("pin3Box").style.display="block";
+ } else alert("WRONG PIN");
 }
 
-function p3(){
- if(document.getElementById("pinInput3").value==="3896"){
-   document.getElementById("pin3").style.display="none";
+function pin3(){
+ if(document.getElementById("p3").value==="3896"){
+   document.getElementById("pin3Box").style.display="none";
    revealMission(3);
- } else alert("INCORRECT PIN");
+   document.getElementById("intercept").style.display="block";
+ } else alert("WRONG PIN");
 }
+
+/* ========== TIMER ========= */
+var time = 120;
+var timerRunning = false;
+
+function startTimer(){
+ if(timerRunning) return;
+ timerRunning = true;
+
+ var t = setInterval(function(){
+   var min = Math.floor(time/60);
+   var sec = time % 60;
+
+   document.getElementById("timer").innerHTML =
+   (min<10?"0":"")+min+":"+(sec<10?"0":"")+sec;
+
+   if(time<=0){
+     clearInterval(t);
+     document.getElementById("fail").style.display="block";
+   }
+
+   time--;
+ }, 1000);
+}
+
+/* ========== FINAL ANSWER ========= */
+var attempts = 0;
+
+function checkAnswer(){
+ var ans = document.getElementById("answer").value.toUpperCase();
+ attempts++;
+
+ if(ans==="FITFAM"){
+   document.getElementById("success").style.display="block";
+   showEnding();
+ } else {
+   alert("ACCESS DENIED");
+
+   if(attempts>=4){
+     document.getElementById("hint").style.display="block";
+   }
+ }
+}
+
+/* ========== RANDOM ENDING ========= */
+function showEnding(){
+ var e = Math.floor(Math.random()*3)+1;
+ document.getElementById("ending"+e).style.display="block";
+}
+
 </script>
 
 </head>
 
 <body>
 
-<h1>INFILTRATION PROTOCOL</h1>
-
 <!-- INTRO -->
 <div id="intro" class="panel">
-<p><b>ATTENTION.</b><br><br>
+ATTENTION.<br><br>
 You are a Special Forces unit deployed into an active threat zone.<br><br>
-Your mission:<br>
-Infiltrate.<br>
-Recover intel.<br>
-Prevent detonation.
-</p>
 
-<button onclick="startGame()">BEGIN MISSION</button>
+Your mission:<br>
+Infiltrate. Recover intel.<br>
+Locate the device. Prevent detonation.<br><br>
+
+<button onclick="startGame()">BEGIN</button>
 </div>
 
 <!-- PIN 1 -->
-<div id="pin1" class="panel hidden">
-<h2>MISSION 1 AUTHORISATION</h2>
-<input id="pinInput1"><br>
-<button onclick="p1()">AUTHORISE</button>
+<div id="pin1Box" class="panel hidden">
+MISSION 1 AUTHORISATION<br>
+<input id="p1"><br>
+<button onclick="pin1()">AUTHORISE</button>
 </div>
 
-<!-- ✅ MISSION 1 -->
-
-<div id="m1A" class="panel hidden">
-<h2>MISSION 1 — INTEL</h2>
-<p>
-One of our embedded agents reports that the terrorist leader has evacuated the area.<br><br>
-Before extraction, the agent left behind intel.
-</p>
-
-<p><b>EXERCISE:</b><br>
-Partner Push-Up High Five × 30
-</p>
-
-<p><b>RECORDING:</b><br>
-Record FULL TEAM (5–10 sec)<br>
-Show all members clearly
-</p>
-
-<img src="mapA.jpg">
-<img src="imageA.jpg">
-</div>
-
-<div id="m1B" class="panel hidden">
-<h2>MISSION 1 — STEALTH ROUTE</h2>
-<p>
-Intel suggests a low-visibility access route nearby.<br><br>
-Movement must remain undetected.
-</p>
-
-<p><b>EXERCISE:</b><br>
-Bear crawl<br>
-60 Superman pulses
-</p>
-
-<p><b>RECORDING:</b><br>
-Record FULL TEAM (5–10 sec)<br>
-Ensure exercise is visible
-</p>
-
-<img src="mapB.jpg">
-<img src="imageB.jpg">
-</div>
-
-<div id="m1C" class="panel hidden">
-<h2>MISSION 1 — CAPTURE TARGET</h2>
-<p>
-Target briefly exposed.<br><br>
-Move quickly and engage.
-</p>
-
-<p><b>EXERCISE:</b><br>
-Partner Burpee High Five × 20
-</p>
-
-<p><b>PHOTO:</b><br>
-Take group photo with target<br>
-Team must be visible
-</p>
-
-<img src="mapC.jpg">
-<img src="imageC.jpg">
-</div>
+<!-- MISSIONS (SIMPLIFIED DISPLAY FOR SPACE) -->
+<div id="m1A" class="panel hidden">MISSION 1 — INTEL<br><img src="mapA.jpg"><img src="imageA.jpg"></div>
+<div id="m1B" class="panel hidden">MISSION 1 — STEALTH<br><img src="mapB.jpg"><img src="imageB.jpg"></div>
+<div id="m1C" class="panel hidden">MISSION 1 — CAPTURE<br><img src="mapC.jpg"><img src="imageC.jpg"></div>
 
 <!-- PIN 2 -->
-<div id="pin2" class="panel hidden">
-<h2>MISSION 2 AUTHORISATION</h2>
-<input id="pinInput2"><br>
-<button onclick="p2()">AUTHORISE</button>
+<div id="pin2Box" class="panel hidden">
+MISSION 2 AUTHORISATION<br>
+<input id="p2"><br>
+<button onclick="pin2()">AUTHORISE</button>
 </div>
 
-<!-- ✅ MISSION 2 -->
-
-<div id="m2A" class="panel hidden">
-<h2>MISSION 2 — INTEL</h2>
-<p>
-Further intel located.<br><br>
-Secure it before enemy retrieval.
-</p>
-
-<p><b>EXERCISE:</b><br>
-Partner Push-Up High Five × 30
-</p>
-
-<p><b>RECORDING:</b><br>
-Record FULL TEAM (5–10 sec)
-</p>
-
-<img src="mapA.jpg">
-<img src="imageA.jpg">
-</div>
-
-<div id="m2B" class="panel hidden">
-<h2>MISSION 2 — STEALTH ROUTE</h2>
-<p>
-Enemy movement increasing.<br><br>
-Stay hidden.
-</p>
-
-<p><b>EXERCISE:</b><br>
-Bear crawl<br>
-60 Superman pulses
-</p>
-
-<p><b>RECORDING:</b><br>
-Record FULL TEAM
-</p>
-
-<img src="mapB.jpg">
-<img src="imageB.jpg">
-</div>
-
-<div id="m2C" class="panel hidden">
-<h2>MISSION 2 — CAPTURE TARGET</h2>
-<p>
-Target relocated.<br><br>
-Intercept immediately.
-</p>
-
-<p><b>EXERCISE:</b><br>
-Partner Burpee High Five × 20
-</p>
-
-<p><b>PHOTO:</b><br>
-Take team + target photo
-</p>
-
-<img src="mapC.jpg">
-<img src="imageC.jpg">
-</div>
+<div id="m2A" class="panel hidden">MISSION 2 — INTEL<br><img src="mapA.jpg"><img src="imageA.jpg"></div>
+<div id="m2B" class="panel hidden">MISSION 2 — STEALTH<br><img src="mapB.jpg"><img src="imageB.jpg"></div>
+<div id="m2C" class="panel hidden">MISSION 2 — CAPTURE<br><img src="mapC.jpg"><img src="imageC.jpg"></div>
 
 <!-- PIN 3 -->
-<div id="pin3" class="panel hidden">
-<h2>MISSION 3 AUTHORISATION</h2>
-<input id="pinInput3"><br>
-<button onclick="p3()">AUTHORISE</button>
+<div id="pin3Box" class="panel hidden">
+MISSION 3 AUTHORISATION<br>
+<input id="p3"><br>
+<button onclick="pin3()">AUTHORISE</button>
 </div>
 
-<!-- ✅ MISSION 3 -->
+<div id="m3A" class="panel hidden">MISSION 3 — INTEL<br><img src="mapA.jpg"><img src="imageA.jpg"></div>
+<div id="m3B" class="panel hidden">MISSION 3 — STEALTH<br><img src="mapB.jpg"><img src="imageB.jpg"></div>
+<div id="m3C" class="panel hidden">MISSION 3 — CAPTURE<br><img src="mapC.jpg"><img src="imageC.jpg"></div>
 
-<div id="m3A" class="panel hidden">
-<h2>MISSION 3 — FINAL INTEL</h2>
-<p>
-Final intel required to locate the device.
-</p>
-
-<p><b>EXERCISE:</b><br>
-Partner Push-Up High Five × 30
-</p>
-
-<p><b>RECORDING:</b><br>
-Record FULL TEAM
-</p>
-
-<img src="mapA.jpg">
-<img src="imageA.jpg">
+<!-- INTERCEPTION -->
+<div id="intercept" class="panel hidden">
+⚠️ INTERCEPTION ALERT ⚠️<br><br>
+Run 1 lap immediately.<br>
+<button onclick="document.getElementById('final').style.display='block'">CONTINUE</button>
 </div>
 
-<div id="m3B" class="panel hidden">
-<h2>MISSION 3 — FINAL STEALTH</h2>
-<p>
-Final stretch.<br>
-Avoid detection.
-</p>
+<!-- FINAL -->
+<div id="final" class="panel hidden">
+FINAL INTEL<br><br>
 
-<p><b>EXERCISE:</b><br>
-Bear crawl<br>
-60 Superman pulses
-</p>
+Device is active.<br><br>
 
-<p><b>RECORDING:</b><br>
-Record FULL TEAM
-</p>
+<div id="timer">02:00</div>
 
-<img src="mapB.jpg">
-<img src="imageB.jpg">
+<button onclick="startTimer()">START TIMER</button><br>
+
+<input id="answer"><br>
+<button onclick="checkAnswer()">SUBMIT</button>
+
+<div id="hint" class="hidden">Hint: Begins with F</div>
 </div>
 
-<div id="m3C" class="panel hidden">
-<h2>MISSION 3 — FINAL CAPTURE</h2>
-<p>
-Final engagement before mission end.
-</p>
-
-<p><b>EXERCISE:</b><br>
-Partner Burpee High Five × 20
-</p>
-
-<p><b>PHOTO:</b><br>
-Final team + target photo
-</p>
-
-<img src="mapC.jpg">
-<img src="imageC.jpg">
+<!-- SUCCESS -->
+<div id="success" class="panel hidden">
+✅ DEVICE DISARMED
 </div>
+
+<!-- FAIL -->
+<div id="fail" class="panel hidden">
+❌ DETONATION<br>
+MISSION FAILED
+</div>
+
+<!-- ENDINGS -->
+<div id="ending1" class="panel hidden">QUIET EXIT ENDING</div>
+<div id="ending2" class="panel hidden">ONE LAST MISSION ENDING</div>
+<div id="ending3" class="panel hidden">LOOP ENDING</div>
 
 </body>
 </html>
