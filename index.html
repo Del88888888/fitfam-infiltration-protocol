@@ -7,7 +7,7 @@
 body {
   background:#0b0b0b;
   color:white;
-  font-family:Arial, sans-serif;
+  font-family:Arial;
   text-align:center;
   padding:30px;
   font-size:220%;
@@ -16,129 +16,146 @@ body {
 .panel {
   border:3px solid #FFD200;
   padding:25px;
-  margin:25px;
+  margin:20px auto;
+  max-width:600px;
 }
 
 button {
   background:#FFD200;
   border:none;
-  padding:12px 20px;
+  padding:14px 24px;
   font-size:1em;
-  border-radius:8px;
-  margin-top:15px;
+  border-radius:10px;
+  margin-top:20px;
 }
 
 input {
   font-size:1em;
-  padding:10px;
+  padding:12px;
   margin-top:15px;
   width:70%;
 }
 
 img {
-  width:80%;
+  width:85%;
   max-width:400px;
   margin-top:15px;
 }
 
 .hidden { display:none; }
+
+.fade {
+  animation: fadein 0.5s;
+}
+
+@keyframes fadein {
+  from {opacity:0;}
+  to {opacity:1;}
+}
 </style>
 
 <script>
 
-/* ========== RANDOM MISSIONS ========= */
-var missionPool = ["A","B","C"];
+let missionPool = ["A","B","C"];
+let attempts = 0;
+let time = 120;
+let timerRunning = false;
 
+/* ---------- UTIL ---------- */
+function show(id){
+ document.querySelectorAll(".panel").forEach(p=>p.style.display="none");
+ let el = document.getElementById(id);
+ el.style.display="block";
+ el.classList.add("fade");
+}
+
+/* ---------- RANDOM ---------- */
 function pickMission(){
- var i = Math.floor(Math.random()*missionPool.length);
- var m = missionPool[i];
- missionPool.splice(i,1);
- return m;
+ let i = Math.floor(Math.random()*missionPool.length);
+ return missionPool.splice(i,1)[0];
 }
 
-/* ========== SHOW MISSION ========= */
-function revealMission(slot){
- var m = pickMission();
- document.getElementById("m"+slot+m).style.display="block";
-}
-
-/* ========== FLOW ========= */
+/* ---------- FLOW ---------- */
 function startGame(){
- document.getElementById("intro").style.display="none";
- document.getElementById("pin1Box").style.display="block";
+ show("pin1");
 }
 
 function pin1(){
- if(document.getElementById("p1").value==="1986"){
-   document.getElementById("pin1Box").style.display="none";
-   revealMission(1);
-   document.getElementById("pin2Box").style.display="block";
+ if(p1.value==="1986"){
+  let m = pickMission();
+  show("m1"+m);
  } else alert("WRONG PIN");
+}
+
+function next2(){
+ show("pin2");
 }
 
 function pin2(){
- if(document.getElementById("p2").value==="2388"){
-   document.getElementById("pin2Box").style.display="none";
-   revealMission(2);
-   document.getElementById("pin3Box").style.display="block";
+ if(p2.value==="2388"){
+  let m = pickMission();
+  show("m2"+m);
  } else alert("WRONG PIN");
+}
+
+function next3(){
+ show("pin3");
 }
 
 function pin3(){
- if(document.getElementById("p3").value==="3896"){
-   document.getElementById("pin3Box").style.display="none";
-   revealMission(3);
-   document.getElementById("intercept").style.display="block";
+ if(p3.value==="3896"){
+  let m = pickMission();
+  show("m3"+m);
  } else alert("WRONG PIN");
 }
 
-/* ========== TIMER ========= */
-var time = 120;
-var timerRunning = false;
+function goIntercept(){
+ show("intercept");
+}
 
+function goFinal(){
+ show("final");
+}
+
+/* ---------- TIMER ---------- */
 function startTimer(){
  if(timerRunning) return;
  timerRunning = true;
 
- var t = setInterval(function(){
-   var min = Math.floor(time/60);
-   var sec = time % 60;
+ let t = setInterval(()=>{
+  let m = Math.floor(time/60);
+  let s = time%60;
+  timer.innerText =
+   (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
 
-   document.getElementById("timer").innerHTML =
-   (min<10?"0":"")+min+":"+(sec<10?"0":"")+sec;
-
-   if(time<=0){
-     clearInterval(t);
-     document.getElementById("fail").style.display="block";
-   }
-
-   time--;
- }, 1000);
+  if(time<=0){
+   clearInterval(t);
+   show("fail");
+  }
+  time--;
+ },1000);
 }
 
-/* ========== FINAL ANSWER ========= */
-var attempts = 0;
-
-function checkAnswer(){
- var ans = document.getElementById("answer").value.toUpperCase();
+/* ---------- ANSWER ---------- */
+function checkAns(){
  attempts++;
+ let ans = answer.value.toUpperCase();
 
  if(ans==="FITFAM"){
-   document.getElementById("success").style.display="block";
-   showEnding();
+   show("success");
+   setTimeout(showEnding,1500);
  } else {
    alert("ACCESS DENIED");
-
    if(attempts>=4){
-     document.getElementById("hint").style.display="block";
+     hint.style.display="block";
    }
  }
 }
 
-/* ========== RANDOM ENDING ========= */
+/* ---------- ENDINGS ---------- */
 function showEnding(){
- var e = Math.floor(Math.random()*3)+1;
- document.getElementById("ending"+e).style.display="block";
+ let e = Math.floor(Math.random()*3)+1;
+ show("end"+e);
 }
 
 </script>
@@ -151,86 +168,201 @@ function showEnding(){
 <div id="intro" class="panel">
 ATTENTION.<br><br>
 You are a Special Forces unit deployed into an active threat zone.<br><br>
-
-Your mission:<br>
-Infiltrate. Recover intel.<br>
-Locate the device. Prevent detonation.<br><br>
-
-<button onclick="startGame()">BEGIN</button>
+A nuclear device has been planted.<br><br>
+<button onclick="startGame()">BEGIN MISSION</button>
 </div>
 
 <!-- PIN 1 -->
-<div id="pin1Box" class="panel hidden">
+<div id="pin1" class="panel hidden">
 MISSION 1 AUTHORISATION<br>
 <input id="p1"><br>
 <button onclick="pin1()">AUTHORISE</button>
 </div>
 
-<!-- MISSIONS (SIMPLIFIED DISPLAY FOR SPACE) -->
-<div id="m1A" class="panel hidden">MISSION 1 — INTEL<br><img src="mapA.jpg"><img src="imageA.jpg"></div>
-<div id="m1B" class="panel hidden">MISSION 1 — STEALTH<br><img src="mapB.jpg"><img src="imageB.jpg"></div>
-<div id="m1C" class="panel hidden">MISSION 1 — CAPTURE<br><img src="mapC.jpg"><img src="imageC.jpg"></div>
+<!-- MISSION 1 (3 variants, truncated for readability) -->
+<div id="m1A" class="panel hidden">
+MISSION 1 — INTEL<br><br>
+Recover intel.<br><br>
+<img src="mapA.jpg"><img src="imageA.jpg"><br>
+<button onclick="next2()">RETURN</button>
+</div>
+
+<div id="m1B" class="panel hidden">
+MISSION 1 — STEALTH<br><br>
+Bear crawl to location.<br>
+60 pulses.<br><br>
+<img src="mapB.jpg"><img src="imageB.jpg"><br>
+<button onclick="next2()">RETURN</button>
+</div>
+
+<div id="m1C" class="panel hidden">
+MISSION 1 — CAPTURE<br><br>
+Burpee high five x20<br><br>
+<img src="mapC.jpg"><img src="imageC.jpg"><br>
+<button onclick="next2()">RETURN</button>
+</div>
 
 <!-- PIN 2 -->
-<div id="pin2Box" class="panel hidden">
+<div id="pin2" class="panel hidden">
 MISSION 2 AUTHORISATION<br>
 <input id="p2"><br>
 <button onclick="pin2()">AUTHORISE</button>
 </div>
 
-<div id="m2A" class="panel hidden">MISSION 2 — INTEL<br><img src="mapA.jpg"><img src="imageA.jpg"></div>
-<div id="m2B" class="panel hidden">MISSION 2 — STEALTH<br><img src="mapB.jpg"><img src="imageB.jpg"></div>
-<div id="m2C" class="panel hidden">MISSION 2 — CAPTURE<br><img src="mapC.jpg"><img src="imageC.jpg"></div>
+<div id="m2A" class="panel hidden">
+MISSION 2 — INTEL<br>
+<img src="mapA.jpg"><img src="imageA.jpg"><br>
+<button onclick="next3()">RETURN</button>
+</div>
+
+<div id="m2B" class="panel hidden">
+MISSION 2 — STEALTH<br>
+<img src="mapB.jpg"><img src="imageB.jpg"><br>
+<button onclick="next3()">RETURN</button>
+</div>
+
+<div id="m2C" class="panel hidden">
+MISSION 2 — CAPTURE<br>
+<img src="mapC.jpg"><img src="imageC.jpg"><br>
+<button onclick="next3()">RETURN</button>
+</div>
 
 <!-- PIN 3 -->
-<div id="pin3Box" class="panel hidden">
+<div id="pin3" class="panel hidden">
 MISSION 3 AUTHORISATION<br>
 <input id="p3"><br>
 <button onclick="pin3()">AUTHORISE</button>
 </div>
 
-<div id="m3A" class="panel hidden">MISSION 3 — INTEL<br><img src="mapA.jpg"><img src="imageA.jpg"></div>
-<div id="m3B" class="panel hidden">MISSION 3 — STEALTH<br><img src="mapB.jpg"><img src="imageB.jpg"></div>
-<div id="m3C" class="panel hidden">MISSION 3 — CAPTURE<br><img src="mapC.jpg"><img src="imageC.jpg"></div>
+<div id="m3A" class="panel hidden">
+MISSION 3 — FINAL INTEL<br>
+<img src="mapA.jpg"><img src="imageA.jpg"><br>
+<button onclick="goIntercept()">CONTINUE</button>
+</div>
+
+<div id="m3B" class="panel hidden">
+MISSION 3 — FINAL STEALTH<br>
+<img src="mapB.jpg"><img src="imageB.jpg"><br>
+<button onclick="goIntercept()">CONTINUE</button>
+</div>
+
+<div id="m3C" class="panel hidden">
+MISSION 3 — FINAL CAPTURE<br>
+<img src="mapC.jpg"><img src="imageC.jpg"><br>
+<button onclick="goIntercept()">CONTINUE</button>
+</div>
 
 <!-- INTERCEPTION -->
 <div id="intercept" class="panel hidden">
 ⚠️ INTERCEPTION ALERT ⚠️<br><br>
-Run 1 lap immediately.<br>
-<button onclick="document.getElementById('final').style.display='block'">CONTINUE</button>
+You have been double crossed.<br>
+Run 1 lap NOW.<br><br>
+<button onclick="goFinal()">CONTINUE</button>
 </div>
 
 <!-- FINAL -->
 <div id="final" class="panel hidden">
 FINAL INTEL<br><br>
-
-Device is active.<br><br>
+The device is ACTIVE<br><br>
 
 <div id="timer">02:00</div>
 
-<button onclick="startTimer()">START TIMER</button><br>
+<button onclick="startTimer()">START</button><br>
 
 <input id="answer"><br>
-<button onclick="checkAnswer()">SUBMIT</button>
+<button onclick="checkAns()">SUBMIT</button>
 
-<div id="hint" class="hidden">Hint: Begins with F</div>
+<div id="hint" class="hidden">
+Hint: begins with F
+</div>
 </div>
 
-<!-- SUCCESS -->
 <div id="success" class="panel hidden">
 ✅ DEVICE DISARMED
 </div>
 
-<!-- FAIL -->
 <div id="fail" class="panel hidden">
-❌ DETONATION<br>
+💥 DETONATION<br>
 MISSION FAILED
 </div>
 
-<!-- ENDINGS -->
-<div id="ending1" class="panel hidden">QUIET EXIT ENDING</div>
-<div id="ending2" class="panel hidden">ONE LAST MISSION ENDING</div>
-<div id="ending3" class="panel hidden">LOOP ENDING</div>
+<!-- ENDINGS (FULL CINEMATIC) -->
+
+<div id="end1" class="panel hidden">
+<h2>THE QUIET EXIT</h2><br>
+CODE ACCEPTED.<br><br>
+DEVICE DISARMED.<br><br>
+DETONATION ABORTED.<br><br>
+
+The world was saved.<br><br>
+
+But no one will ever know your names.<br><br>
+
+Your actions were buried deep within classified records — known only to a select few.<br><br>
+
+The team was awarded the highest honour possible.<br><br>
+
+No ceremony.<br>
+No headlines.<br><br>
+
+Just recognition… where it mattered.<br><br>
+
+The leader reached out personally.<br><br>
+
+No orders.<br>
+No pressure.<br><br>
+
+Just a quiet conversation.<br><br>
+
+As for you…<br><br>
+
+A quieter life now awaits.<br><br>
+
+Maybe…<br><br>
+
+Leading at FitFam.
+</div>
+
+<div id="end2" class="panel hidden">
+<h2>ONE LAST MISSION</h2><br>
+CODE ACCEPTED.<br><br>
+DEVICE DISARMED.<br><br>
+DETONATION ABORTED.<br><br>
+
+The world was saved…<br><br>
+
+Then one day…<br><br>
+
+Every phone vibrated.<br><br>
+
+TARGET IDENTIFIED.<br><br>
+
+Gear up.<br><br>
+
+This isn’t over yet.
+</div>
+
+<div id="end3" class="panel hidden">
+<h2>THE LOOP</h2><br>
+CODE ACCEPTED.<br><br>
+DEVICE DISARMED.<br><br>
+
+A loud BANG.<br><br>
+
+You wake up.<br><br>
+
+A message appears.<br><br>
+
+A nuclear device has been planted nearby.<br><br>
+
+Time remaining: 10 hours.<br><br>
+
+You smile.<br><br>
+
+You’re ready.<br><br>
+
+Let’s go again.
+</div>
 
 </body>
 </html>
