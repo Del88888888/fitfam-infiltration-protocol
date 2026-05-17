@@ -2,7 +2,6 @@
 <html>
 <head>
   <title>FitFam Infiltration Protocol</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   <style>
     body {
@@ -69,7 +68,7 @@
 
     .textBlock {
       white-space: pre-line;
-      line-height: 1.35;
+      line-height: normal;
     }
 
     .missionImage {
@@ -106,7 +105,6 @@
 
 <h1>FITFAM INFILTRATION PROTOCOL</h1>
 
-<!-- INTRO — HQ BRIEFING -->
 <div id="briefing" class="panel">
   <h2>HQ BRIEFING</h2>
 
@@ -132,7 +130,6 @@ Move.</p>
   <button onclick="showScreen('preMission')">BEGIN MISSION</button>
 </div>
 
-<!-- PRE-MISSION PHASE -->
 <div id="preMission" class="panel hidden">
   <h2>INITIAL DIRECTIVE:</h2>
 
@@ -143,7 +140,6 @@ Return to HQ for mission authorisation.</p>
   <button onclick="showScreen('pin1')">RETURN TO HQ</button>
 </div>
 
-<!-- PIN 1 -->
 <div id="pin1" class="panel hidden">
   <h2>MISSION 1</h2>
   <input id="pin1Input" placeholder="Access Code">
@@ -151,7 +147,6 @@ Return to HQ for mission authorisation.</p>
   <button onclick="unlockPin(1)">AUTHORISE</button>
 </div>
 
-<!-- PIN 2 -->
 <div id="pin2" class="panel hidden">
   <h2>MISSION 2</h2>
   <input id="pin2Input" placeholder="Access Code">
@@ -159,7 +154,6 @@ Return to HQ for mission authorisation.</p>
   <button onclick="unlockPin(2)">AUTHORISE</button>
 </div>
 
-<!-- PIN 3 -->
 <div id="pin3" class="panel hidden">
   <h2>MISSION 3</h2>
   <input id="pin3Input" placeholder="Access Code">
@@ -167,7 +161,6 @@ Return to HQ for mission authorisation.</p>
   <button onclick="unlockPin(3)">AUTHORISE</button>
 </div>
 
-<!-- MISSION DISPLAY -->
 <div id="mission" class="panel hidden">
   <h2 id="missionTitle"></h2>
   <p id="missionContent" class="textBlock"></p>
@@ -175,7 +168,6 @@ Return to HQ for mission authorisation.</p>
   <button onclick="completeMission()">RETURN TO HQ</button>
 </div>
 
-<!-- INTERCEPTION EVENT -->
 <div id="interception" class="panel hidden">
   <h2>⚠️ INTERCEPTION ALERT ⚠️</h2>
 
@@ -202,7 +194,6 @@ No recording required</p>
   <button onclick="showScreen('pin4')">RETURN TO HQ</button>
 </div>
 
-<!-- PIN 4 -->
 <div id="pin4" class="panel hidden">
   <h2>FINAL CLEARANCE</h2>
   <input id="pin4Input" placeholder="Access Code">
@@ -210,7 +201,6 @@ No recording required</p>
   <button onclick="unlockPin(4)">AUTHORISE DEFUSAL</button>
 </div>
 
-<!-- FINAL REVEAL -->
 <div id="finalReveal" class="panel hidden">
   <h2>FINAL INTEL:</h2>
 
@@ -237,7 +227,6 @@ You have 2 minutes to stop the detonation.</p>
   <button onclick="startDefusal()">BEGIN DEFUSAL</button>
 </div>
 
-<!-- DEFUSAL PHASE -->
 <div id="defusal" class="panel hidden">
   <h2>FINAL AUTHENTICATION</h2>
 
@@ -267,13 +256,11 @@ The answer begins with “F”.
 Trust your unit.</p>
 </div>
 
-<!-- SUCCESS -->
 <div id="success" class="panel hidden">
   <h2>MISSION COMPLETE</h2>
   <p id="successText" class="textBlock"></p>
 </div>
 
-<!-- FAILURE -->
 <div id="failure" class="panel hidden">
   <h2>MISSION FAILED</h2>
   <p class="textBlock">DETONATION</p>
@@ -423,9 +410,7 @@ Run back to HQ → receive next PIN`
   ];
 
   const endings = [
-`ENDING 1 — THE QUIET EXIT
-
-CODE ACCEPTED.
+`CODE ACCEPTED.
 
 DEVICE DISARMED.
 
@@ -489,9 +474,7 @@ Maybe…
 
 Leading at FitFam.`,
 
-`ENDING 2 — ONE LAST MISSION
-
-CODE ACCEPTED.
+`CODE ACCEPTED.
 
 DEVICE DISARMED.
 
@@ -567,9 +550,7 @@ Gear up.
 
 This isn’t over yet.`,
 
-`ENDING 3 — THE LOOP
-
-CODE ACCEPTED.
+`CODE ACCEPTED.
 
 DEVICE DISARMED.
 
@@ -652,9 +633,11 @@ Let’s go again.`
     for (let i = array.length - 1; i > 0; i--) {
       const randomIndex = Math.floor(Math.random() * (i + 1));
       const temporaryValue = array[i];
+
       array[i] = array[randomIndex];
       array[randomIndex] = temporaryValue;
     }
+
     return array;
   }
 
@@ -715,8 +698,10 @@ Let’s go again.`
       if (secondsRemaining <= 0) {
         secondsRemaining = 0;
         updateTimerDisplay();
+
         clearInterval(timerInterval);
         timerInterval = null;
+
         showScreen("failure");
         return;
       }
