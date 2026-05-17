@@ -58,7 +58,6 @@ input {
 #timer {
   font-size:60px;
   color:#ff4444;
-  margin-top:20px;
 }
 </style>
 </head>
@@ -72,6 +71,7 @@ input {
 <!-- INTRO -->
 <div id="intro" class="panel">
 <h2>HQ BRIEFING</h2>
+
 <p>ATTENTION.</p>
 <p>You are a Special Forces unit deployed into an active threat zone.</p>
 <p>A terrorist organisation has planted a nuclear device somewhere within this area.</p>
@@ -83,14 +83,16 @@ input {
 <p>And prevent detonation.</p>
 <p>Trust nothing.</p>
 <p>Move.</p>
+
 <button onclick="startGame()">BEGIN</button>
 </div>
 
-<!-- PREMISSION -->
-<div id="premission" class="panel hidden">
+<!-- PRE -->
+<div id="pre" class="panel hidden">
 <h2>INITIAL DIRECTIVE:</h2>
 <p>Complete one full lap around the park.</p>
 <p>Return to HQ for mission authorisation.</p>
+
 <button onclick="showPin1()">RETURN TO HQ</button>
 </div>
 
@@ -99,7 +101,7 @@ input {
 <h2>PIN 1</h2>
 <input id="p1">
 <br>
-<button onclick="checkPin1()">AUTHORISE</button>
+<button onclick="pin1()">AUTHORISE</button>
 </div>
 
 <!-- PIN 2 -->
@@ -107,7 +109,7 @@ input {
 <h2>PIN 2</h2>
 <input id="p2">
 <br>
-<button onclick="checkPin2()">AUTHORISE</button>
+<button onclick="pin2()">AUTHORISE</button>
 </div>
 
 <!-- PIN 3 -->
@@ -115,91 +117,253 @@ input {
 <h2>PIN 3</h2>
 <input id="p3">
 <br>
-<button onclick="checkPin3()">AUTHORISE</button>
+<button onclick="pin3()">AUTHORISE</button>
 </div>
 
 <!-- MISSION -->
 <div id="mission" class="panel hidden">
 <h2 id="missionTitle"></h2>
-<div id="missionContent"></div>
+<div id="missionText"></div>
 <button onclick="completeMission()">RETURN TO HQ → receive next PIN</button>
+</div>
+
+<!-- INTERCEPTION -->
+<div id="interception" class="panel hidden">
+<h2>⚠️ INTERCEPTION ALERT ⚠️</h2>
+
+<p>All units — listen carefully.</p>
+<p>You have been double crossed.</p>
+<p>The intel you received was false.</p>
+<p>You have been led directly into enemy tracking.</p>
+<p>Your position is compromised.</p>
+<p>Enemy units are closing in.</p>
+<p>DEFEND.</p>
+<p>DISENGAGE.</p>
+<p>MOVE.</p>
+
+<p><strong>Task</strong></p>
+<p>Run 1 full lap as fast as possible</p>
+<p>No recording required</p>
+
+<button onclick="startFinal()">CONTINUE</button>
+</div>
+
+<!-- FINAL -->
+<div id="final" class="panel hidden">
+<h2>FINAL INTEL:</h2>
+
+<p>Everything you received…</p>
+<p>was compromised.</p>
+<p>The agent.</p>
+<p>The intel.</p>
+<p>The Professor.</p>
+
+<p>All part of the same deception.</p>
+
+<p>You were being led.</p>
+
+<p>But now…</p>
+
+<p>The device is active.</p>
+
+<p>DEFUSAL PHASE</p>
+<p>You have 2 minutes to stop the detonation.</p>
+
+<div id="timer">02:00</div>
+
+<p>FINAL AUTHENTICATION REQUIRED.</p>
+<p>Think carefully.</p>
+<p>What brought you here today?</p>
+<p>Who brought this unit together?</p>
+<p>Who do you trust?</p>
+
+<input id="answer">
+<br>
+<button onclick="checkAnswer()">ENTER</button>
+</div>
+
+<!-- END -->
+<div id="end" class="panel hidden">
+<div id="endText"></div>
 </div>
 
 <script>
 
-// ✅ SAFE RANDOMIZER (FIXED)
-let missions = ["A","B","C"];
+// NAV
+function show(id){document.getElementById(id).classList.remove("hidden");}
+function hide(id){document.getElementById(id).classList.add("hidden");}
+
+// START FLOW
+function startGame(){
+  hide("intro");
+  show("pre");
+}
+
+function showPin1(){
+  hide("pre");
+  show("pin1");
+}
+
+// RANDOM MISSIONS SAFE
+let missions=["A","B","C"];
 for(let i=missions.length-1;i>0;i--){
   let j=Math.floor(Math.random()*(i+1));
   [missions[i],missions[j]]=[missions[j],missions[i]];
 }
 
-let step = 0;
+let step=0;
 
-// ✅ NAV
-function hide(id){ document.getElementById(id).classList.add("hidden"); }
-function show(id){ document.getElementById(id).classList.remove("hidden"); }
-
-// ✅ START FIXED
-function startGame(){
-  hide("intro");
-  show("premission");
+// PIN CHECKS
+function pin1(){
+if(p1.value==="1986"){hide("pin1");loadMission();}
+else alert("ACCESS DENIED.");
 }
 
-function showPin1(){
-  hide("premission");
-  show("pin1");
+function pin2(){
+if(p2.value==="2388"){hide("pin2");loadMission();}
+else alert("ACCESS DENIED.");
 }
 
-// ✅ PINS
-function checkPin1(){
-  if(document.getElementById("p1").value==="1986"){
-    hide("pin1");
-    loadMission();
-  } else alert("ACCESS DENIED.");
+function pin3(){
+if(p3.value==="3896"){
+hide("pin3");
+show("interception");
+}else alert("ACCESS DENIED.");
 }
 
-function checkPin2(){
-  if(document.getElementById("p2").value==="2388"){
-    hide("pin2");
-    loadMission();
-  } else alert("ACCESS DENIED.");
-}
-
-function checkPin3(){
-  if(document.getElementById("p3").value==="3896"){
-    alert("✅ PIN ACCEPTED - Continue game build");
-  } else alert("ACCESS DENIED.");
-}
-
-// ✅ LOAD MISSION
+// MISSIONS FULL
 function loadMission(){
-  show("mission");
+show("mission");
 
-  let m = missions[step];
-  document.getElementById("missionTitle").innerText = "MISSION " + (step+1);
+let m=missions[step];
+document.getElementById("missionTitle").innerText="MISSION "+(step+1);
 
-  if(m==="A"){
-    document.getElementById("missionContent").innerHTML =
-    "<p>INTEL:</p><p>Recover the intel.</p>";
-  }
-  if(m==="B"){
-    document.getElementById("missionContent").innerHTML =
-    "<p>STEALTH DIRECTIVE:</p><p>Proceed with stealth.</p>";
-  }
-  if(m==="C"){
-    document.getElementById("missionContent").innerHTML =
-    "<p>UPDATE:</p><p>Capture the Professor.</p>";
-  }
+let text="";
+
+if(m==="A"){
+text=`
+<p>INTEL:</p>
+<p>One of our embedded agents reports that the terrorist leader has evacuated the area.</p>
+<p>Before extraction, the agent left behind intel.</p>
+<p>This intel contains an entry point into their network.</p>
+<p>Recover the intel.</p>
+
+<p><strong>Task</strong></p>
+<p>Run to the location</p>
+
+<p><strong>Exercise</strong></p>
+<p>Partner Push-Up High Five × 30 EACH</p>
+
+<img src="mapA.jpg" width="H DIRECTIVE:</p>
+<p>Proceed with stealth. Noise will compromise your position.</p>
+
+<p><strong>Task</strong></p>
+<p>Bear crawl ALL THE WAY</p>
+
+<p><strong>Exercise</strong></p>
+<p>60 Superman pulses</p>
+
+<img src="mapB.jpg" width.jpg" width="
+text=`
+<p>UPDATE:</p>
+<p>Codename THE PROFESSOR.</p>
+
+<p><strong>Exercise</strong></p>
+<p>Partner Burpee High Five × 20 EACH</p>
+
+<img src="mapC.jpg" width="pg" width="100erHTML=text;
 }
 
-// ✅ COMPLETE
+// COMPLETE
 function completeMission(){
-  hide("mission");
-  step++;
+hide("mission");
+step++;
 
-  if(step===1) show("pin2");
-  if(step===2) show("pin3");
+if(step===1) show("pin2");
+else if(step===2) show("pin3");
+}
+
+// FINAL
+function startFinal(){
+hide("interception");
+show("final");
+startTimer();
+}
+
+// TIMER
+let t=120;
+function startTimer(){
+setInterval(()=>{
+t--;
+let m=Math.floor(t/60),s=t%60;
+timer.innerText=
+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+
+if(t<=0){
+alert("MISSION FAILED.");
+}
+},1000);
+}
+
+// AUTH
+let attempts=0;
+function checkAnswer(){
+if(answer.value.toLowerCase()==="fitfam"){
+showEnding();
+}else{
+attempts++;
+if(attempts>=4){
+alert("ACCESS DENIED.\nSystem override initiated…\nHint:\nThe answer begins with F.");
+}else alert("ACCESS DENIED.");
+}
+}
+
+// ENDINGS FULL
+function showEnding(){
+hide("final");
+show("end");
+
+let r=Math.floor(Math.random()*3);
+
+if(r===0){
+endText.innerText=`ENDING 1 — THE QUIET EXIT
+
+CODE ACCEPTED.
+DEVICE DISARMED.
+DETONATION ABORTED.
+
+The world was saved.
+
+But no one will ever know your names.
+
+Your actions were buried deep within classified records — known only to a select few.`;
+}
+
+if(r===1){
+endText.innerText=`ENDING 2 — ONE LAST MISSION
+
+CODE ACCEPTED.
+DEVICE DISARMED.
+DETONATION ABORTED.
+
+The world was saved.
+
+But no one will ever know your names.`;
+}
+
+if(r===2){
+endText.innerText=`ENDING 3 — THE LOOP
+
+CODE ACCEPTED.
+DEVICE DISARMED.
+
+A loud BANG.
+
+The world snaps.
+
+You wake up.`;
+}
+
 }
 
 </script>
