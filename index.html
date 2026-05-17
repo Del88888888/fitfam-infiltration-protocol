@@ -5,72 +5,72 @@
 
 <style>
 body {
-  margin: 0;
-  padding: 30px;
+  margin:0;
+  padding:30px;
   font-family: Arial, Helvetica, sans-serif;
-  background: #0b0b0b;
-  color: #f5f5f5;
-  text-align: center;
-  font-size: 42px;
+  background:#0b0b0b;
+  color:#f5f5f5;
+  text-align:center;
+  font-size:42px;
 }
 
-h1 { font-size: 64px; color: #ffd200; }
-h2 { font-size: 52px; color: #ffd200; }
+h1 { font-size:64px; color:#ffd200; }
+h2 { font-size:52px; color:#ffd200; }
 
 .panel {
-  border: 3px solid #444;
-  padding: 30px;
-  margin: 30px auto;
-  max-width: 900px;
-  background: #111;
+  border:3px solid #444;
+  padding:30px;
+  margin:30px auto;
+  max-width:900px;
+  background:#111;
 }
 
 button {
-  font-size: 42px;
-  padding: 20px 40px;
-  margin-top: 20px;
-  background: #ffd200;
-  color: #000;
-  border: none;
-  cursor: pointer;
+  font-size:42px;
+  padding:20px 40px;
+  margin-top:20px;
+  background:#ffd200;
+  color:#000;
+  border:none;
+  cursor:pointer;
 }
 
 input {
-  font-size: 42px;
-  padding: 20px;
-  width: 80%;
-  max-width: 500px;
-  text-align: center;
-  margin-top: 15px;
+  font-size:42px;
+  padding:20px;
+  width:80%;
+  max-width:500px;
+  text-align:center;
+  margin-top:15px;
 }
 
-.hidden { display: none; }
+.hidden { display:none; }
 
 #cornerLogo {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  width: 90px;
-  border-radius: 50%;
-  border: 3px solid #ffd200;
+  position:fixed;
+  top:20px;
+  right:20px;
+  width:90px;
+  border-radius:50%;
+  border:3px solid #ffd200;
   pointer-events:none;
 }
 
 #timer {
-  font-size: 60px;
-  color: #ff4444;
-  margin-top: 20px;
+  font-size:60px;
+  color:#ff4444;
+  margin-top:20px;
 }
 </style>
-
 </head>
+
 <body>
 
 <img src="my-photo.jpg" id="cornerLogo">
 
 <h1>FITFAM INFILTRATION PROTOCOL</h1>
 
-<!-- HQ BRIEFING -->
+<!-- INTRO -->
 <div id="intro" class="panel">
 <h2>HQ BRIEFING</h2>
 <p>ATTENTION.</p>
@@ -84,51 +84,52 @@ input {
 <p>And prevent detonation.</p>
 <p>Trust nothing.</p>
 <p>Move.</p>
-<button onclick="startGame()">BEGIN</button>
+<button onclick="next('intro','premission')">BEGIN</button>
 </div>
 
 <!-- PRE MISSION -->
-<div id="preMission" class="panel hidden">
-<h2>INITIAL DIRECTIVE</h2>
+<div id="premission" class="panel hidden">
+<h2>INITIAL DIRECTIVE:</h2>
 <p>Complete one full lap around the park.</p>
 <p>Return to HQ for mission authorisation.</p>
-<button onclick="showPin1()">RETURN TO HQ</button>
+<button onclick="next('premission','pin1')">RETURN TO HQ</button>
 </div>
 
 <!-- PIN 1 -->
 <div id="pin1" class="panel hidden">
-<h2>ENTER PIN</h2>
-<input id="pin1Input">
+<h2>PIN 1</h2>
+<input id="p1">
 <br>
-<button onclick="unlock1()">AUTHORISE</button>
+<button onclick="checkPin(1,'1986')">AUTHORISE</button>
+</div>
+
+<!-- PIN 2 -->
+<div id="pin2" class="panel hidden">
+<h2>PIN 2</h2>
+<input id="p2">
+<br>
+<button onclick="checkPin(2,'2388')">AUTHORISE</button>
+</div>
+
+<!-- PIN 3 -->
+<div id="pin3" class="panel hidden">
+<h2>PIN 3</h2>
+<input id="p3">
+<br>
+<button onclick="checkPin(3,'3896')">AUTHORISE</button>
 </div>
 
 <!-- MISSION -->
 <div id="mission" class="panel hidden">
 <h2 id="missionTitle"></h2>
-<div id="missionText"></div>
-<button onclick="showNextPin()">RETURN TO HQ</button>
-</div>
-
-<!-- PIN 2 -->
-<div id="pin2" class="panel hidden">
-<h2>ENTER PIN</h2>
-<input id="pin2Input">
-<br>
-<button onclick="unlock2()">AUTHORISE</button>
-</div>
-
-<!-- PIN 3 -->
-<div id="pin3" class="panel hidden">
-<h2>ENTER PIN</h2>
-<input id="pin3Input">
-<br>
-<button onclick="unlock3()">AUTHORISE</button>
+<div id="missionContent"></div>
+<button onclick="completeMission()">RETURN TO HQ → receive next PIN</button>
 </div>
 
 <!-- INTERCEPTION -->
 <div id="interception" class="panel hidden">
 <h2>⚠️ INTERCEPTION ALERT ⚠️</h2>
+
 <p>All units — listen carefully.</p>
 <p>You have been double crossed.</p>
 <p>The intel you received was false.</p>
@@ -138,101 +139,128 @@ input {
 <p>DEFEND.</p>
 <p>DISENGAGE.</p>
 <p>MOVE.</p>
-<button onclick="startFinal()">CONTINUE</button>
+
+<p><strong>Task</strong></p>
+<p>Run 1 full lap as fast as possible</p>
+<p>No recording required</p>
+
+<button onclick="next('interception','final')">CONTINUE</button>
 </div>
 
-<!-- FINAL REVEAL -->
-<div id="finalReveal" class="panel hidden">
-<h2>FINAL INTEL</h2>
+<!-- FINAL -->
+<div id="final" class="panel hidden">
+<h2>FINAL INTEL:</h2>
+
 <p>Everything you received…</p>
 <p>was compromised.</p>
 <p>The agent.</p>
 <p>The intel.</p>
 <p>The Professor.</p>
+
 <p>All part of the same deception.</p>
+
 <p>You were being led.</p>
+
 <p>But now…</p>
+
 <p>The device is active.</p>
+
 <p>DEFUSAL PHASE</p>
 <p>You have 2 minutes to stop the detonation.</p>
 
 <div id="timer">02:00</div>
 
-<input id="finalAnswer">
+<p>FINAL AUTHENTICATION REQUIRED.</p>
+<p>Think carefully.</p>
+<p>What brought you here today?</p>
+<p>Who brought this unit together?</p>
+<p>Who do you trust?</p>
+
+<input id="finalInput">
 <br>
-<button onclick="checkFinal()">ENTER</button>
+<button onclick="finalCheck()">ENTER</button>
 </div>
 
-<!-- ENDING -->
+<!-- END -->
 <div id="ending" class="panel hidden">
 <div id="endingText"></div>
 </div>
 
 <script>
 
-// mission pool
-const missions = ["A","B","C"];
-let order = missions.sort(() => Math.random()-0.5);
-let stage=0;
+// mission random
+let missions = ["A","B","C"];
+missions.sort(()=>Math.random()-0.5);
+let step=0;
 
-function startGame(){
-hide("intro");
-show("preMission");
-}
+// NAV
+function next(a,b){hide(a);show(b);}
 
-function showPin1(){
-hide("preMission");
-show("pin1");
-}
-
-function unlock1(){
-if(val("pin1Input")=="1986"){
-hide("pin1");
+// PIN LOGIC
+function checkPin(n,val){
+let input = document.getElementById("p"+n).value;
+if(input===val){
+hide("pin"+n);
 loadMission();
 }else alert("ACCESS DENIED.");
 }
 
-function unlock2(){
-if(val("pin2Input")=="2388"){
-hide("pin2");
-loadMission();
-}else alert("ACCESS DENIED.");
-}
-
-function unlock3(){
-if(val("pin3Input")=="3896"){
-hide("pin3");
-show("interception");
-}else alert("ACCESS DENIED.");
-}
-
+// LOAD MISSION
 function loadMission(){
-let m = order[stage];
-
 show("mission");
-set("missionTitle","MISSION "+(stage+1));
+let m = missions[step];
+document.getElementById("missionTitle").innerText = "MISSION "+(step+1);
 
-if(m=="A"){
-set("missionText",`
+if(m==="A"){
+set(`
 <p>INTEL:</p>
 <p>One of our embedded agents reports that the terrorist leader has evacuated the area.</p>
 <p>Before extraction, the agent left behind intel.</p>
 <p>This intel contains an entry point into their network.</p>
 <p>Recover the intel.</p>
-`);
-}
-if(m=="B"){
-set("missionText",`
+
+<p><strong>Task</strong></p>
+<p>Run to the location (see map and photo)</p>
+
+<p><strong>Exercise</strong></p>
+<p>Partner Push-Up High Five × 30 EACH</p>
+
+<p><strong>Video Instructions</strong></p>
+<p>Record a 5–10 second video of the FULL TEAM performing the exercise at the location.</p>
+<p>• All team members must be visible</p>
+<p>• All members must be performing the exercise</p>
+<p>• The location must be clearly visible</p>
+<p>Upload with Team Number clearly labelled.</p>
+
+<p>Map Image A</p>
+<img src="mapA.jpg" width(m==="B"){
+set(`
 <p>STEALTH DIRECTIVE:</p>
 <p>Intel indicates a low-visibility access route nearby.</p>
 <p>You are entering enemy-controlled territory.</p>
 <p>Movement must remain undetected.</p>
 <p>Proceed with stealth.</p>
 <p>Noise will compromise your position.</p>
-`);
-}
-if(m=="C"){
-set("missionText",`
+
+<p><strong>Task (critical rule)</strong></p>
+<p>Bear crawl ALL THE WAY to the location using the route shown on the map</p>
+<p>No running or normal walking allowed</p>
+
+<p><strong>Exercise</strong></p>
+<p>60 Superman pulses at location</p>
+
+<p><strong>Video Instructions</strong></p>
+<p>Record a 5–10 second video of the FULL TEAM performing the exercise at the location.</p>
+<p>• All members must be visible</p>
+<p>• Exercise must be clearly shown</p>
+<p>• Location must be identifiable</p>
+
+<p>Map Image B</p>
+<img src="mapB.jpg" width="B</p>
+<img src="imageB
+
+if(m==="C"){
+set(`
 <p>UPDATE:</p>
 <p>We have located a high-value target.</p>
 <p>Codename: THE PROFESSOR.</p>
@@ -240,80 +268,293 @@ set("missionText",`
 <p>Move immediately.</p>
 <p>Apprehend the target and secure the area.</p>
 <p>Neutralise resistance.</p>
-`);
-}
-}
 
-function showNextPin(){
+<p><strong>Task</strong></p>
+<p>Run to the location</p>
+
+<p><strong>Exercise</strong></p>
+<p>Partner Burpee High Five × 20 EACH</p>
+
+<p><strong>Photo Instructions</strong></p>
+<p>One team member must act as THE PROFESSOR.</p>
+<p>The rest of the team must simulate capturing the target.</p>
+<p>Take ONE photo at the location showing:</p>
+<p>• THE PROFESSOR</p>
+<p>• FULL TEAM</p>
+<p>• Capture scenario</p>
+
+<p>Map Image C</p>
+<img src="mapC.jpg" widtho C</p>
+<img src="imageC.jpg" width="TE
+function completeMission(){
 hide("mission");
-stage++;
-if(stage==1) show("pin2");
-else if(stage==2) show("pin3");
+step++;
+if(step===1) show("pin2");
+else if(step===2) show("pin3");
+else show("interception");
 }
 
-function startFinal(){
-hide("interception");
-show("finalReveal");
-startTimer();
-}
-
-// timer
-let t=120;
-let timer;
-
+// TIMER
+let t=120, timer;
 function startTimer(){
 timer=setInterval(()=>{
 t--;
-let m=Math.floor(t/60);
-let s=t%60;
-document.getElementById("timer").innerText =
-String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
-
+let m=Math.floor(t/60), s=t%60;
+timerDisplay(m,s);
 if(t<=0){
 clearInterval(timer);
 alert("MISSION FAILED.");
 }
 },1000);
 }
+function timerDisplay(m,s){
+document.getElementById("timer").innerText =
+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+}
 
-// final auth
+// FINAL AUTH
 let attempts=0;
+function finalCheck(){
+if(attempts===0) startTimer();
 
-function checkFinal(){
-let ans = val("finalAnswer").toLowerCase();
-if(ans=="fitfam"){
+let v=document.getElementById("finalInput").value.toLowerCase();
+if(v==="fitfam"){
 clearInterval(timer);
 showEnding();
 }else{
 attempts++;
 if(attempts>=4){
 alert("ACCESS DENIED.\nSystem override initiated…\nHint:\nThe answer begins with “F”.");
-}else{
-alert("ACCESS DENIED.");
-}
+}else alert("ACCESS DENIED.");
 }
 }
 
-// ending random
+// ENDINGS
 function showEnding(){
-hide("finalReveal");
+hide("final");
 show("ending");
 
-let r = Math.floor(Math.random()*3);
+let r=Math.floor(Math.random()*3);
 
-if(r==0) set("endingText",`ENDING 1 — THE QUIET EXIT`);
-if(r==1) set("endingText",`ENDING 2 — ONE LAST MISSION`);
-if(r==2) set("endingText",`ENDING 3 — THE LOOP`);
+if(r===0){
+setEnd(`ENDING 1 — THE QUIET EXIT
+
+CODE ACCEPTED.
+DEVICE DISARMED.
+DETONATION ABORTED.
+
+The world was saved.
+
+But no one will ever know your names.
+
+Your actions were buried deep within classified records — known only to a select few.
+
+The team was awarded the highest honour possible.
+
+No ceremony.
+No headlines.
+Just recognition… where it mattered.
+
+The leader reached out personally.
+
+No orders.
+No pressure.
+
+Just a quiet conversation.
+
+One of respect.
+One of closure.
+
+For some, this was just another mission.
+
+For others… the beginning of something new.
+
+As for you…
+
+You’ve had enough.
+
+The noise.
+The danger.
+The constant edge.
+
+A quieter life now awaits.
+
+And perhaps…
+something closer to home.
+
+With time on your side…
+
+you begin to consider a different kind of mission.
+
+One that builds.
+
+One that connects.
+
+Maybe…
+
+Leading at FitFam.`);
 }
 
-// helpers
+if(r===1){
+setEnd(`ENDING 2 — ONE LAST MISSION
+
+CODE ACCEPTED.
+DEVICE DISARMED.
+DETONATION ABORTED.
+
+The world was saved.
+
+But no one will ever know your names.
+
+Your actions remain classified.
+
+Hidden.
+Protected.
+
+The team received the highest honour possible.
+
+Recognised by those who understand the cost of what you’ve done.
+
+The leader stood before you.
+
+Not as a commander.
+
+But as someone who trusted you.
+
+His words were simple.
+
+Direct.
+
+Earned.
+
+Time passed.
+
+Recovery came.
+
+Normal life resumed…
+
+or something close to it.
+
+Then one day.
+
+During a FitFam session.
+
+Every phone vibrated.
+
+At the same time.
+
+A message.
+
+Encrypted.
+
+Urgent.
+
+After decryption…
+
+one line appeared.
+
+TARGET IDENTIFIED.
+
+The leader of the terrorist network.
+
+Located.
+
+Exposed.
+
+Vulnerable.
+
+You look around.
+
+No words needed.
+
+Gear up.
+
+This isn’t over yet.`);
+}
+
+if(r===2){
+setEnd(`ENDING 3 — THE LOOP
+
+CODE ACCEPTED.
+DEVICE DISARMED.
+
+…
+
+A loud BANG.
+
+The world snaps.
+
+You wake up.
+
+Not in the field.
+
+Not at HQ.
+
+In the back seat of a taxi.
+
+The driver hasn’t noticed.
+
+Outside…
+
+traffic has slowed.
+
+An accident.
+
+Opposite lane.
+
+That sound…
+
+Your phone vibrates.
+
+A message.
+
+Encrypted.
+
+You unlock it.
+
+The leader.
+
+URGENT MISSION.
+
+Intel confirms:
+
+A terrorist leader has planted a nuclear device in this vicinity.
+
+Time remaining:
+
+10 hours.
+
+Locate the device.
+
+Defuse it.
+
+Prevent detonation.
+
+…
+
+You pause.
+
+A strange feeling.
+
+Familiar.
+
+Too familiar.
+
+You smile.
+
+You’re ready.
+
+Let’s go again.`);
+}
+}
+
+// HELPERS
+function set(html){document.getElementById("missionContent").innerHTML=html;}
+function setEnd(txt){document.getElementById("endingText").innerText=txt;}
 function hide(id){document.getElementById(id).classList.add("hidden");}
 function show(id){document.getElementById(id).classList.remove("hidden");}
-function val(id){return document.getElementById(id).value;}
-function set(id,txt){document.getElementById(id).innerHTML=txt;}
 
 </script>
 
 </body>
 </html>
-``
