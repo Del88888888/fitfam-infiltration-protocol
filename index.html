@@ -1,115 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>FitFam Infiltration Protocol</title>
-
-<style>
-body {
-  margin:0;
-  padding:30px;
-  font-family: Arial, Helvetica, sans-serif;
-  background:#0b0b0b;
-  color:#f5f5f5;
-  text-align:center;
-  font-size:42px;
-}
-
-h1 { font-size:64px; color:#ffd200; }
-h2 { font-size:52px; color:#ffd200; }
-
-.panel {
-  border:3px solid #444;
-  padding:30px;
-  margin:30px auto;
-  max-width:900px;
-  background:#111;
-}
-
-button {
-  font-size:42px;
-  padding:20px 40px;
-  margin-top:20px;
-  background:#ffd200;
-  color:#000;
-  border:none;
-  cursor:pointer;
-}
-
-input {
-  font-size:42px;
-  padding:20px;
-  width:80%;
-  max-width:500px;
-}
-
-.hidden { display:none; }
-
-#cornerLogo {
-  position:fixed;
-  top:20px;
-  right:20px;
-  width:90px;
-  border-radius:50%;
-  border:3px solid #ffd200;
-}
-</style>
-</head>
-
-<body>
-
-<!-- ✅ FIXED IMAGE -->
-<img src="my-photo.jpg" id="cornerLogo">
-
-<h1>FITFAM INFILTRATION PROTOCOL</h1>
-
-<div id="intro" class="panel">
-<h2>HQ BRIEFING</h2>
-
-<p>ATTENTION.</p>
-<p>You are a Special Forces unit deployed into an active threat zone.</p>
-<p>A terrorist organisation has planted a nuclear device somewhere within this area.</p>
-<p>The exact location is unknown.</p>
-<p>Your mission:</p>
-<p>Infiltrate the zone.</p>
-<p>Recover intel.</p>
-<p>Locate the device.</p>
-<p>And prevent detonation.</p>
-<p>Trust nothing.</p>
-<p>Move.</p>
-
-<button id="beginBtn">BEGIN</button>
-</div>
-
-<div id="pre" class="panel hidden">
-<h2>INITIAL DIRECTIVE:</h2>
-<p>Complete one full lap around the park.</p>
-<p>Return to HQ for mission authorisation.</p>
-
-<button id="toPin1">RETURN TO HQ</button>
-</div>
-
-<script>
-
-// ✅ WAIT FOR PAGE TO LOAD (critical fix)
 document.addEventListener("DOMContentLoaded", function(){
 
-  // NAV helpers
-  function show(id){document.getElementById(id).classList.remove("hidden");}
-  function hide(id){document.getElementById(id).classList.add("hidden");}
+  function show(id){
+    document.getElementById(id).classList.remove("hidden");
+  }
 
-  // ✅ BEGIN BUTTON FIXED
+  function hide(id){
+    document.getElementById(id).classList.add("hidden");
+  }
+
+  // BEGIN
   document.getElementById("beginBtn").addEventListener("click", function(){
       hide("intro");
       show("pre");
   });
 
+  // PRE → PIN 1 ✅ FIXED
   document.getElementById("toPin1").addEventListener("click", function(){
       hide("pre");
-      alert("✅ Navigation working. Next stage loads.");
+      show("pin1");
   });
 
 });
-</script>
-
-</body>
-</html>
