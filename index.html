@@ -71,6 +71,12 @@
       line-height: normal;
     }
 
+    .sectionTitle {
+      color: #ffd200;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
     .missionImage {
       width: 100%;
       max-width: 760px;
@@ -194,7 +200,7 @@ DEFEND.
 DISENGAGE.
 MOVE.
 
-Task
+<span class="sectionTitle">TASK</span>
 Run 1 full lap as fast as possible
 No recording required</p>
 
@@ -298,13 +304,13 @@ This intel contains an entry point into their network.
 
 Recover the intel.
 
-Task
+<span class="sectionTitle">TASK</span>
 Run to the location (see map and photo)
 
 Exercise
 Partner Push-Up High Five × 30 EACH
 
-Video Instructions
+<span class="sectionTitle">VIDEO INSTRUCTIONS</span>
 Record a 5–10 second video of the FULL TEAM performing the exercise at the location.
 
 • All team members must be visible
@@ -332,14 +338,14 @@ Proceed with stealth.
 
 Noise will compromise your position.
 
-Task (critical rule)
+<span class="sectionTitle">TASK (CRITICAL RULE)</span>
 Bear crawl ALL THE WAY to the location using the route shown on the map
 No running or normal walking allowed
 
 Exercise
 60 Superman pulses at location
 
-Video Instructions
+<span class="sectionTitle">VIDEO INSTRUCTIONS</span>
 Record a 5–10 second video of the FULL TEAM performing the exercise at the location.
 
 • All members must be visible
@@ -369,13 +375,13 @@ Apprehend the target and secure the area.
 
 Neutralise resistance.
 
-Task
+<span class="sectionTitle">TASK</span>
 Run to the location
 
 Exercise
 Partner Burpee High Five × 20 EACH
 
-Photo Instructions
+<span class="sectionTitle">PHOTO INSTRUCTIONS</span>
 One team member must act as THE PROFESSOR.
 
 The rest of the team must simulate capturing the target.
@@ -646,7 +652,7 @@ Let’s go again.`
     const mission = missionOrder[missionNumber - 1];
 
     document.getElementById("missionTitle").innerText = "MISSION " + missionNumber + " – ASSIGNMENT";
-    document.getElementById("missionContent").innerText = mission.content;
+    document.getElementById("missionContent").innerHTML = mission.content;
 
     document.getElementById("missionMedia").innerHTML =
       '<p class="mediaTitle">Map</p>' +
