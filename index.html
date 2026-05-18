@@ -272,6 +272,10 @@ Trust your unit.</p>
 <div id="success" class="panel hidden">
   <h2>MISSION COMPLETE</h2>
   <p id="successText" class="textBlock"></p>
+  <button onclick="revealEnding()">REVEAL ENDING</button>
+</div>
+
+<div id="endingPage" class="panel hidden">
   <h2>ENDING</h2>
   <p id="endingText" class="textBlock"></p>
 </div>
@@ -619,6 +623,7 @@ Let’s go again.`
   let secondsRemaining = 120;
   let timerInterval = null;
   let finalAttempts = 0;
+  let selectedEnding = "";
 
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -676,6 +681,7 @@ Let’s go again.`
   function startDefusal() {
     secondsRemaining = 120;
     finalAttempts = 0;
+    selectedEnding = "";
 
     document.getElementById("hint").classList.add("hidden");
     document.getElementById("finalAnswerInput").value = "";
@@ -751,12 +757,21 @@ Mission complete.
 
 You are cleared for extraction.`;
 
-    const randomEnding = endings[Math.floor(Math.random() * endings.length)];
+    selectedEnding = endings[Math.floor(Math.random() * endings.length)];
 
     document.getElementById("successText").innerText = successIntro;
-    document.getElementById("endingText").innerText = randomEnding;
 
     showScreen("success");
+  }
+
+  function revealEnding() {
+    if (!selectedEnding) {
+      selectedEnding = endings[Math.floor(Math.random() * endings.length)];
+    }
+
+    document.getElementById("endingText").innerText = selectedEnding;
+
+    showScreen("endingPage");
   }
 </script>
 
